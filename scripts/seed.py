@@ -3,7 +3,7 @@
   python3 scripts/seed.py           # reset, then load Whitaker Hospitality Group, other customers and Fin history
   python3 scripts/seed.py --reset   # delete demo records only
   python3 scripts/seed.py --live    # delete only what the live demo run created (handoff case, opportunity, brief)
-                                    # and put Aurora back to paused, so you can run the demo again
+                                    # and put Westminster back to paused at its cap, so you can run the demo again
 
 Every record is tagged Part2_Demo__c (contacts by their demo account), and reset deletes only tagged records.
 """
@@ -45,7 +45,7 @@ def apex(code):
 
 
 def reset_live():
-    """Undo one live run: the handoff case and what the write-back Flow created; Aurora back to paused."""
+    """Undo one live run: the handoff case and what the write-back Flow created; Westminster back to paused."""
     print("Clearing the live demo run...")
     apex(f"""
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
@@ -57,9 +57,13 @@ a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = 
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));
 update a;
 Account aurora = [SELECT Id FROM Account WHERE ParentId = :a.Id AND Name LIKE '%Aurora' LIMIT 1];
-aurora.Monthly_Budget_Cap__c = 900; aurora.Budget_Spent_MTD__c = 900; aurora.Budget_Status__c = 'Paused - Budget Cap Reached';
+aurora.Monthly_Budget_Cap__c = 900; aurora.Budget_Spent_MTD__c = 610; aurora.Budget_Status__c = 'Active';
 aurora.Paused_Until__c = null;
 update aurora;
+Account west = [SELECT Id FROM Account WHERE ParentId = :a.Id AND Name LIKE '%Westminster' LIMIT 1];
+west.Monthly_Budget_Cap__c = 1200; west.Budget_Spent_MTD__c = 1200; west.Budget_Status__c = 'Paused - Budget Cap Reached';
+west.Paused_Until__c = null;
+update west;
 """)
 
 

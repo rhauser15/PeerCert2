@@ -10,6 +10,7 @@ const SOURCES = {
     review: { type: 'Internal article', title: 'Booking a free Ads Optimization review' },
     pause: { type: 'Public article', title: 'Pause ads for one location' },
     convo: { type: 'Conversation', title: 'Front Range Burger Co. · Cancel a location' },
+    renewal: { type: 'Salesforce', title: 'Opportunity: Annual Renewal' },
     launch: { type: 'Internal article', title: 'New location launch credit' }
 };
 const THINKING_MS = 1600;
@@ -152,38 +153,36 @@ export default class FinCopilot extends LightningElement {
     offers() {
         const f = this.facts();
         const cite = (n) => `<span class="cite">${n}</span>`;
+        const c = this.ctx || {};
+        const renewal = c.renewalClose
+            ? `<p><b>Heads up:</b> the ${c.renewalName ? 'Annual Renewal' : 'renewal'} (${money(c.renewalAmount || 0)}) closes <b>${this.longDate(c.renewalClose)}</b>. ${cite(4)}</p>`
+            : '';
         return {
             html:
-                `<p>${f.account} has <b>${f.count} active locations</b>, so it's covered by the Multi-Location retention policy for accounts with 10 or more locations. ${cite(1)}</p>` +
-                `<p>Before a location is cancelled, you can offer:</p><ul>` +
-                `<li><b>Pause instead of cancel.</b> Pause ${f.loc}'s ads for up to 90 days with no fee. The page, reviews and ad history stay live. ${cite(1)}</li>` +
-                `<li><b>Performance credit.</b> ${f.loc}'s cost per lead (${money(f.cpl)}) is more than 2x the account's other locations (${money(f.avg)}), so it qualifies for up to 20% of its monthly budget for 2 months: <b>${money(f.credit)}/month</b>. ${cite(2)}</li>` +
-                `<li><b>New location launch credit.</b> $500 in ad credit for each new location whose ads go live within 30 days of opening. ${cite(1)}</li>` +
-                `<li><b>Free Ads Optimization review</b> with a Multi-Location specialist to retune targeting. ${cite(3)}</li>` +
-                `</ul><p>Credits above $1,000 a month need CS manager approval. ${cite(1)}</p>`,
-            text:
-                `${f.account} has ${f.count} active locations and qualifies for: a 90-day pause for ${f.loc} with no fee; ` +
-                `a performance credit of ${money(f.credit)}/month for 2 months; $500 launch credit per new location; a free Ads Optimization review.`,
-            sources: ['policy', 'credit', 'review', 'convo'],
-            composer: true
+                `<p>${f.account} has <b>${f.count} active locations</b>, so ${f.loc} is covered by the Multi-Location Retention Policy. ${cite(1)}</p>` +
+                `<p><b>Offer one of these before cancelling</b></p><ul>` +
+                `<li><b>Pause ${f.loc}'s ads for 90 days, no fee.</b> The page, reviews and ad history stay live while ${f.first} focuses spend on the new location. ${cite(1)}</li>` +
+                `<li><b>Or extend a retention credit:</b> ${f.loc}'s cost per lead (${money(f.cpl)}) is more than 2x his other locations (${money(f.avg)}), so it qualifies for 20% of its budget for 2 months: <b>${money(f.credit)}/month</b>. ${cite(2)}</li>` +
+                `</ul><p><b>Suggested touchpoint:</b> set up a call with ${f.first} and ${f.owner}, the account manager, to review ${f.loc}'s ad spend given its results, and plan the budget for Castle Rock's launch ($500 launch credit if its ads go live within 30 days of opening). ${cite(3)}</p>` +
+                renewal,
+            text: '',
+            sources: ['policy', 'credit', 'launch', 'renewal'],
+            composer: false
         };
     }
 
     reply() {
         const f = this.facts();
         const cite = (n) => `<span class="cite">${n}</span>`;
-        const budget = money(this.ctx.locationCap || 1200);
         const p1 =
-            `Hi ${f.first}, thanks for being upfront about ${f.loc}. Instead of cancelling, we can pause ${f.loc}'s ads for up to 90 days at no cost, ` +
-            `so the page and its reviews stay up, and move its ${budget} monthly budget to Castle Rock when it opens.`;
-        const p2 = f.expansion
-            ? `If Castle Rock's ads go live within 30 days of opening, you'll also get $500 in launch credit. ${f.owner}, your account manager, will reach out this week to get it set up.`
-            : '';
-        const p3 = 'Want me to set that up?';
+            `Hi ${f.first}, thanks for being upfront about ${f.loc}. Two options before you cancel: we can pause ${f.loc}'s ads for 90 days at no cost, ` +
+            `so the page and its reviews stay up while you focus spend on Castle Rock, or keep it running with a ${money(f.credit)} retention credit for each of the next two months.`;
+        const p2 = `Either way, I'd like to set up a call with you and ${f.owner}, your account manager, to review ${f.loc}'s ad spend and plan Castle Rock's launch.`;
+        const p3 = 'Which option works best?';
         return {
-            html: `<p>${p1} ${cite(1)} ${cite(2)}</p>` + (p2 ? `<p>${p2} ${cite(3)}</p>` : '') + `<p>${p3}</p>`,
-            text: [p1, p2, p3].filter((x) => x).join(' '),
-            sources: ['policy', 'pause', 'launch', 'credit'],
+            html: `<p>${p1} ${cite(1)} ${cite(2)}</p><p>${p2}</p><p>${p3}</p>`,
+            text: [p1, p2, p3].join(' '),
+            sources: ['policy', 'credit', 'pause'],
             composer: true
         };
     }
@@ -192,18 +191,15 @@ export default class FinCopilot extends LightningElement {
         const f = this.facts();
         const until = new Date(Date.now() + 90 * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
         const cite = (n) => `<span class="cite">${n}</span>`;
-        const castle = f.expansion
-            ? ` ${f.owner}, your account manager, will reach out this week to get Castle Rock set up before you open.`
-            : '';
         const text =
             `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time. ` +
-            `Its budget moves to Castle Rock when it opens.${castle} Anything else I can help with tonight?`;
-        return {
-            html: `<p>${text} ${cite(1)}</p>`,
-            text,
-            sources: ['pause', 'policy'],
-            composer: true
-        };
+            `${f.owner} will reach out this week to set up a call to review ${f.loc}'s spend and plan Castle Rock's launch. Anything else I can help with tonight?`;
+        return { html: `<p>${text} ${cite(1)}</p>`, text, sources: ['pause', 'policy'], composer: true };
+    }
+
+    longDate(d) {
+        const [y, m, day] = String(d).split('-').map(Number);
+        return new Date(y, m - 1, day).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     }
 
     summary() {
@@ -221,7 +217,7 @@ export default class FinCopilot extends LightningElement {
         ].filter((x) => x);
         return {
             html:
-                `<p class="h">Question</p><p>${c.contactName || 'The customer'} wants to drop the ${f.loc} location and mentioned a new location.</p>` +
+                `<p class="h">Question</p><p>${c.contactName || 'The customer'} is thinking about cancelling ${f.loc} to conserve spend ahead of a new location launch.</p>` +
                 `<p class="h">Summary</p><ul>${bullets}</ul>${actions}` +
                 (flags.length ? `<p class="h">Signals</p><ul>${flags.map((x) => `<li>${x}</li>`).join('')}</ul>` : ''),
             text: (c.summary || '').trim(),

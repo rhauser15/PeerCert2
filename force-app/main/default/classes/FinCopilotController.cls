@@ -41,6 +41,17 @@ public with sharing class FinCopilotController {
         ctx.put('ownerFirstName', c.Account?.Owner?.FirstName);
         ctx.put('ownerName', c.Account?.Owner?.Name);
 
+        List<Opportunity> renewals = [
+            SELECT Name, Amount, CloseDate FROM Opportunity
+            WHERE AccountId = :c.AccountId AND IsClosed = false AND Name LIKE '%Renewal%'
+            ORDER BY CloseDate LIMIT 1
+        ];
+        if (!renewals.isEmpty()) {
+            ctx.put('renewalName', renewals[0].Name);
+            ctx.put('renewalAmount', renewals[0].Amount);
+            ctx.put('renewalClose', renewals[0].CloseDate);
+        }
+
         List<Account> locations = [
             SELECT Name, Brand__c, Monthly_Budget_Cap__c, Cost_Per_Lead__c
             FROM Account WHERE ParentId = :c.AccountId

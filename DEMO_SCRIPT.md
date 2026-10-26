@@ -1,10 +1,10 @@
 # Yelp Keep & Grow: Fin demo script (Part 2)
 
-Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's, 1 Smoothie King in Colorado) is a customer now. It's 9pm on a Tuesday and his Aurora ad stopped showing.
+Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's, 1 Smoothie King in Colorado) is a customer now. It's 9pm on a Tuesday and his Westminster ad stopped showing.
 
 **The story in two conversations**
-- **Issue 1 (Fin alone):** Aurora's ad stopped, plus a billing question. Fin resolves both, Sam rates it *Amazing*, and Fin logs a resolved case in Salesforce. No person involved.
-- **Issue 2 (Fin + John):** Sam wants to cancel Aurora and move that spend to a new location in Castle Rock. Fin hands off to John with everything attached. John saves the location with a pause, closes the case, and Salesforce alerts Tom with a new expansion opportunity.
+- **Issue 1 (Fin alone):** Westminster's ad stopped, plus a billing question. Fin resolves both, Sam rates it *Amazing*, and Fin logs a resolved case in Salesforce. No person involved.
+- **Issue 2 (Fin + John):** Later, Sam is thinking about cancelling Aurora: he isn't seeing value and wants to conserve spend before the Castle Rock launch. Fin connects him to a specialist (John). Copilot suggests a 90-day pause or a retention credit, a spend-review touchpoint, and flags the December 31 renewal. John saves the location, resolves the case, and Salesforce alerts Tom.
 
 **Callout key used below**
 - **[Fin]** what Fin does, and why Fin is the right tool for that moment
@@ -36,12 +36,12 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
-- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u8JhxAAE/view)
+- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u8zUHAAY/view)
 - [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU)
 
 **Section 3 · Write-back and alerts**
-- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016wYYPAA2/view)
-- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHD4jAAH/view)
+- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016xpLuAAI/view)
+- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHPNdAAP/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016xkSfAAI)
 
 **Section 4 · Alisha's view**
@@ -54,7 +54,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 ## Before the demo (10 minutes)
 
-1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Aurora back to paused at $900. For a full reload, run `python3 scripts/seed.py`.
+1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. For a full reload, run `python3 scripts/seed.py`.
 2. **Salesforce (window 1):** sign in as Rob, open **Service Console for Tech** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
@@ -77,10 +77,10 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 1. **Click the black chat launcher** (bottom right). The Fin Messenger opens: "Hi Sam! You're speaking with Fin, Yelp's AI agent…"
    - **[Fin]** AI disclosure up front, and Sam can ask for a person any time.
    - **[Fin]** Sam is signed in to Yelp for Business, so Fin already knows who he is and which account to look at. No "what's your email?" loop.
-2. **Press →.** Sam types "Why isn't my Aurora ad showing?" Fin answers: Aurora hit its $900 cap at 6:12 PM; the other 11 locations are fine.
+2. **Press →.** Sam types "Why isn't my Westminster ad showing?" Fin answers: Westminster, his busiest location this month (52 leads), hit its $1,200 cap at 6:12 PM; the other 11 locations are fine.
    - **[Fin]** A **data connector** reads the account live (here, from Salesforce), so the answer is about *his* account, not a generic article. Hover the **1** to show the cited help article.
    - **[Salesforce]** The account, its 12 locations and their budgets live in Salesforce. Fin reads the same record the team works from.
-3. **Click "Raise it to $1,200".** Fin confirms the new cap and the ad starts again. The "Your locations" panel on the page turns Aurora to Running.
+3. **Click "Raise it to $1,500".** Fin confirms the new cap and the ad starts again. The "Your locations" panel on the page turns Westminster to Running.
    - **[Fin]** That's a **Procedure**: Fin followed Yelp's "Ad not showing" steps and took the action, not just answered. *Optional backstage: fin.html, last step, shows the Procedure.*
 4. **Press →.** Sam: "Also, why was my last invoice higher than usual?" Fin explains the $530 from his September invoice: the Westminster cap change and a Page Upgrade.
 5. **Press →.** Sam: "Nope, that's everything. Thanks, that fixed it!" Fin signs off, then the **CSAT survey** appears: "How would you rate your conversation with Fin?"
@@ -94,7 +94,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 7. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
 8. **Click "Send us a message".** A new conversation starts.
-9. **Press →.** Sam: "I want to cancel Aurora. It isn't paying off. I'd rather move that spend to the new location I'm opening in Castle Rock in January." Fin acknowledges it ("Understood, and congratulations on Castle Rock") and connects him to the Multi-Location team. "Connecting you to the team…"
+9. **Press →.** Sam: "I'm thinking about cancelling Aurora. I'm not seeing the value there, and I want to conserve spend ahead of launching the new Castle Rock location in January." Fin: "Understood, and congratulations on Castle Rock. A Multi-Location specialist can go over your options for Aurora and help you plan spend for the Castle Rock launch, so I'll connect you now." Then "Connecting you to the team…"
    - **[Fin]** Fin recognizes churn risk (a cancellation) and an expansion signal (a new location), and that's a conversation Yelp wants a person to have. It doesn't argue numbers with the customer. The cost-per-lead comparison ($64 at Aurora vs about $27 at his other Dave's) goes into the summary for the team. Its Procedure hands off with a summary and sets attributes: Contact reason, Churn risk, Expansion signal, Sentiment.
    - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes the chat to the Multi-Location queue.
 
@@ -110,17 +110,21 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
    - **Right:** **Fin Copilot** on top, **Support tools** below.
    - **[Say]** "John hasn't asked Sam a single question yet, and he already knows the account, the problem, the risk and the opportunity."
 3. **In Copilot, click Summarize.** The Fin summary and signals appear.
-4. **In the Copilot box, type:** `What retention offers does a 12-location account qualify for?` and press Enter. The answer comes from the internal Multi-Location Retention Policy with numbered citations: 90-day pause, $240/month performance credit, $500 launch credit for Castle Rock, a free ads review. Point at "4 relevant sources found".
+4. **In the Copilot box, type:** `What should I offer Sam for Aurora?` and press Enter. Copilot answers from the Multi-Location Retention Policy, with numbered citations:
+   - **Pause Aurora's ads for 90 days, no fee**, or **extend a retention credit** ($180/month for 2 months, since Aurora's cost per lead is more than 2x his other locations).
+   - **Suggested touchpoint:** a call with Sam and Tom to review Aurora's ad spend given its results, and plan the Castle Rock launch budget.
+   - **Heads up:** the Annual Renewal ($119,760) closes **December 31**.
+   - Point at "4 relevant sources found".
    - **[Fin]** Copilot gives agents the same knowledge Fin uses, inside Salesforce. One content set trains both the AI agent and the human agent.
-5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers a 90-day pause instead of cancelling, moves Aurora's $1,200 budget to Castle Rock when it opens, and mentions the $500 launch credit. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
+5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers the 90-day pause or the $180 retention credit, and proposes a call with Tom to review Aurora's spend and plan Castle Rock. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
    - In the help center window, John's reply appears in Sam's Fin Messenger as "John • Yelp Support".
-6. **Switch to window 2 and press →.** Sam: "That works. Pause Aurora and put the budget toward Castle Rock." The message appears in the console.
+6. **Switch to window 2 and press →.** Sam: "Let's do the 90-day pause. And yes, a call to go over spend before Castle Rock opens would help." The message appears in the console.
 
 **Resolve it**
 
 7. **In Support tools (right):**
    - **Location** is preselected to *Dave's Hot Chicken - Aurora*; the dropdown lists all 12 locations.
-   - **Action** options: *Pause ads for 90 days, no fee*, *Performance credit: $240/month for 2 months*, *Free Ads Optimization review*, *Cancel the location*. The credit is 20% of the location's budget, now $1,200 after Fin raised it.
+   - **Action** options: *Pause ads for 90 days, no fee*, *Performance credit: $180/month for 2 months*, *Free Ads Optimization review*, *Cancel the location*. The credit is 20% of Aurora's $900 budget.
    - Leave **Pause ads for 90 days, no fee** selected, check the notes, and click **Confirm**.
    - You'll see "Done: Dave's Hot Chicken - Aurora is paused until …, no fee."
    - **[Salesforce]** A **screen Flow** applies the action to the location record and records the retention offer on the case. Agents act on the account without leaving the conversation or switching systems.
@@ -146,15 +150,17 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - **suggested next step**: "Optimize Aurora location spend during the 90-day pause. Scope the new opportunity for the Castle Rock location."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
 3. **Details tab → Fin Signals** (first section):
-   - Churn Risk **High**: "Wants to cancel Aurora and move its spend to Castle Rock".
+   - Churn Risk **High**: "Not seeing value at Aurora… conserving spend ahead of the Castle Rock launch".
    - Expansion Signal: **New location: Castle Rock, opening January**.
    - Sentiment, Last Fin Conversation, locations, monthly budget, spend this month, leads and cost per lead.
    - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
 4. **Related → Cases:** both of tonight's cases, both closed:
-   - "Fin resolved: Ad not showing (Aurora)", with CSAT 5.
+   - "Fin resolved: Ad not showing (Westminster)", with CSAT 5.
    - The handoff case, with Retention Offer = 90-day pause.
    - **[Say]** "Support is done. Tom isn't walking into an open problem."
-5. **Related → child accounts → Dave's Hot Chicken - Aurora:** Paused - Customer Request until January, budget $1,200. The location was saved, not cancelled.
+5. **Related → child accounts:**
+   - **Dave's Hot Chicken - Aurora:** Paused - Customer Request for 90 days. The location was saved, not cancelled.
+   - **Dave's Hot Chicken - Westminster:** back to Active with a $1,500 cap from Fin's Procedure.
 6. **Related → Opportunities:**
    - **Annual Renewal:** $119,760, closes Dec 31.
    - **New:** "Whitaker Hospitality Group - New location: Castle Rock, opening January". Qualification stage, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…" and names the case.

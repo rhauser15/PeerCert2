@@ -152,7 +152,7 @@ window.Handoff = (() => {
     setTimeout(() => { join(); handlers.onTyping?.(true); }, 5000);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      handlers.onAgentMessage?.("Hi Sam, thanks for being upfront about Aurora. Instead of cancelling, we can pause Aurora's ads for up to 90 days at no cost, so the page and its reviews stay up, and move its $1,200 monthly budget to Castle Rock when it opens. If Castle Rock's ads go live within 30 days of opening, you'll also get $500 in launch credit. Tom, your account manager, will reach out this week to get it set up. Want me to set that up?");
+      handlers.onAgentMessage?.("Hi Sam, thanks for being upfront about Aurora. Two options before you cancel: we can pause Aurora's ads for 90 days at no cost, so the page and its reviews stay up while you focus spend on Castle Rock, or keep it running with a $180 retention credit for each of the next two months. Either way, I'd like to set up a call with you and Tom, your account manager, to review Aurora's ad spend and plan Castle Rock's launch. Which option works best?");
     }, 9000);
   }
   let offlineTurn = 0;
@@ -161,7 +161,7 @@ window.Handoff = (() => {
     setTimeout(() => handlers.onTyping?.(true), 1500);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. Aurora's ads are paused for 90 days with no fee, so the page and its reviews stay up and you can restart any time. Its budget moves to Castle Rock when it opens, and Tom will reach out this week to get it set up. Anything else I can help with tonight?");
+      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. Aurora's ads are paused for 90 days with no fee, so the page and its reviews stay up and you can restart any time. Tom will reach out this week to set up a call to review Aurora's spend and plan Castle Rock's launch. Anything else I can help with tonight?");
       else { handlers.onAgentMessage?.("Anytime, Sam. Good luck with Castle Rock!"); setTimeout(() => { active = false; handlers.onEnd?.(); }, 2500); }
     }, 5000);
   }

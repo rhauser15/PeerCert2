@@ -14,6 +14,7 @@ private class FinCopilotControllerTest {
         Database.insert(locs, dml);
         Contact con = new Contact(FirstName = 'Sam', LastName = 'Tester', AccountId = parent.Id);
         Database.insert(con, dml);
+        Database.insert(new Opportunity(Name = 'Copilot Test Group - Annual Renewal', AccountId = parent.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(60), Amount = 1000), dml);
         Case c = new Case(Subject = 'Test', AccountId = parent.Id, ContactId = con.Id, Fin_Location__c = 'Aurora', Origin = 'Website');
         insert c;
 
@@ -22,6 +23,7 @@ private class FinCopilotControllerTest {
         System.assertEquals(3, ctx.get('locationCount'));
         System.assertEquals(64, (Decimal) ctx.get('locationCpl'));
         System.assertEquals(27, (Decimal) ctx.get('brandCpl'));
+        System.assertEquals(1000, (Decimal) ctx.get('renewalAmount'));
         System.assert(FinCopilotController.getContext(null).isEmpty());
         System.assert(FinCopilotController.getContext(parent.Id).isEmpty());
     }

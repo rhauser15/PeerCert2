@@ -8,10 +8,10 @@ COMPANY = "Whitaker Hospitality Group"
 
 # (brand, location, monthly cap, spent MTD, leads last 30 days, cost per lead, status)
 LOCATIONS = [
-    ("Dave's Hot Chicken", "Aurora", 900, 900, 14, 64, "Paused - Budget Cap Reached"),
+    ("Dave's Hot Chicken", "Aurora", 900, 610, 14, 64, "Active"),
     ("Dave's Hot Chicken", "Lakewood", 1000, 812, 41, 24, "Active"),
     ("Dave's Hot Chicken", "Denver (Colfax)", 1100, 905, 44, 25, "Active"),
-    ("Dave's Hot Chicken", "Westminster", 1200, 980, 39, 31, "Active"),
+    ("Dave's Hot Chicken", "Westminster", 1200, 1200, 52, 23, "Paused - Budget Cap Reached"),
     ("Dave's Hot Chicken", "Littleton", 900, 730, 31, 29, "Active"),
     ("Dave's Hot Chicken", "Colorado Springs (Powers)", 1000, 801, 36, 28, "Active"),
     ("Dave's Hot Chicken", "Colorado Springs (North)", 800, 655, 27, 30, "Active"),

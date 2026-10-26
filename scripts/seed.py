@@ -51,6 +51,7 @@ def reset_live():
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
 delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat'];
+delete [SELECT Id FROM Case WHERE Subject = 'Support EmbeddedMessaging Conversation' AND CreatedDate = LAST_N_DAYS:7];
 Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1];
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));
@@ -82,7 +83,8 @@ def import_plan(steps):
     """steps: list of (sobject, [records]). Inserts in order through the Composite API, resolving "@ref" lookups.
 
     Uses the duplicate-rule header so the org's duplicate rules don't block demo locations that share a
-    name with other accounts (e.g. Find & Win's Dave's Hot Chicken locations)."""
+    name with other accounts (e.g. Find & Win's Dave's Hot Chicken locations), and turns off case assignment
+    rules so the historical cases stay with the running user instead of landing in an Omni-Channel queue."""
     ids, total = {}, 0
     for sobject, records in steps:
         for c in range(0, len(records), 200):
@@ -96,6 +98,7 @@ def import_plan(steps):
                 json.dump(body, f)
             r = subprocess.run(["sf", "api", "request", "rest", "/services/data/v64.0/composite/sobjects", "-X", "POST",
                                 "-H", "Content-Type:application/json", "-H", "Sforce-Duplicate-Rule-Header:allowSave=true",
+                                "-H", "Sforce-Auto-Assign:FALSE",
                                 "-b", "@" + f.name, "-o", ORG], capture_output=True, text=True)
             os.unlink(f.name)
             try:
@@ -222,6 +225,13 @@ def main():
         return
     print("Loading demo records...")
     import_plan(build())
+    # The org's case automation puts new cases in the General queue, which Omni-Channel routes to agents.
+    # Keep the historical Fin cases with the running user so they never show up in the Omni inbox.
+    apex("""
+List<Case> cs = [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Owner.Type = 'Queue'];
+for (Case c : cs) c.OwnerId = UserInfo.getUserId();
+update cs;
+""")
     links = os.path.join(os.path.dirname(__file__), "links.py")
     if os.path.exists(links):
         subprocess.run([sys.executable, links])

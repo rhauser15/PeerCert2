@@ -36,12 +36,12 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
-- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u82IvAAI/view)
+- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u8JhxAAE/view)
 - [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU)
 
 **Section 3 · Write-back and alerts**
-- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016vO02AAE/view)
-- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AH2Z7AAL/view)
+- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016wYYPAA2/view)
+- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHD4jAAH/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016v2FfAAI)
 
 **Section 4 · Alisha's view**

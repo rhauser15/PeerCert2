@@ -18,7 +18,7 @@ window.SF_LINKS = [
    ],
    [
     "Sam Whitaker (contact)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u82IvAAI/view"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u8JhxAAE/view"
    ],
    [
     "Fin handoff routing Flow",
@@ -31,11 +31,11 @@ window.SF_LINKS = [
   [
    [
     "Whitaker Hospitality Group (account)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016vO02AAE/view"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016wYYPAA2/view"
    ],
    [
     "Renewal opportunity",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AH2Z7AAL/view"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHD4jAAH/view"
    ],
    [
     "Fin write-back Flow (account, expansion opportunity, renewal brief)",

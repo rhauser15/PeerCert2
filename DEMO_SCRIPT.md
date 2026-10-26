@@ -1,12 +1,21 @@
 # Yelp Keep & Grow: Fin demo script (Part 2)
 
-Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's, 1 Smoothie King in Colorado) is a customer now. His Aurora ad stopped showing at 9pm on a Tuesday.
+Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's, 1 Smoothie King in Colorado) is a customer now. It's 9pm on a Tuesday and his Aurora ad stopped showing.
+
+**The story in two conversations**
+- **Issue 1 (Fin alone):** Aurora's ad stopped, plus a billing question. Fin resolves both, Sam rates it *Amazing*, and Fin logs a resolved case in Salesforce. No person involved.
+- **Issue 2 (Fin + John):** Sam wants to drop Aurora and is opening Castle Rock. Fin hands off to John with everything attached. John resolves it with Copilot, closes the case, and Salesforce turns the conversation into a churn save and an expansion opportunity for Tom.
+
+**Callout key used below**
+- **[Fin]** what Fin does, and why Fin is the right tool for that moment
+- **[Salesforce]** the Agentforce for Service / Service Cloud foundation Yelp already runs on (Messaging, Omni-Channel, Service Console, Case management, Flow, Reports, Slack)
+- **[Say]** suggested words
 
 **What's real and what's a mockup**
-- **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger, and the Fin admin screens. Their look follows the Fin help center screenshots. Fin's answers are scripted.
-- **Real (Salesforce):** the live chat Sam is handed to, the Case Fin creates (transcript, summary, attributes), Omni-Channel routing, the Fin Copilot panel in the Service Console, the write-back Flow (account signals, expansion opportunity, renewal brief), and Alisha's dashboard.
-- **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API (a Custom Client deployment) and sends Fin's data as routing attributes. In production, Fin hands off to Salesforce In-App Messaging through its Salesforce connector, and Sam keeps chatting in the Fin Messenger either way.
-- **Copilot:** the real Fin Copilot for Salesforce answers from your support content and past conversations. It doesn't use data connectors or Guidance. The panel here is a demo build of that experience, with scripted answers for the demo questions.
+- **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger and the Fin admin screens. They follow the Fin help center screenshots. Fin's answers are scripted.
+- **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
+- **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API and sends Fin's data as routing attributes. In production, Fin does this through its Salesforce connector ("Hand-off to Salesforce agent"), and Sam keeps chatting in the Fin Messenger either way. For resolved conversations, Fin's "Create Salesforce case on resolution" setting creates the case.
+- **Copilot:** the real Fin Copilot for Salesforce answers from your support content and past conversations (not data connectors or Guidance). The panel here is a demo build of that experience with scripted answers for the demo questions.
 
 ---
 
@@ -45,61 +54,148 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 ## Before the demo (10 minutes)
 
-1. Reset the last run: `python3 scripts/seed.py --live` (deletes the handoff case, the expansion opportunity and the brief, and puts Aurora back to paused). For a full reload, run `python3 scripts/seed.py`.
-2. Sign in to Salesforce as Rob and open the **Service Console for Tech** app. In the Omni-Channel utility, set status to **Messaging - Available**.
-3. Open the launcher, then **help.html** in a second window next to the console. Press **B** for the browser bar with a realistic URL. Press **H** to see presenter notes (hidden by default).
-4. Rehearse without Salesforce at `help.html?live=0`: same screens, and a scripted agent reply arrives instead of a real one.
+1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Aurora back to paused at $900. For a full reload, run `python3 scripts/seed.py`.
+2. **Salesforce (window 1):** sign in as Rob, open **Service Console for Tech** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
+3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
+4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
+5. **Tabs to pre-open:** slides.html, fin.html, and the dashboard link.
+6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
-**Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B shows the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, nav item) also advances.
+**Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
 
 ---
 
 ## 0 · Set the scene (1 min) · slides.html
 
-"It's 9pm on a Tuesday. Sam's ad stopped showing." Recap: 1M cases a year, 42% are tier 1, the Yelp Bot deflects under 10%, CSAT is 72% and falling. → for the close slide later.
+1. Open **slides.html**. Slide: "It's 9pm Tuesday. Sam's ad stopped showing."
+2. **[Say]** "Yelp handles a million support cases a year. 42% are tier 1: budgets, billing, is my ad running. The Yelp Bot deflects under 10%, and CSAT is 72% and falling. Sam is exactly that customer: 12 locations, and his problem shows up after hours."
 
 ## 1 · Fin resolves faster (5 min) · help.html
 
-1. → Sam opens the Fin Messenger. Fin introduces itself as an AI agent (AI disclosure).
-2. → Sam types "Why isn't my Aurora ad showing?" Fin looks up his account (data connector to Salesforce), finds that Dave's Hot Chicken - Aurora hit its $900 cap at 6:12 PM, and says the other 11 locations are fine. Point at the citation.
-3. Click **Raise it to $1,200** (or →). That's a **Fin Procedure** running an action: the cap goes up and the location panel turns to Running. *Optional backstage: fin.html, step 3 shows the Procedure.*
-4. → Billing follow-up: Fin explains the $530 increase from his real September invoice.
-5. → Sam: "Honestly the Aurora spot isn't paying off… opening a new location in Castle Rock in January." Fin recognizes churn risk and an expansion signal and **hands off to a person**, passing the conversation along so Sam doesn't repeat himself.
+**Issue 1: resolved by Fin, end to end**
+
+1. **Click the black chat launcher** (bottom right). The Fin Messenger opens: "Hi Sam! You're speaking with Fin, Yelp's AI agent…"
+   - **[Fin]** AI disclosure up front, and Sam can ask for a person any time.
+   - **[Fin]** Sam is signed in to Yelp for Business, so Fin already knows who he is and which account to look at. No "what's your email?" loop.
+2. **Press →.** Sam types "Why isn't my Aurora ad showing?" Fin answers: Aurora hit its $900 cap at 6:12 PM; the other 11 locations are fine.
+   - **[Fin]** A **data connector** reads the account live (here, from Salesforce), so the answer is about *his* account, not a generic article. Hover the **1** to show the cited help article.
+   - **[Salesforce]** The account, its 12 locations and their budgets live in Salesforce. Fin reads the same record the team works from.
+3. **Click "Raise it to $1,200".** Fin confirms the new cap and the ad starts again. The "Your locations" panel on the page turns Aurora to Running.
+   - **[Fin]** That's a **Procedure**: Fin followed Yelp's "Ad not showing" steps and took the action, not just answered. *Optional backstage: fin.html, last step, shows the Procedure.*
+4. **Press →.** Sam: "Also, why was my last invoice higher than usual?" Fin explains the $530 from his September invoice: the Westminster cap change and a Page Upgrade.
+5. **Press →.** Sam: "Nope, that's everything. Thanks, that fixed it!" Fin signs off, then the **CSAT survey** appears: "How would you rate your conversation with Fin?"
+   - **[Fin]** Fin sends its CSAT survey when the customer replies positively. Fin waits about 30 seconds in production in case of a follow-up; this is shortened for the demo. Ratings are Terrible, Bad, Ok, Great, Amazing.
+6. **Click Amazing.** "Thanks for letting us know."
+   - **[Fin]** This is a **Resolution**: Sam confirmed it worked. Fin is priced per resolution ($0.99 each per the Fin pricing docs), so Yelp pays for outcomes, not seats or attempts.
+   - **[Salesforce]** Fin's "Create Salesforce case on resolution" puts a **closed case** in Salesforce with the transcript, summary, CSAT 5 and Fin Resolution State = Hard Resolution. *(You'll open it in section 3.)* Every Fin-only conversation still shows up in Yelp's reporting.
+   - **[Say]** "That's tier 1, resolved at 9pm, no ticket in anyone's queue, and the customer loved it."
+
+**Issue 2: Fin knows when to hand off**
+
+7. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
+8. **Click "Send us a message".** A new conversation starts.
+9. **Press →.** Sam: "Honestly the Aurora spot isn't paying off. I'm thinking of dropping it. I'm also opening a new location in Castle Rock in January." Fin gives the numbers ($64 per lead vs about $27 at his other Dave's) and connects him to the Multi-Location team. "Connecting you to the team…"
+   - **[Fin]** Fin recognizes churn risk and an expansion signal, and a cancellation is a conversation Yelp wants a person to have. Its Procedure hands off with a summary and sets attributes: Contact reason, Churn risk, Expansion signal, Sentiment.
+   - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes the chat to the Multi-Location queue.
 
 *Ties to:* replacing the Yelp Bot, case deflection, CSAT.
 
 ## 2 · Fin makes agents better (4 min) · Service Console
 
-1. The chat rings in Omni-Channel. Accept it. The Messaging Session opens with Sam's message, the **Fin Handoff Details** case on the right (contact reason, churn risk, expansion signal, what Fin did), and **Fin Copilot**.
-2. In Copilot, type: **What retention offers does a 12-location account qualify for?** Copilot answers from the internal Multi-Location Retention Policy with numbered citations: 90-day pause, a performance credit ($240/month for Aurora), $500 launch credit for Castle Rock, a free ads review.
-3. Type: **Draft a reply to Sam**. Click **Add to composer**, adjust if you like, and send. About 30 seconds from accept to reply. The message appears in Sam's Fin Messenger as John.
-4. Back on help.html, → Sam answers: "The pause sounds good for Aurora…". You can also type anything into the Messenger; once the agent has joined, it goes to Salesforce live.
+1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
+   - **[Salesforce]** **Omni-Channel** pushed the chat to the right agent based on queue and capacity. John didn't pick it from a list.
+2. **Walk the page, left to right:**
+   - **Left:** the live conversation, starting with Sam's message.
+   - **Right, top:** **Fin Copilot**.
+   - **Right, middle:** **Fin Handoff Details**: Case number, Contact reason = Cancel a location, Fin Resolution State = Routed to team, Location = Aurora, Churn risk = High, Expansion signal = Castle Rock, Sentiment, and what Fin did earlier tonight.
+   - **Right, bottom:** **Resolve Fin Handoff**.
+   - **[Say]** "John didn't ask Sam a single question yet, and he already knows the account, the problem, the risk and the opportunity."
+3. **In Copilot, click Summarize.** The Fin summary and signals appear.
+4. **In the Copilot box, type:** `What retention offers does a 12-location account qualify for?` and press Enter. The answer comes from the internal Multi-Location Retention Policy with numbered citations: 90-day pause, $240/month performance credit, $500 launch credit for Castle Rock, a free ads review. Point at "4 relevant sources found".
+   - **[Fin]** Copilot gives agents the same knowledge Fin uses, inside Salesforce. One content set trains both the AI agent and the human agent.
+5. **Type:** `Draft a reply to Sam` and press Enter. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
+   - In the help center window, John's reply appears in Sam's Fin Messenger as "John • Yelp Support".
+6. **Switch to window 2 and press →.** Sam: "The pause sounds good for Aurora. And yes, let's get Castle Rock set up." The message appears in the console.
 
-*Summarize* in Copilot shows Fin's handoff summary and signals.
+**Resolve it**
 
-## 3 · Write-back and alerts (4 min) · Salesforce
+7. **Back in the console, in Resolve Fin Handoff:** leave **Pause ads for 90 days, no fee** selected, review the notes, and click **Resolve case**. You'll see "Case … resolved. Dave's Hot Chicken - Aurora is paused until …".
+   - **[Salesforce]** A **screen Flow** applies the retention offer to the location record and closes the case: Status Closed, Retention Offer = 90-day pause, Resolution Notes. No swivel-chair into another system.
+8. **In Copilot, type:** `Draft a confirmation` and press Enter. Click **Add to composer**, then **Send**. Sam sees the confirmation in the Messenger.
+9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
+10. **In the console, end the conversation** (End Conversation button above the chat). The Messenger shows "The conversation has ended".
+   - **[Salesforce]** With Agentforce for Service, the **work summary** that agents write after a chat can be generated for them. Mention it here; it isn't switched on in this org.
 
-1. Open the **Case** from the session: Fin Involved, Fin Resolution State "Routed to team", the transcript, summary, Churn Risk = High (Aurora, performance), Expansion Signal = new location in January, sentiment.
-2. Open **Whitaker Hospitality Group**: the account now carries Churn Risk, the reason, the Expansion Signal and Last Fin Conversation. Aurora's location shows the new $1,200 cap and Active.
-3. The record-triggered Flow also opened an **Expansion opportunity** ("Whitaker Hospitality Group - New location: Castle Rock, opening January") for Tom and sent Tom a **renewal brief** (Tom's task): health, open cases, the renewal, spend by location, and a suggested next step.
-4. **Slack:** the same brief posts to **#sales-notifications** (slack-demo-46882) a few seconds after the handoff: health, renewal, spend by location, suggested next step and a link to the account.
+## 3 · Write-back and alerts (4 min) · Salesforce and Slack
+
+1. **Open the Case from the Fin Handoff Details card** (click the case number):
+   - Status **Closed**, Retention Offer **90-day pause**, Resolution Notes.
+   - Fin Involved ✓, Fin Resolution State **Routed to team**.
+   - Fin Summary and Fin Transcript.
+   - Churn Risk = High (Aurora, performance), Expansion Signal = new location in January, Sentiment.
+2. **Open Whitaker Hospitality Group** (Account link on the case, or Direct links). Show:
+   - Churn Risk, Churn Risk Reason, Expansion Signal, Sentiment, Last Fin Conversation: written back by Flow.
+   - **Related → Cases:** both of tonight's cases. **"Fin resolved: Ad not showing (Aurora)"** is closed, with CSAT 5. The handoff case is closed with the retention offer.
+   - **Related → Child accounts → Dave's Hot Chicken - Aurora:** cap $1,200 from Fin's Procedure, then **Paused - Customer Request** until January from John's resolution.
+   - **[Salesforce]** One account record holds the AI conversation, the human conversation and the action taken. Nothing lives only in a chat tool.
+3. **Related → Opportunities:** "Whitaker Hospitality Group - New location: Castle Rock, opening January", owned by Tom, created by a **record-triggered Flow** from Fin's expansion signal.
+4. **Switch to Slack, #sales-notifications:** "Renewal brief: Whitaker Hospitality Group (for Tom Jones)". It covers health, open cases, the renewal, spend by location, a suggested next step and a link back to the account.
+   - **[Salesforce]** Flow posts to Slack through **Sales Cloud for Slack**, so the account team hears about churn risk and growth the same night, where they already work.
+   - **[Say]** "A support conversation just created pipeline. That's the bridge to Part 1: Tom can hand Castle Rock to Hunter to build the launch plan."
+5. *(Backup if Slack is slow: Tom's task "Renewal brief: Whitaker Hospitality Group" on the account has the same brief.)*
 
 ## 4 · Alisha's view (3 min)
 
-1. **Customer Success: Fin Conversations** dashboard (Salesforce): Fin resolution rate and trend, CSAT trend, top contact reasons, and the accounts Fin flagged for churn risk or expansion. Whitaker shows up after the live run.
-2. **fin.html**: Fin's Performance page (automation, involvement, resolution, CX Score), then **Topics Explorer** → click **Cancel a location** to see the conversations behind the churn signals, with Sam's at the top.
+1. **Open the "Customer Success: Fin Conversations" dashboard** (Salesforce). Walk it top to bottom:
+   - **Fin resolution rate** (57%) and its weekly trend (46% → 64%).
+   - **CSAT** and its trend.
+   - **Top contact reasons.**
+   - **At-risk and growing accounts:** Whitaker appears after the live run.
+   - **Retention offers accepted:** how the team saves locations Fin flags.
+   - **[Salesforce]** These are standard **Reports and Dashboards** on the cases Fin syncs. CS leadership doesn't need a separate tool to see AI and human support together.
+2. **Switch to fin.html.** Performance: automation rate, involvement, resolution rate, CX Score.
+   - **[Fin]** The CX Score rates every conversation, not just the ones customers rate.
+3. **Click Topics Explorer, then click the "Cancel a location" tile.** The conversations behind the churn signals, with Sam's at the top.
+   - **[Fin]** Topics are grouped automatically, with no manual tagging, so Alisha sees what's driving volume and where CX is weakest.
+4. *(Optional)* **Click Procedures.** "Ad not showing": the steps, data connectors and handoff rule Fin followed for Sam.
 
-## 5 · Close (1 min) · slides.html, step 1
+## 5 · Close (1 min) · slides.html
 
-60% AI resolution, +30% agent efficiency, 95% CSAT, 120% NRR on multi-location accounts. These are targets, not results.
+**Press → to the value slide.** 60% AI resolution, +30% agent efficiency, 95% CSAT, 120% NRR on multi-location accounts. These are targets, not results.
+
+---
+
+## Why Fin, and where Salesforce and Agentforce fit
+
+Use these if the question comes up: "Why Fin and not Agentforce?"
+
+- **Fin is the customer-facing front door for service.** Its job is resolving customer questions at volume, in the Messenger:
+  - Procedures and data connectors take real actions.
+  - Answers cite their sources, and it works in 45+ languages.
+  - Its analytics are built for AI support: resolution rate, CX Score, Topics Explorer.
+  - It sets up in hours on top of the helpdesk Yelp already has, and it's priced per outcome ($0.99 per resolution or Procedure handoff in the Fin docs). Yelp pays when Fin actually resolves something.
+- **Salesforce stays the system of record and the agent workspace.** Agentforce for Service and Service Cloud provide:
+  - Messaging, Omni-Channel routing and the Service Console.
+  - Case management, Flow automation, Slack, and Reports and Dashboards.
+  - Fin hands off into that and writes its data back to it, so nothing is lost between the AI conversation and the human one.
+- **Agentforce for Sales picks up what Fin hears.** Fin flags the expansion signal. Salesforce turns it into an opportunity and a Slack brief for Tom. Part 1's agents (Piper and Hunter) are the sales-side tools that act on it.
+- **One line:** Fin resolves and listens. Salesforce routes, records and acts. Agentforce for Sales grows the account.
 
 ---
 
 ## Setup notes
 
-- **Live chat:** Messaging channel *Yelp - Fin Handoff*, Custom Client deployment *Yelp - Fin Handoff* (must be published in Setup → Embedded Service Deployments), routing Flow *Yelp - Fin Handoff Routing* → Messaging queue (*SDO_Service_Messaging*). The Messenger sends Fin's data as hidden pre-chat parameters (summary and transcript are split into 255-character chunks and rejoined by the Flow).
-- **Copilot:** LWC `finCopilot` on the *Messaging Session - Fin Handoff* page, assigned in the Service Console for Tech app.
-- **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a Fin handoff case is created.
-- **Slack:** the write-back Flow posts with the Sales Cloud for Slack app (A028VJ1KG3G) to workspace T0C4N1TMPN3, channel C0CC7K9PY06 (#sales-notifications). It runs on the Flow's async path, so a Slack failure never blocks the case.
-- **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin handoffs, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
-- **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --reset` removes it all; Part 1 (Find & Win) records aren't touched.
+- **Live chat:**
+  - Messaging channel *Yelp - Fin Handoff*, with Custom Client deployment *Yelp - Fin Handoff*. Re-publish the deployment after any channel change.
+  - Routing Flow *Yelp - Fin Handoff Routing*:
+    - Fin-resolved conversations: creates a closed case and doesn't route.
+    - Handoffs: creates an open case and routes to the Messaging queue (*SDO_Service_Messaging*).
+  - Summary and transcript are split into 255-character chunks and rejoined by the Flow.
+- **Copilot and Resolve:** LWC `finCopilot` and screen Flow *Resolve Fin Handoff* are on the *Messaging Session - Fin Handoff* page, assigned in Service Console for Tech.
+- **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created:
+  - updates the account
+  - creates the expansion opportunity
+  - creates the brief task
+  - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CC7K9PY06
+- **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
+- **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

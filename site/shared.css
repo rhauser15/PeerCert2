@@ -1,0 +1,39 @@
+/* Presenter strip shared by the demo mockups. */
+.presenter {
+  position: fixed; left: 50%; top: 10px; transform: translateX(-50%); z-index: 50;
+  background: rgba(17, 24, 39, .88); color: #f9fafb; font: 12.5px -apple-system, "Helvetica Neue", Arial, sans-serif;
+  padding: 7px 14px; border-radius: 18px; max-width: 70vw; cursor: pointer; display: flex; gap: 10px; align-items: center;
+}
+.presenter .keys { color: #9ca3af; white-space: nowrap; }
+.presenter.hidden { display: none; }
+.proto-note {
+  position: fixed; left: 12px; bottom: 8px; font: 11px -apple-system, Arial, sans-serif; color: #9ca3af; z-index: 1;
+}
+
+/* Optional fake browser bar (press B, or add ?frame=1). Shows a realistic tab + URL while presenting. */
+:root { --frame-h: 0px; }
+html.framed { --frame-h: 76px; }
+.fakebar { display: none; position: fixed; top: 0; left: 0; right: 0; height: 76px; z-index: 40; flex-direction: column;
+  font: 12.5px -apple-system, "Helvetica Neue", Arial, sans-serif; color: #3c4043; }
+html.framed .fakebar { display: flex; }
+html.framed body { padding-top: 76px; box-sizing: border-box; }
+.fakebar .fb-tabs { height: 36px; background: #dee1e6; display: flex; align-items: flex-end; gap: 14px; padding: 0 12px; }
+.fakebar .fb-lights { display: flex; gap: 8px; align-self: center; margin-right: 8px; } .fakebar .fb-lights i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.fakebar .fb-tab { height: 30px; width: 240px; background: #fff; border-radius: 9px 9px 0 0; display: flex; align-items: center; gap: 8px; padding: 0 12px; }
+.fakebar .fb-tab img { width: 16px; height: 16px; }
+.fakebar .fb-tab .fb-t { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fakebar .fb-tab .fb-x, .fakebar .fb-plus { color: #5f6368; }
+.fakebar .fb-plus { align-self: center; font-size: 16px; }
+.fakebar .fb-bar { height: 40px; background: #fff; border-bottom: 1px solid #dadce0; display: flex; align-items: center; gap: 14px; padding: 0 12px; }
+.fakebar .fb-nav { display: flex; gap: 14px; color: #5f6368; align-items: center; }
+.fakebar .fb-url { flex: 1; height: 30px; background: #f1f3f4; border-radius: 15px; display: flex; align-items: center; gap: 10px; padding: 0 14px; font-size: 14px; }
+.fakebar .fb-url .fb-lock { color: #5f6368; font-size: 11px; }
+.fakebar .fb-url .fb-host { color: #202124; } .fakebar .fb-url .fb-path { color: #5f6368; margin-left: -10px; }
+.fakebar .fb-me { width: 24px; height: 24px; border-radius: 50%; background: #3b6e8f; color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+html.framed .presenter { top: 84px; }
+
+/* Click feedback used by Presenter.press() */
+.pressed { transform: scale(.94); filter: brightness(.88); transition: transform .08s, filter .08s; }
+
+/* ?still=1: no animations (screenshots) */
+html.still *, html.still *::before { animation: none !important; transition: none !important; }

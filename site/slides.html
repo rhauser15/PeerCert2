@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Keep &amp; Grow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="shared.css?v=20261026a">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #141414; color: #fff; font-family: Inter, -apple-system, "Helvetica Neue", Arial, sans-serif; height: 100vh; overflow: hidden; }
+  .slide { position: absolute; inset: 0; display: none; padding: 9vh 8vw; flex-direction: column; justify-content: center; }
+  .slide.on { display: flex; animation: fade .5s; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .kicker { color: #ff8a80; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; margin-bottom: 18px; }
+  h1 { font-size: clamp(40px, 5.4vw, 76px); line-height: 1.08; margin: 0 0 4vh; font-weight: 700; max-width: 1100px; }
+  h1 span { color: #ff8a80; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; margin-top: 2vh; }
+  .stat { border-top: 2px solid #3a3a3a; padding-top: 18px; }
+  .stat b { display: block; font-size: clamp(34px, 4vw, 60px); font-weight: 700; letter-spacing: -1px; }
+  .stat span { color: #b5b5b5; font-size: 17px; line-height: 1.4; display: block; margin-top: 6px; }
+  .stat.bad b { color: #ff8a80; } .stat.good b { color: #7ee2a8; }
+  .sub { color: #b5b5b5; font-size: 20px; max-width: 900px; line-height: 1.5; }
+  .foot { position: absolute; left: 8vw; bottom: 5vh; color: #6f6f6f; font-size: 13px; }
+</style>
+</head>
+<body>
+<section class="slide" id="s0">
+  <div class="kicker">Keep &amp; Grow</div>
+  <h1>It's 9pm Tuesday.<br><span>Sam's ad stopped showing.</span></h1>
+  <div class="stats">
+    <div class="stat"><b>1M</b><span>support cases a year</span></div>
+    <div class="stat"><b>42%</b><span>are tier 1: budgets, billing, ad status</span></div>
+    <div class="stat bad"><b>&lt;10%</b><span>deflected by the Yelp Bot today</span></div>
+    <div class="stat bad"><b>72%</b><span>CSAT, and falling</span></div>
+  </div>
+</section>
+<section class="slide" id="s1">
+  <div class="kicker">What Fin changes</div>
+  <h1>Resolve faster. Make agents better.<br><span>Turn every conversation into a signal.</span></h1>
+  <div class="stats">
+    <div class="stat good"><b>60%</b><span>of conversations resolved by AI</span></div>
+    <div class="stat good"><b>+30%</b><span>agent efficiency with Copilot</span></div>
+    <div class="stat good"><b>95%</b><span>CSAT target</span></div>
+    <div class="stat good"><b>120%</b><span>NRR on multi-location accounts</span></div>
+  </div>
+  <div class="foot">Target outcomes for planning. Actual results depend on content, Procedures and rollout.</div>
+</section>
+<div class="presenter" id="presenter"></div>
+<script src="presenter.js?v=20261026a"></script>
+<script>
+const show = id => document.querySelectorAll(".slide").forEach(s => s.classList.toggle("on", s.id === id));
+Presenter.init([
+  ["Set the scene (1 min)", async () => show("s0")],
+  ["Close: value (1 min)", async () => show("s1")],
+], () => show("s0"));
+</script>
+</body>
+</html>

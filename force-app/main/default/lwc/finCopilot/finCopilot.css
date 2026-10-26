@@ -1,0 +1,309 @@
+:host {
+    display: block;
+    --fin-text: #1a1a1a;
+    --fin-muted: #6b6b6b;
+    --fin-line: #ececec;
+    --fin-bubble: #f5f5f5;
+    --fin-blue: #1f5fe0;
+}
+.panel {
+    background: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px #e5e5e5;
+    height: 640px;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--fin-text);
+    font-size: 13px;
+    line-height: 1.5;
+}
+.head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 15px;
+}
+.mark {
+    width: 20px;
+    height: 20px;
+}
+.scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 16px 12px;
+}
+
+/* empty state */
+.empty {
+    padding: 28px 8px 0;
+}
+.empty h2 {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 0 0 22px;
+}
+.empty ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.empty li {
+    display: flex;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: #3a3a3a;
+}
+.ico {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #f3f3f3;
+    display: grid;
+    place-items: center;
+    --slds-c-icon-color-foreground-default: #5c5c5c;
+}
+
+/* conversation */
+.turn {
+    margin-top: 12px;
+    animation: rise 0.25s ease-out;
+}
+.question {
+    margin-left: auto;
+    width: fit-content;
+    max-width: 88%;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 14px;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+.answer {
+    margin-top: 10px;
+    background: var(--fin-bubble);
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+.body p {
+    margin: 0 0 8px;
+}
+.body ul {
+    margin: 0 0 8px;
+    padding-left: 18px;
+    list-style: disc;
+}
+.body li {
+    margin: 0 0 6px;
+}
+.body .h {
+    font-weight: 700;
+    margin: 8px 0 2px;
+}
+.body .h:first-child {
+    margin-top: 0;
+}
+.body .cite {
+    display: inline-grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--fin-blue);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    vertical-align: 1px;
+    cursor: default;
+}
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+.compose {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    border: 0;
+    border-radius: 18px;
+    padding: 6px 14px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+.compose:hover {
+    background: #333;
+}
+.more {
+    --slds-c-icon-color-foreground-default: #6b6b6b;
+}
+.sources {
+    border: 1px solid var(--fin-line);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-top: 10px;
+}
+.sources .label {
+    color: var(--fin-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.src {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin: 4px 0;
+}
+.src .n {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 1px solid #cfcfcf;
+    font-size: 10px;
+    display: grid;
+    place-items: center;
+    color: #555;
+}
+.all {
+    font-weight: 600;
+    margin-top: 6px;
+}
+.thinking {
+    margin-top: 12px;
+    display: flex;
+    gap: 4px;
+    background: var(--fin-bubble);
+    width: fit-content;
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+.thinking span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #9a9a9a;
+    animation: blink 1.2s infinite;
+}
+.thinking span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.thinking span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.note {
+    color: var(--fin-muted);
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+/* footer */
+.foot {
+    padding: 8px 14px 14px;
+}
+.chips {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f3f3f3;
+    border: 0;
+    border-radius: 14px;
+    padding: 3px 10px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3a3a3a;
+    cursor: pointer;
+    --slds-c-icon-color-foreground-default: #3a3a3a;
+}
+.chip.off {
+    color: #a3a3a3;
+    cursor: default;
+}
+.chip .ai {
+    font-size: 8px;
+    font-weight: 800;
+    background: #a3a3a3;
+    color: #fff;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+.input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e3e3e3;
+    border-radius: 12px;
+    padding: 8px 8px 8px 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.input:focus-within {
+    border-color: #c9c9c9;
+}
+textarea {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    resize: none;
+    font: inherit;
+    font-size: 13px;
+    background: transparent;
+    min-height: 20px;
+}
+textarea::placeholder {
+    color: #8a8a8a;
+}
+.tune {
+    --slds-c-icon-color-foreground-default: #3a3a3a;
+}
+.send {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0;
+    background: #f0f0f0;
+    display: grid;
+    place-items: center;
+    --slds-c-icon-color-foreground-default: #9a9a9a;
+}
+.send.on {
+    background: #1a1a1a;
+    cursor: pointer;
+    --slds-c-icon-color-foreground-default: #fff;
+}
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+@keyframes blink {
+    0%,
+    80%,
+    100% {
+        opacity: 0.25;
+    }
+    40% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FinResolutionState__c</fullName>
+    <label>Fin Resolution State</label>
+    <description>How Fin's part of the conversation ended.</description>
+    <inlineHelpText>How Fin's part of the conversation ended.</inlineHelpText>
+    <type>Picklist</type><valueSet><restricted>true</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>Hard Resolution</fullName><default>false</default><label>Hard Resolution</label></value><value><fullName>Soft Resolution</fullName><default>false</default><label>Soft Resolution</label></value><value><fullName>Routed to team</fullName><default>false</default><label>Routed to team</label></value><value><fullName>Abandoned</fullName><default>false</default><label>Abandoned</label></value></valueSetDefinition></valueSet>
+</CustomField>

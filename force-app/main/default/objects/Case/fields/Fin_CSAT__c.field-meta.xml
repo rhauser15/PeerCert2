@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fin_CSAT__c</fullName>
+    <label>CSAT</label>
+    <description>Conversation rating, 1 to 5.</description>
+    <inlineHelpText>Conversation rating, 1 to 5.</inlineHelpText>
+    <type>Number</type><precision>1</precision><scale>0</scale>
+</CustomField>

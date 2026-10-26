@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget_Spent_MTD__c</fullName>
+    <label>Budget Spent (MTD)</label>
+    <description>Ad budget spent this month.</description>
+    <inlineHelpText>Ad budget spent this month.</inlineHelpText>
+    <type>Currency</type><precision>12</precision><scale>0</scale>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fin_CSAT_Positive__c</fullName>
+    <label>CSAT Positive</label>
+    <description>1 for a 4 or 5 rating, 0 for 1 to 3, blank when unrated. Average it for the share of positive ratings.</description>
+    <formula>IF(ISBLANK(Fin_CSAT__c), NULL, IF(Fin_CSAT__c &gt;= 4, 1, 0))</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <precision>18</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/fin/fin-mark.svg">
+<meta name="demo-url" content="app.fin.ai/a/yelp/analyze/performance">
+<title>Performance | Fin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="shared.css?v=20261026a">
+<style>
+  :root { --bg: #f4f4f1; --ink: #1a1a1a; --muted: #6f6f6b; --line: #e7e7e2; --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+          --res: #66c08f; --inv: #214b3a; --vol: #c9c9c1; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); }
+  .app { display: grid; grid-template-columns: 270px 1fr; height: calc(100vh - var(--frame-h)); }
+  nav { padding: 22px 14px; display: flex; flex-direction: column; gap: 2px; font-size: 15px; overflow-y: auto; }
+  nav .logo { height: 30px; margin: 0 0 22px 10px; align-self: flex-start; }
+  nav .sec { display: flex; align-items: center; gap: 12px; padding: 8px 10px; font-weight: 600; }
+  nav .sec svg { width: 18px; height: 18px; flex: none; }
+  nav .sec .chev { margin-left: auto; width: 14px; height: 14px; color: #555; }
+  nav .sub { margin: 0 0 6px 20px; border-left: 2px solid #e2e2dc; }
+  nav .sub span { display: block; padding: 7px 14px; color: #5a5a56; border-radius: 0 8px 8px 0; cursor: default; position: relative; }
+  nav .sub span.on { background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  nav .sub span.on::before { content: ""; position: absolute; left: -2px; top: 6px; bottom: 6px; width: 2px; background: #e5602e; }
+  nav .sub span.click { cursor: pointer; }
+  nav .low { margin-top: auto; }
+  main { background: #fff; margin: 10px 10px 10px 0; border-radius: 14px; overflow-y: auto; box-shadow: 0 0 0 1px var(--line); }
+  .head { padding: 26px 32px 0; } .head h1 { margin: 0; font-size: 26px; font-weight: 500; }
+  .filters { display: flex; gap: 16px; align-items: center; padding: 18px 32px; border-bottom: 1px solid #f0f0ec; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 22px; padding: 8px 16px; font-size: 15px; }
+  .add { font-size: 15px; display: flex; gap: 6px; align-items: center; }
+  .filters .right { margin-left: auto; display: flex; gap: 10px; }
+  .view { display: none; } .view.on { display: block; animation: fade .3s; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .body { padding: 18px 22px 40px; background: var(--bg); min-height: calc(100% - 120px); }
+  .card { background: #fff; border-radius: 14px; padding: 26px 30px; margin-bottom: 12px; }
+  .card h3 { margin: 0; font-size: 19px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .card .i { width: 15px; height: 15px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 10px; display: inline-grid; place-items: center; font-weight: 700; }
+  .card .d { color: #3a3a37; margin: 6px 0 16px; font-size: 15px; }
+  .big { font-family: var(--mono); font-size: 40px; letter-spacing: -1px; margin-bottom: 14px; }
+  .bar { display: flex; gap: 8px; height: 26px; } .bar i { border-radius: 13px; display: block; }
+  .bar.thin { height: 14px; } .bar.thin i { border-radius: 7px; }
+  .legend { display: flex; gap: 16px; margin-top: 12px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; color: #3a3a37; }
+  .legend b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .btn { margin-left: auto; border: 1px solid var(--line); border-radius: 20px; padding: 7px 16px; font-size: 15px; font-weight: 600; display: flex; gap: 6px; align-items: center; background: #fff; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; background: #fff; border-radius: 14px; margin-bottom: 12px; }
+  .split .card { margin: 0; border-radius: 0; background: transparent; } .split .card + .card { border-left: 1px solid #ececea; }
+  .trend { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; align-items: end; height: 130px; margin-top: 10px; }
+  .trend div { display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--muted); height: 100%; justify-content: flex-end; }
+  .trend div i { width: 100%; background: var(--res); border-radius: 6px 6px 2px 2px; display: block; }
+  .trend div b { color: var(--ink); font-weight: 500; }
+
+  /* Topics Explorer */
+  .tx { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px; }
+  .tx .panel { background: #fff; border-radius: 14px; padding: 14px; }
+  .tlabel { color: #3a3a37; font-size: 15px; margin: 4px 4px 12px; }
+  .tree { height: 600px; display: flex; flex-direction: column; gap: 6px; }
+  .tree .r { display: flex; gap: 6px; }
+  .tile { border-radius: 8px; padding: 12px 14px; color: #fff; overflow: hidden; min-width: 0; cursor: default; transition: filter .15s; }
+  .tile b { display: block; font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile small { display: block; font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .95; }
+  .tile.light { color: #1a1a1a; }
+  .tile.click { cursor: pointer; } .tile.click:hover { filter: brightness(1.08); }
+  .tile.sel { box-shadow: 0 0 0 3px #1a1a1a inset; }
+  .scale { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; margin: 14px 4px 2px; }
+  .scale i { width: 240px; height: 10px; border-radius: 5px; background: linear-gradient(90deg, #3a1a66, #8e5bc8, #e9def5); display: block; }
+  .spark { display: grid; grid-template-columns: 140px 1fr; align-items: end; gap: 10px; height: 86px; border-bottom: 1px solid #f0f0ec; padding: 6px 4px; font-size: 14px; }
+  .spark svg { width: 100%; height: 72px; }
+  .axis { display: grid; grid-template-columns: 140px repeat(4, 1fr); font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding: 8px 4px 0; }
+  .drill { margin-top: 12px; display: none; } .drill.on { display: block; animation: fade .3s; }
+  .drill h4 { margin: 0 0 4px; font-size: 17px; font-weight: 500; } .drill .s { color: var(--muted); margin-bottom: 12px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 8px 10px; border-bottom: 1px solid #ececea; }
+  td { padding: 11px 10px; border-bottom: 1px solid #f2f2ef; }
+  tr.new td { background: #fbf8ff; }
+  .tag { display: inline-block; border-radius: 10px; padding: 1px 9px; font-size: 12.5px; font-weight: 600; }
+  .tag.high { background: #fde7e1; color: #a3361c; } .tag.med { background: #fdf1d8; color: #8a5a00; } .tag.exp { background: #e3f4ea; color: #1f6b43; }
+  .tag.route { background: #eceef6; color: #3a4a7a; }
+
+  /* Procedure */
+  .proc { display: grid; grid-template-columns: 1fr 340px; gap: 12px; }
+  .doc { background: #fff; border-radius: 14px; padding: 28px 36px; font-size: 15px; line-height: 1.6; }
+  .doc h2 { margin: 0 0 4px; font-size: 22px; font-weight: 500; } .doc .s { color: var(--muted); margin-bottom: 18px; }
+  .doc h4 { margin: 22px 0 6px; font-size: 16px; }
+  .doc ol { margin: 0; padding-left: 22px; } .doc li { margin: 6px 0; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: #f3f3ef; border-radius: 6px; padding: 1px 8px; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .chip img, .chip svg { width: 14px; height: 14px; }
+  .cond { font-family: var(--mono); font-size: 13px; background: #faf9f6; border: 1px solid #ececea; border-radius: 8px; padding: 8px 12px; margin: 6px 0; color: #6a3fb0; }
+  .kw { font-family: var(--mono); font-size: 12px; background: #ede7fb; color: #4b2a8a; border-radius: 4px; padding: 1px 6px; margin-right: 6px; }
+  .side { background: #fff; border-radius: 14px; padding: 20px 22px; font-size: 14px; }
+  .side h4 { margin: 0 0 10px; font-size: 15px; } .side .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0ec; }
+  .side .row:last-child { border-bottom: 0; } .side .m { color: var(--muted); }
+  .live { display: inline-flex; gap: 6px; align-items: center; color: #1f6b43; font-weight: 600; } .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2e9e5b; }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav>
+    <img class="logo" src="assets/fin/fin-logo.svg" alt="Fin">
+    <div class="sec"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="7" width="2.5" height="7" rx=".5"/><rect x="6.75" y="3" width="2.5" height="11" rx=".5"/><rect x="11.5" y="5.5" width="2.5" height="8.5" rx=".5"/></svg>Analyze<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 6 4 4 4-4"/></svg></div>
+    <div class="sub">
+      <span id="navPerf" class="on click">Performance</span><span>Optimize</span><span id="navTopics" class="click">Topics Explorer</span><span>Trends</span><span>Custom Report</span><span>Monitor</span><span>Conversations</span>
+    </div>
+    <div class="sec"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5h4.5a1.5 1.5 0 0 1 1.5 1.5v8.5a1.5 1.5 0 0 0-1.5-1.5H2Zm12 0H9.5A1.5 1.5 0 0 0 8 5v8.5a1.5 1.5 0 0 1 1.5-1.5H14Z"/></svg>Train<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 6 4 4 4-4"/></svg></div>
+    <div class="sub"><span>Content</span><span>Guidance</span><span id="navProc" class="click">Procedures</span><span>Data connectors</span></div>
+    <div class="sec"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2v4.5L2.5 13a.8.8 0 0 0 .7 1.2h9.6a.8.8 0 0 0 .7-1.2L10 6.5V2M5 2h6"/></svg>Test<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 4 4 4-4 4"/></svg></div>
+    <div class="sec"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9.5 2.5c2.5 0 4 1.5 4 4L8 12l-4-4Zm-6 8L2 14l3.5-1.5M10 6h.01"/></svg>Deploy<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 4 4 4-4 4"/></svg></div>
+    <div class="low">
+      <div class="sec"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>Search</div>
+      <div class="sec"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></svg>Settings</div>
+      <div class="sec"><span class="me" style="width:20px;height:20px;border-radius:50%;background:#7a4bb8;color:#fff;font-size:9px;display:grid;place-items:center;font-weight:700">AL</span>Account</div>
+    </div>
+  </nav>
+  <main id="main">
+    <!-- Performance -->
+    <section class="view on" id="v-perf">
+      <div class="head"><h1>Performance</h1></div>
+      <div class="filters"><span class="pill"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1.5" y="3" width="13" height="11.5" rx="1.5"/><rect x="3" y="6.5" width="10" height="6.5" fill="#fff"/></svg>Aug 30, 2026 - Oct 24, 2026</span><span class="add">+ Add filter</span></div>
+      <div class="body">
+        <div class="card">
+          <div style="display:flex"><div><h3>Automation rate <span class="i">i</span></h3><div class="d">80,513 conversations resolved by Fin of 153,800 total support volume</div></div><span class="btn" style="align-self:flex-start">Optimize →</span></div>
+          <div class="big">52.3%</div>
+          <div class="bar"><i style="flex:52.3;background:var(--res)"></i><i style="flex:47.7;background:var(--vol)"></i></div>
+          <div class="legend"><span><b style="background:var(--res)"></b>Resolved</span><span><b style="background:var(--vol)"></b>Total volume</span></div>
+        </div>
+        <div class="split">
+          <div class="card"><h3>Involvement rate <span class="i">i</span></h3><div class="d">Fin was involved in 140,266 conversations of 153,800 total volume</div>
+            <div class="big">91.2%</div><div class="bar thin"><i style="flex:91.2;background:var(--inv)"></i><i style="flex:8.8;background:var(--vol)"></i></div>
+            <div class="legend"><span><b style="background:var(--inv)"></b>Involved</span><span><b style="background:var(--vol)"></b>Total volume</span></div></div>
+          <div class="card"><h3>Resolution rate <span class="i">i</span></h3><div class="d">Fin resolved 80,513 conversations of 140,266 it was involved with</div>
+            <div class="big">57.4%</div><div class="bar thin"><i style="flex:57.4;background:var(--res)"></i><i style="flex:42.6;background:var(--inv)"></i></div>
+            <div class="legend"><span><b style="background:var(--res)"></b>Resolved</span><span><b style="background:var(--inv)"></b>Involved</span></div></div>
+        </div>
+        <div class="card">
+          <div style="display:flex"><div><h3>CX Score <span class="i">i</span></h3><div class="d">38,940 positive ratings (4 or 5) of 49,680 total ratings</div></div><span class="btn" style="align-self:flex-start">Report →</span></div>
+          <div class="big">78.4%</div>
+          <div class="bar"><i style="flex:57;background:#4a2a6e"></i><i style="flex:21.4;background:#7b45be"></i><i style="flex:9;background:#eab8a6"></i><i style="flex:5.6;background:#d97a52"></i><i style="flex:7;background:#a9472a"></i></div>
+          <div class="legend"><span><b style="background:#4a2a6e"></b>5</span><span><b style="background:#7b45be"></b>4</span><span><b style="background:#eab8a6"></b>3</span><span><b style="background:#d97a52"></b>2</span><span><b style="background:#a9472a"></b>1</span></div>
+        </div>
+        <div class="card">
+          <h3>Resolution rate by week <span class="i">i</span></h3><div class="d">Up from 46% in the first week after launch, as the team added content and Procedures</div>
+          <div class="trend" id="trend"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topics Explorer -->
+    <section class="view" id="v-topics">
+      <div class="head"><h1>Topics Explorer</h1></div>
+      <div class="filters"><span class="pill"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1.5" y="3" width="13" height="11.5" rx="1.5"/><rect x="3" y="6.5" width="10" height="6.5" fill="#fff"/></svg>Aug 30, 2026 - Oct 24, 2026</span><span class="add">+ Add filter</span>
+        <span class="right"><span class="pill"><b style="width:10px;height:10px;border-radius:50%;background:#8e5bc8;display:inline-block"></b>Customer Experience (CX) score ▾</span><span class="pill">View 8 ▾</span></span></div>
+      <div class="body">
+        <div class="tlabel">8 highest volume topics</div>
+        <div class="tx">
+          <div class="panel"><div class="tree" id="tree"></div><div class="scale">61%<i></i>86%</div></div>
+          <div class="panel"><div id="sparks"></div><div class="axis"><span></span><span>Sep 6</span><span>Sep 20</span><span>Oct 4</span><span>Oct 18</span></div><div class="scale">0%<i></i>100%</div></div>
+        </div>
+        <div class="card drill" id="drill">
+          <h4>Cancel a location</h4>
+          <div class="s">4,620 conversations · 61.7% CX score · 72% routed to the team. Fin tags churn risk and expansion signals on each one and syncs them to Salesforce.</div>
+          <table><thead><tr><th>Customer</th><th>Location</th><th>When</th><th>Fin outcome</th><th>Signals</th></tr></thead><tbody id="drillRows"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Procedure -->
+    <section class="view" id="v-proc">
+      <div class="head"><h1>Procedures</h1></div>
+      <div class="filters"><span class="pill">Ads and billing</span><span class="add">+ New procedure</span></div>
+      <div class="body">
+        <div class="proc">
+          <div class="doc">
+            <h2>Procedure: Ad not showing</h2>
+            <div class="s">Fin follows these steps when a customer asks why an ad isn't running.</div>
+            <h4>Look up the account</h4>
+            <ol>
+              <li><span class="chip"><svg viewBox="0 0 16 16" fill="#00a1e0"><path d="M6.7 3.6a2.8 2.8 0 0 1 4.4.6 3.4 3.4 0 0 1 4.4 3.3 3.4 3.4 0 0 1-4.3 3.3 2.5 2.5 0 0 1-3.4 1 2.9 2.9 0 0 1-5.3-.4A2.6 2.6 0 0 1 1.5 6.8a2.6 2.6 0 0 1 2.2-2.6 2.8 2.8 0 0 1 3-.6Z"/></svg>Use Get ad account</span> to find the customer's locations, budget caps and budget status in Salesforce.</li>
+              <li>If the customer names a location, find it in the results. Otherwise ask which location they mean.</li>
+            </ol>
+            <h4>Explain and fix</h4>
+            <ol start="3">
+              <li><span class="kw">IF</span>the location's budget status is paused</li>
+            </ol>
+            <div class="cond">budget_status is "Paused - Budget Cap Reached"</div>
+            <ol type="a" style="margin-left:20px">
+              <li>Tell the customer when the ad stopped and that it reached its monthly cap. Say when the cap resets.</li>
+              <li>Offer to raise the cap. Suggest a cap about a third higher, and let the customer choose.</li>
+              <li>When the customer confirms, <span class="chip"><svg viewBox="0 0 16 16" fill="#d32323"><rect width="16" height="16" rx="3"/><text x="8" y="12" font-size="10" font-weight="700" fill="#fff" text-anchor="middle" font-family="Arial">y</text></svg>Use Update budget cap</span> for that location, then confirm the new cap and when ads resume.</li>
+            </ol>
+            <ol start="4"><li><span class="kw">ELSE</span>check targeting and ad approval status, and explain what's holding the ad.</li></ol>
+            <h4>Hand off when it's bigger than one ad</h4>
+            <ol start="5">
+              <li>If the customer wants to cancel or pause a location, or mentions opening a new one, hand off to the <b>Multi-Location team</b>.</li>
+              <li>Before handing off, set <span class="chip">Churn risk</span> <span class="chip">Expansion signal</span> <span class="chip">Sentiment</span> and write a summary, so the customer doesn't have to repeat anything.</li>
+            </ol>
+          </div>
+          <div class="side">
+            <h4>Status</h4>
+            <div class="row"><span class="m">Version</span><span>v7 · <span class="live">Live</span></span></div>
+            <div class="row"><span class="m">Channels</span><span>Fin Messenger</span></div>
+            <div class="row"><span class="m">Audience</span><span>Yelp Ads customers</span></div>
+            <h4 style="margin-top:18px">Data connectors</h4>
+            <div class="row"><span>Get ad account</span><span class="m">Salesforce</span></div>
+            <div class="row"><span>Update budget cap</span><span class="m">Yelp Ads API</span></div>
+            <div class="row"><span>Get invoice</span><span class="m">Yelp Billing API</span></div>
+            <h4 style="margin-top:18px">Last 8 weeks</h4>
+            <div class="row"><span class="m">Conversations</span><span>33,840</span></div>
+            <div class="row"><span class="m">Resolved by Fin</span><span>71.6%</span></div>
+            <div class="row"><span class="m">Caps raised in chat</span><span>9,412</span></div>
+            <div class="row"><span class="m">Handed off</span><span>18.9%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="presenter" id="presenter"></div>
+<script src="presenter.js?v=20261026a"></script>
+<script>
+const $ = id => document.getElementById(id), sleep = ms => new Promise(r => setTimeout(r, ms));
+const VIEWS = { "v-perf": ["navPerf", "Performance", "analyze/performance"], "v-topics": ["navTopics", "Topics Explorer", "analyze/topics"], "v-proc": ["navProc", "Procedures", "train/procedures"] };
+function show(v) {
+  Object.entries(VIEWS).forEach(([id, [nav]]) => { $(id).classList.toggle("on", id === v); $(nav).classList.toggle("on", id === v); });
+  document.title = VIEWS[v][1] + " | Fin";
+  Presenter.setUrl("app.fin.ai/a/yelp/" + VIEWS[v][2]);
+  $("main").scrollTop = 0;
+}
+async function click(el, instant) { if (!el || instant || Presenter.clicked()) return; await sleep(350); await Presenter.press(el); }
+
+// Weekly resolution rate (matches the Salesforce Fin cases)
+const WEEKS = [["Aug 30", 46], ["Sep 6", 50], ["Sep 13", 53], ["Sep 20", 56], ["Sep 27", 59], ["Oct 4", 61], ["Oct 11", 63], ["Oct 18", 64]];
+$("trend").innerHTML = WEEKS.map(([w, v]) => `<div><b>${v}%</b><i style="height:${v * 1.4}%"></i>${w}</div>`).join("");
+
+// Topics: [name, conversations, CX score]. Darker = lower CX score.
+const TOPICS = [["Budget and billing", 43060, 81.2], ["Ad not showing", 33840, 76.5], ["Invoice question", 23070, 83.9],
+  ["Ad performance", 21530, 69.8], ["Account access", 13840, 85.1], ["Business page edits", 7690, 80.4], ["Add a location", 6150, 86.0], ["Cancel a location", 4620, 61.7]];
+const shade = cx => { const t = Math.max(0, Math.min(1, (cx - 61) / 25)); const a = [58, 26, 102], b = [233, 222, 245], m = [142, 91, 200];
+  const mix = (p, q, s) => p.map((x, k) => Math.round(x + (q[k] - x) * s)); return "rgb(" + (t < .5 ? mix(a, m, t * 2) : mix(m, b, (t - .5) * 2)).join(",") + ")"; };
+const tile = ([n, c, cx], flex) => `<div class="tile${cx > 80 ? " light" : ""}${n === "Cancel a location" ? " click" : ""}" id="${n === "Cancel a location" ? "tCancel" : ""}" style="flex:${flex} 1 0;background:${shade(cx)}"><b>${n}</b><small>${c.toLocaleString()} conversations ↗</small><small>${cx}% CX score</small></div>`;
+const col = ts => `<div style="flex:${ts.reduce((a, t) => a + t[1], 0)} 1 0;display:flex;flex-direction:column;gap:6px;min-width:0">${ts.map(t => tile(t, t[1])).join("")}</div>`;
+$("tree").innerHTML = `<div class="r" style="flex:60 1 0">${TOPICS.slice(0, 3).map(t => tile(t, t[1])).join("")}</div>
+  <div class="r" style="flex:40 1 0">${TOPICS.slice(3, 5).map(t => tile(t, t[1])).join("")}${col(TOPICS.slice(5))}</div>`;
+// Weekly volume sparklines, shaded by CX score
+let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+$("sparks").innerHTML = TOPICS.slice(0, 6).map(([n, c, cx]) => {
+  const pts = Array.from({ length: 56 }, (_, k) => 0.45 + 0.35 * Math.sin(k / 3.2 + n.length) * rnd() + 0.2 * rnd());
+  const bars = pts.map((v, k) => `<rect x="${k * 10}" y="${72 - v * 66}" width="9" height="${v * 66}" fill="${shade(cx - 8 + rnd() * 16)}"/>`).join("");
+  return `<div class="spark"><span>${n}</span><svg viewBox="0 0 560 72" preserveAspectRatio="none">${bars}</svg></div>`;
+}).join("");
+const DRILL = [
+  ["Whitaker Hospitality Group", "Dave's Hot Chicken - Aurora", "Today, 9:11 PM", "Routed to team", '<span class="tag high">Churn risk: High</span> <span class="tag exp">New location: Castle Rock</span>', true],
+  ["Mountain View Car Wash", "Aurora (Havana St)", "Yesterday", "Routed to team", '<span class="tag high">Churn risk: High</span>'],
+  ["Front Range Burger Co.", "Loveland", "Oct 22", "Routed to team", '<span class="tag high">Churn risk: High</span>'],
+  ["Mile High Fitness Group", "Capitol Hill", "Oct 20", "Resolved by Fin", '<span class="tag med">Churn risk: Medium</span>'],
+  ["Rocky Mountain Pet Care", "Boulder (Pearl St)", "Oct 18", "Resolved by Fin", '<span class="tag exp">New location: Longmont</span>'],
+];
+$("drillRows").innerHTML = DRILL.map(([a, l, w, o, s, isNew]) => `<tr class="${isNew ? "new" : ""}"><td><b>${a}</b></td><td>${l}</td><td>${w}</td><td><span class="tag ${o.startsWith("Routed") ? "route" : "exp"}">${o}</span></td><td>${s}</td></tr>`).join("");
+
+const steps = [
+  ["Alisha (VP Customer Success) opens Fin: Performance.", async () => show("v-perf")],
+  ["Topics Explorer: what customers contact Yelp about.", async i => { await click($("navTopics"), i); show("v-topics"); }],
+  ["Alisha opens 'Cancel a location': the churn signals Fin tagged.", async i => {
+    await click($("tCancel"), i);
+    $("tCancel").classList.add("sel"); $("drill").classList.add("on");
+    if (!i) $("drill").scrollIntoView({ behavior: "smooth", block: "start" });
+  }],
+  ["Backstage: the Procedure Fin followed for Sam.", async i => { await click($("navProc"), i); show("v-proc"); }],
+];
+Presenter.init(steps, () => { $("drill").classList.remove("on"); $("tCancel").classList.remove("sel"); show("v-perf"); });
+Presenter.onClick({ 1: ["navTopics"], 2: ["tCancel"], 3: ["navProc"] });
+const v = new URLSearchParams(location.search).get("view");
+if (v === "procedure") show("v-proc");
+</script>
+</body>
+</html>

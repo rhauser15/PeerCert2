@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates><calculatedFormula>Case.Fin_CSAT_Positive__c:AVG</calculatedFormula><datatype>percent</datatype><developerName>FORMULA1</developerName><isActive>true</isActive><isCrossBlock>false</isCrossBlock><masterLabel>CSAT (4 or 5)</masterLabel><scale>0</scale></aggregates>
+    <columns><aggregateTypes>Average</aggregateTypes><field>Case.Fin_CSAT_Positive__c</field></columns><columns><aggregateTypes>Average</aggregateTypes><field>Case.Fin_CSAT__c</field></columns><columns><field>SUBJECT</field></columns>
+    <description>Share of rated conversations that scored 4 or 5, by week.</description>
+    <filter><criteriaItems><column>Case.FinInvolved__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>1</value></criteriaItems><criteriaItems><column>Case.Fin_CSAT__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>notEqual</operator><value></value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>Week</dateGranularity><field>Case.Conversation_Date__c</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>Fin: CSAT by Week</name>
+    <params><name>units</name><value>h</value></params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    
+    <timeFrameFilter><dateColumn>CREATED_DATE</dateColumn><interval>INTERVAL_CUSTOM</interval></timeFrameFilter>
+</Report>

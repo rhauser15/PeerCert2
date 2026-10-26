@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conversation_Date__c</fullName>
+    <label>Conversation Date</label>
+    <description>Date of the Fin conversation.</description>
+    <inlineHelpText>Date of the Fin conversation.</inlineHelpText>
+    <type>Date</type>
+</CustomField>

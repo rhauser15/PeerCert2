@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessagingChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Email</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Email</externalParameterName>
+        <masterLabel>Fin Email</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Email</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Summary_1</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Summary_1</externalParameterName>
+        <masterLabel>Fin Summary 1</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Summary_1</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Summary_2</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Summary_2</externalParameterName>
+        <masterLabel>Fin Summary 2</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Summary_2</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Summary_3</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Summary_3</externalParameterName>
+        <masterLabel>Fin Summary 3</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Summary_3</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_1</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_1</externalParameterName>
+        <masterLabel>Fin Transcript 1</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_1</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_2</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_2</externalParameterName>
+        <masterLabel>Fin Transcript 2</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_2</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_3</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_3</externalParameterName>
+        <masterLabel>Fin Transcript 3</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_3</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_4</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_4</externalParameterName>
+        <masterLabel>Fin Transcript 4</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_4</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_5</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_5</externalParameterName>
+        <masterLabel>Fin Transcript 5</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_5</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_6</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_6</externalParameterName>
+        <masterLabel>Fin Transcript 6</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_6</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_7</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_7</externalParameterName>
+        <masterLabel>Fin Transcript 7</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_7</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_8</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_8</externalParameterName>
+        <masterLabel>Fin Transcript 8</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_8</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_9</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_9</externalParameterName>
+        <masterLabel>Fin Transcript 9</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_9</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Transcript_10</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Transcript_10</externalParameterName>
+        <masterLabel>Fin Transcript 10</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Transcript_10</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Contact_Reason</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Contact_Reason</externalParameterName>
+        <masterLabel>Fin Contact Reason</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Contact_Reason</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Churn_Risk</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Churn_Risk</externalParameterName>
+        <masterLabel>Fin Churn Risk</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Churn_Risk</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Churn_Reason</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Churn_Reason</externalParameterName>
+        <masterLabel>Fin Churn Reason</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Churn_Reason</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Expansion_Signal</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Expansion_Signal</externalParameterName>
+        <masterLabel>Fin Expansion Signal</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Expansion_Signal</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Sentiment</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Sentiment</externalParameterName>
+        <masterLabel>Fin Sentiment</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Sentiment</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Location</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Location</externalParameterName>
+        <masterLabel>Fin Location</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Location</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Actions</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Actions</externalParameterName>
+        <masterLabel>Fin Actions</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Actions</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_New_Budget_Cap</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_New_Budget_Cap</externalParameterName>
+        <masterLabel>Fin New Budget Cap</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_New_Budget_Cap</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <description>Receives live-chat handoffs from Fin. Fin's transcript, summary and attributes arrive as parameters.</description>
+    <embeddedConfig>
+        <anonymousUserJwtExpirationTime>360</anonymousUserJwtExpirationTime>
+        <authMode>UnAuth</authMode>
+        <isAttachmentUploadEnabled>false</isAttachmentUploadEnabled>
+        <isEstimatedWaitTimeEnabled>false</isEstimatedWaitTimeEnabled>
+        <isSaveTranscriptEnabled>false</isSaveTranscriptEnabled>
+    </embeddedConfig>
+    <masterLabel>Yelp - Fin Handoff</masterLabel>
+    <messagingChannelType>EmbeddedMessaging</messagingChannelType>
+    <sessionHandlerFlow>Yelp_Fin_Handoff_Routing</sessionHandlerFlow>
+    <sessionHandlerQueue>SDO_Service_Messaging</sessionHandlerQueue>
+    <sessionHandlerType>Flow</sessionHandlerType>
+</MessagingChannel>

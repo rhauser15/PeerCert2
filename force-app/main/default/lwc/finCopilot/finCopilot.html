@@ -1,0 +1,92 @@
+<template>
+    <lightning-conversation-toolkit-api></lightning-conversation-toolkit-api>
+    <div class="panel">
+        <div class="head">
+            <img class="mark" src={finMark} alt="" />
+            <span>Fin Copilot</span>
+        </div>
+
+        <div class="scroll">
+            <template lwc:if={isEmpty}>
+                <div class="empty">
+                    <h2>Copilot is here to help.<br />Just ask.</h2>
+                    <ul>
+                        <li>
+                            <span class="ico"><lightning-icon icon-name="utility:rocket" size="xx-small"></lightning-icon></span>
+                            <span>Copilot can find answers to customer queries by searching your team's support content and past conversations.</span>
+                        </li>
+                        <li>
+                            <span class="ico"><lightning-icon icon-name="utility:light_bulb" size="xx-small"></lightning-icon></span>
+                            <span>It can help you figure out what to do, using your team's internal articles.</span>
+                        </li>
+                        <li>
+                            <span class="ico"><lightning-icon icon-name="utility:knowledge_base" size="xx-small"></lightning-icon></span>
+                            <span>All it needs is <u>knowledge</u>. The more content you give, the more expert Copilot becomes.</span>
+                        </li>
+                        <li>
+                            <span class="ico"><lightning-icon icon-name="utility:lock" size="xx-small"></lightning-icon></span>
+                            <span>Copilot conversations are only visible to you.</span>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+
+            <template for:each={turns} for:item="t">
+                <div key={t.id} class="turn">
+                    <div class="question">{t.question}</div>
+                    <template lwc:if={t.answer}>
+                        <div class="answer">
+                            <div class="body" lwc:dom="manual" data-id={t.id}></div>
+                            <template lwc:if={t.answer.composer}>
+                                <div class="actions">
+                                    <button class="compose" data-id={t.id} onclick={handleCompose}>
+                                        <lightning-icon icon-name="utility:edit" size="xx-small" variant="inverse"></lightning-icon>
+                                        Add to composer
+                                    </button>
+                                    <span class="more"><lightning-icon icon-name="utility:threedots" size="xx-small"></lightning-icon></span>
+                                </div>
+                            </template>
+                        </div>
+                        <template lwc:if={t.answer.hasSources}>
+                            <div class="sources">
+                                <div class="label">{t.answer.sourceLabel}</div>
+                                <template for:each={t.answer.shown} for:item="s">
+                                    <div key={s.key} class="src">
+                                        <span class="n">{s.n}</span>
+                                        <span>{s.title}</span>
+                                    </div>
+                                </template>
+                                <template lwc:if={t.answer.more}>
+                                    <div class="all">See all &rarr;</div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <template lwc:if={thinking}>
+                <div class="thinking"><span></span><span></span><span></span></div>
+            </template>
+            <template lwc:if={note}>
+                <div class="note">{note}</div>
+            </template>
+        </div>
+
+        <div class="foot">
+            <div class="chips">
+                <span class="chip off"><span class="ai">AI</span>Format</span>
+                <button class="chip" onclick={handleSummarize}>
+                    <lightning-icon icon-name="utility:note" size="xx-small"></lightning-icon>Summarize
+                </button>
+            </div>
+            <div class="input">
+                <textarea rows="1" placeholder={placeholder} oninput={handleInput} onkeydown={handleKey}></textarea>
+                <lightning-icon class="tune" icon-name="utility:filter" size="x-small"></lightning-icon>
+                <button class={sendClass} disabled={sendDisabled} onclick={handleSend} aria-label="Send">
+                    <lightning-icon icon-name="utility:arrowup" size="x-small"></lightning-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

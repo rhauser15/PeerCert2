@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Leads_Last_30_Days__c</fullName>
+    <label>Leads (Last 30 Days)</label>
+    <description>Leads this location received in the last 30 days.</description>
+    <inlineHelpText>Leads this location received in the last 30 days.</inlineHelpText>
+    <type>Number</type><precision>8</precision><scale>0</scale>
+</CustomField>

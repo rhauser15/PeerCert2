@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Fin_Conversation__c</fullName>
+    <label>Last Fin Conversation</label>
+    <description>When the customer last talked to Fin.</description>
+    <inlineHelpText>When the customer last talked to Fin.</inlineHelpText>
+    <type>DateTime</type>
+</CustomField>

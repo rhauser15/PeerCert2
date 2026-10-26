@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <columns><field>ACCOUNT.NAME</field></columns><columns><field>Account.Churn_Risk_Reason__c</field></columns><columns><field>Account.Expansion_Signal__c</field></columns><columns><field>Account.Last_Fin_Conversation__c</field></columns><columns><field>USERS.NAME</field></columns>
+    <description>Customers Fin flagged for churn risk or expansion from their conversations.</description>
+    <filter><booleanFilter>1 AND (2 OR 3)</booleanFilter><criteriaItems><column>Account.Part2_Demo__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>1</value></criteriaItems><criteriaItems><column>Account.Churn_Risk__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>High,Medium</value></criteriaItems><criteriaItems><column>Account.Expansion_Signal__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>notEqual</operator><value></value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>Day</dateGranularity><field>Account.Churn_Risk__c</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>Fin: Accounts Flagged in Conversations</name>
+    <params><name>units</name><value>h</value></params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    
+    
+</Report>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fin_Resolved__c</fullName>
+    <label>Fin Resolved</label>
+    <description>1 when Fin resolved the conversation (hard or soft resolution). Average it to get Fin's resolution rate.</description>
+    <formula>IF(OR(ISPICKVAL(FinResolutionState__c, "Hard Resolution"), ISPICKVAL(FinResolutionState__c, "Soft Resolution")), 1, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <precision>18</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

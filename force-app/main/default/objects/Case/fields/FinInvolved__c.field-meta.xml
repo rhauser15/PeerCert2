@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FinInvolved__c</fullName>
+    <label>Fin Involved</label>
+    <description>Fin handled this conversation before it reached the team.</description>
+    <inlineHelpText>Fin handled this conversation before it reached the team.</inlineHelpText>
+    <type>Checkbox</type><defaultValue>false</defaultValue>
+</CustomField>

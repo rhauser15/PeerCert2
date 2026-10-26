@@ -91,6 +91,20 @@
   .tools .send { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: #ececec; color: #fff; display: grid; place-items: center; border: 0; transition: background .15s; }
   .tools .send.on { background: #111; cursor: pointer; }
   .powered { text-align: center; font-size: 11.5px; color: #9a9a9a; margin-top: 8px; display: flex; gap: 5px; justify-content: center; align-items: center; }
+  .csat .faces { display: flex; justify-content: space-between; gap: 4px; margin-top: 10px; }
+  .face { border: 0; background: #fff; border-radius: 12px; width: 52px; padding: 8px 0 6px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; font: inherit; transition: transform .12s; }
+  .face span { font-size: 24px; line-height: 1; filter: grayscale(.2); } .face small { font-size: 10.5px; color: #757575; }
+  .face:hover { transform: translateY(-2px); }
+  .csat.done .face { opacity: .35; pointer-events: none; } .csat.done .face.sel { opacity: 1; box-shadow: 0 0 0 2px #111; }
+  .csat .thanks { margin-top: 10px; color: #3a3a3a; }
+  .home { padding: 8px 4px; animation: rise .25s ease-out; }
+  .home h3 { font-size: 26px; margin: 10px 0 0; font-weight: 700; } .home > p { font-size: 22px; color: #757575; margin: 2px 0 22px; font-weight: 600; }
+  .recent { border: 1px solid #ececec; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px; }
+  .recent small { color: #757575; font-weight: 600; font-size: 12.5px; }
+  .rrow { display: flex; gap: 10px; align-items: center; margin-top: 8px; } .rrow img { width: 26px; height: 26px; }
+  .rrow b { display: block; font-size: 14px; } .rrow span { color: #555; font-size: 13.5px; } .rrow i { margin-left: auto; font-style: normal; font-size: 12px; color: #2e844a; font-weight: 600; }
+  .newconv { width: 100%; display: flex; justify-content: space-between; align-items: center; border: 1px solid #ececec; background: #fff; border-radius: 16px; padding: 14px; font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; }
+  .newconv:hover { background: #f7f7f7; }
   .powered img { width: 11px; height: 11px; opacity: .6; }
 </style>
 </head>
@@ -139,7 +153,7 @@
 </button>
 <div class="msgr" id="msgr">
   <div class="mh">
-    <span class="ic"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3 5 8l5 5"/></svg></span>
+    <span class="ic" id="back"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3 5 8l5 5"/></svg></span>
     <img class="mark" src="assets/fin/fin-mark.svg" alt="">
     <b>Fin</b>
     <span class="sp"></span>
@@ -147,7 +161,7 @@
     <span class="ic" id="closeMsgr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3.5 3.5 9 9m0-9-9 9"/></svg></span>
   </div>
   <div class="mb" id="thread"></div>
-  <div class="mc">
+  <div class="mc" id="mc">
     <div class="box">
       <textarea id="input" rows="1" placeholder="Ask a question..."></textarea>
       <div class="tools">
@@ -225,32 +239,58 @@ function freeSend() {
 function open(on) { $("msgr").classList.toggle("on", on); }
 $("closeMsgr").addEventListener("click", () => open(false));
 
-// What Fin passes to Salesforce at handoff (mapped to Case fields by the routing Flow)
-const ATTRS = {
-  Fin_Email: DEMO.sam.email,
-  Fin_Contact_Reason: "Cancel a location",
-  Fin_Location: "Aurora",
-  Fin_Churn_Risk: "High",
-  Fin_Churn_Reason: "Aurora ad performance: $64 per lead vs $27 at his other Dave's; considering cancelling",
-  Fin_Expansion_Signal: "New location: Castle Rock, opening January",
-  Fin_Sentiment: "Neutral",
-  Fin_Actions: "Procedure 'Ad not showing': raised Aurora's monthly budget cap from $900 to $1,200",
-  Fin_New_Budget_Cap: "1200",
+// What Fin sends to Salesforce. Conversation 1 ends in a Fin resolution ("Create Salesforce case on resolution");
+// conversation 2 ends in a handoff to a Salesforce agent. The routing Flow maps these to Case fields.
+const RESOLVED = {
+  Fin_Email: DEMO.sam.email, Fin_Contact_Reason: "Ad not showing", Fin_Location: "Aurora", Fin_Sentiment: "Positive",
+  Fin_Actions: "Procedure 'Ad not showing': raised Aurora's monthly budget cap from $900 to $1,200. Answered a billing question from the September invoice.",
+  Fin_New_Budget_Cap: "1200", Fin_Resolution: "Hard Resolution", Fin_CSAT: "5",
 };
-const SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations) asked why the Dave's Hot Chicken Aurora ad wasn't showing. " +
+const RESOLVED_SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations) asked why the Dave's Hot Chicken Aurora ad wasn't showing. " +
   "It had reached its $900 monthly budget cap; Fin raised the cap to $1,200 at Sam's request. " +
   "Sam asked why his September invoice was $530 higher than August; Fin explained the Westminster cap increase and the Colorado Springs (Powers) Page Upgrade. " +
-  "Sam says Aurora isn't paying off ($64 per lead vs about $27 at his other Dave's locations) and is thinking of dropping it. " +
-  "He is opening a new location in Castle Rock in January.";
+  "Sam confirmed that resolved it and rated the conversation Amazing.";
+const HANDOFF = {
+  Fin_Email: DEMO.sam.email, Fin_Contact_Reason: "Cancel a location", Fin_Location: "Aurora", Fin_Churn_Risk: "High",
+  Fin_Churn_Reason: "Aurora ad performance: $64 per lead vs $27 at his other Dave's; considering cancelling",
+  Fin_Expansion_Signal: "New location: Castle Rock, opening January", Fin_Sentiment: "Neutral",
+  Fin_Actions: "Earlier tonight Fin resolved Aurora's paused ad (cap raised to $1,200; rated Amazing). Procedure 'Cancel or add a location': handed off to the Multi-Location team.",
+};
+const HANDOFF_SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations) says the Dave's Hot Chicken Aurora location isn't paying off " +
+  "($64 per lead vs about $27 at his other Dave's locations) and is thinking of dropping it. " +
+  "He is also opening a new location in Castle Rock in January. Earlier tonight Fin raised Aurora's budget cap to $1,200 after its ad paused.";
+const transcript = () => log.map(([w, t]) => `${w}: ${t}`).join("\n");
+const GREETING = "<p>Hi Sam! You're speaking with Fin, Yelp's AI agent. I can help with your ads, billing and business pages, and you can ask for the team at any time.</p>";
 
+// Fin CSAT survey (Fin Messenger). Sent after the customer replies positively to Fin's answer.
+const FACES = [["Terrible", "😠"], ["Bad", "🙁"], ["Ok", "😐"], ["Great", "🙂"], ["Amazing", "😍"]];
+function csatCard() {
+  return add(`<div class="msg fin"><div class="bubble csat" id="csat"><p><b>How would you rate your conversation with Fin?</b></p>
+    <div class="faces">${FACES.map(([l, e], k) => `<button class="face" id="csat${k + 1}" title="${l}"><span>${e}</span><small>${l}</small></button>`).join("")}</div>
+    </div><div class="meta">Fin • AI Agent • Just now</div></div>`);
+}
+
+// Messenger home: recent conversation and "Send us a message"
+function showHome() {
+  $("mc").style.display = "none";
+  thread.innerHTML = `<div class="home">
+    <h3>Hi Sam</h3><p>How can we help?</p>
+    <div class="recent"><small>Recent message</small>
+      <div class="rrow"><img src="assets/fin/fin-mark.svg" alt=""><div><b>Fin</b><span>You rated the conversation Amazing</span></div><i>Resolved</i></div></div>
+    <button class="newconv" id="newConv">Send us a message<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+  </div>`;
+}
+function newConversation() { $("mc").style.display = ""; thread.innerHTML = ""; log.length = 0; fin(GREETING); }
+
+const AFTER_PAUSE = "The pause sounds good for Aurora. And yes, let's get Castle Rock set up.";
 const steps = [
   ["Tuesday, 9:04 PM. Sam is on the Yelp for Business help center.", async () => {}],
   ["Sam opens the Fin Messenger.", async i => {
     if (!i && !Presenter.clicked()) await Presenter.press($("launcher"));
     open(true);
-    fin("<p>Hi Sam! You're speaking with Fin, Yelp's AI agent. I can help with your ads, billing and business pages, and you can ask for the team at any time.</p>");
+    fin(GREETING);
   }],
-  ["Sam asks about Aurora. Fin looks up his account (data connector).", async i => {
+  ["Issue 1: Sam asks about Aurora. Fin looks up his account (data connector).", async i => {
     await say("Why isn't my Aurora ad showing?", i);
     await think(i, 1900);
     fin(`<p>I checked your account. Your <b>Dave's Hot Chicken - Aurora</b> ad stopped showing today at 6:12 PM because it reached its <b>$900 monthly budget cap</b>. When a location hits its cap, its ads pause until the cap is raised or the next month starts on Nov 1. ${cite(1, "caps")}</p>
@@ -270,9 +310,33 @@ const steps = [
     await think(i, 1800);
     fin(`<p>Your September invoice (INV-2026-09-4471, charged Oct 1) was <b>$9,980</b>, which is <b>$530 more</b> than August ($9,450). ${cite(1, "invoice")}</p>
       <p>Two things changed:</p><ul><li><b>Westminster:</b> the monthly cap went from $800 to $1,200 on Sep 1 (+$400)</li><li><b>Colorado Springs (Powers):</b> a Yelp Page Upgrade was added on Aug 29 (+$130 a month)</li></ul>
-      <p>Everything else matched August.</p>`);
+      <p>Everything else matched August. Is there anything else I can help with?</p>`);
   }],
-  ["Sam: Aurora isn't paying off, and he's opening Castle Rock. Fin hands off to a person.", async i => {
+  ["Sam confirms it's resolved. Fin asks for a rating (Fin CSAT).", async i => {
+    await say("Nope, that's everything. Thanks, that fixed it!", i);
+    await think(i, 1200);
+    fin("<p>You're welcome, Sam! Aurora's ad will be back up shortly. Have a good night.</p>");
+    if (!i) await sleep(2200);  // Fin waits briefly after a positive reply before sending the survey
+    csatCard();
+  }],
+  ["Sam rates it Amazing. Fin resolved it alone and logs a resolved case in Salesforce.", async i => {
+    const face = $("csat5");
+    if (!i && !Presenter.clicked()) { await sleep(300); await Presenter.press(face); }
+    $("csat").classList.add("done"); face?.classList.add("sel");
+    $("csat").insertAdjacentHTML("beforeend", `<p class="thanks">Thanks for letting us know.</p>`);
+    log.push(["Sam", "Rated the conversation: Amazing"]);
+    scroll();
+    if (!i) Handoff.resolve({ attrs: RESOLVED, summary: RESOLVED_SUMMARY, transcript: transcript() });
+  }],
+  ["Later that night: Sam has a bigger question. Back to the Messenger home.", async i => {
+    if (!i && !Presenter.clicked()) await Presenter.press($("back"));
+    showHome();
+  }],
+  ["Sam starts a new conversation.", async i => {
+    if (!i && !Presenter.clicked()) await Presenter.press($("newConv"));
+    newConversation();
+  }],
+  ["Issue 2: Aurora isn't paying off, and he's opening Castle Rock. Fin hands off to John.", async i => {
     const last = "Honestly the Aurora spot isn't paying off. I'm thinking of dropping it. I'm also opening a new location in Castle Rock in January.";
     await say(last, i);
     await think(i, 1700);
@@ -281,25 +345,29 @@ const steps = [
     note("Connecting you to the team…");
     if (i) return;
     await Handoff.start({
-      attrs: ATTRS, summary: SUMMARY, transcript: log.map(([w, t]) => `${w}: ${t}`).join("\n"),
-      firstMessage: last,
+      attrs: HANDOFF, summary: HANDOFF_SUMMARY, transcript: transcript(), firstMessage: last,
       onJoin: () => note(`<b>${DEMO.agent.name}</b> from ${DEMO.agent.team} joined the conversation`),
       onAgentMessage: text => { hideAgentTyping(); agentMsg(text); },
       onTyping: on => on ? showAgentTyping() : hideAgentTyping(),
       onQueued: () => note("The team typically replies in under 2 minutes"),
+      onEnd: () => { hideAgentTyping(); note("The conversation has ended"); },
     });
   }],
-  ["Live: John replies from the Service Console. Sam answers.", async i => {
-    await say("The pause sounds good for Aurora. And yes, let's get Castle Rock set up.", i);
-    if (!i) Handoff.send("The pause sounds good for Aurora. And yes, let's get Castle Rock set up.");
+  ["Live: John sends Copilot's reply. Sam picks the pause.", async i => {
+    await say(AFTER_PAUSE, i);
+    if (!i) Handoff.send(AFTER_PAUSE);
+  }],
+  ["Live: John resolves the case and confirms. Sam says thanks; John ends the chat.", async i => {
+    await say("That's everything. Thanks, John!", i);
+    if (!i) Handoff.send("That's everything. Thanks, John!");
   }],
 ];
 let agentTyping = null;
 function showAgentTyping() { if (!agentTyping) agentTyping = add(`<div class="msg agent"><div class="row"><span class="av">${DEMO.agent.name[0]}</span><div class="bubble typing"><i></i><i></i><i></i></div></div></div>`); }
 function hideAgentTyping() { agentTyping?.remove(); agentTyping = null; }
 
-Presenter.init(steps, () => { Handoff.end(); thread.innerHTML = ""; log.length = 0; open(false); input.value = ""; sync(); drawLocs(false); });
-Presenter.onClick({ 1: ["launcher"], 3: ["qr1200"] });
+Presenter.init(steps, () => { Handoff.end(); $("mc").style.display = ""; thread.innerHTML = ""; log.length = 0; open(false); input.value = ""; sync(); drawLocs(false); });
+Presenter.onClick({ 1: ["launcher"], 3: ["qr1200"], 6: ["csat5"], 7: ["back"], 8: ["newConv"] });
 </script>
 </body>
 </html>

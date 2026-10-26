@@ -50,13 +50,14 @@ def reset_live():
     apex(f"""
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
-delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat' AND Account.Name = '{D.COMPANY}'];
+delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat'];
 Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1];
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));
 update a;
 Account aurora = [SELECT Id FROM Account WHERE ParentId = :a.Id AND Name LIKE '%Aurora' LIMIT 1];
 aurora.Monthly_Budget_Cap__c = 900; aurora.Budget_Spent_MTD__c = 900; aurora.Budget_Status__c = 'Paused - Budget Cap Reached';
+aurora.Paused_Until__c = null;
 update aurora;
 """)
 
@@ -189,7 +190,10 @@ def build():
             day = start + dt.timedelta(days=week * 7 + rnd.randrange(7))
             reason = rnd.choice(reasons)
             acct, contact = rnd.choice(who)
-            cases.append(rec("Case", f"fin{n}", Subject=f"Fin conversation: {reason}", Origin="Website",
+            offer = None
+            if state == "Routed to team" and reason in ("Cancel a location", "Ad performance"):
+                offer = rnd.choice(["90-day pause", "90-day pause", "Performance credit", "Free ads review", "None - location cancelled"])
+            cases.append(rec("Case", f"fin{n}", Subject=f"Fin conversation: {reason}", Origin="Website", Retention_Offer__c=offer,
                              Status="Closed", Priority="Medium", Type="Account Support", AccountId=acct,
                              ContactId=contact, FinInvolved__c=True, FinResolutionState__c=state,
                              Fin_Contact_Reason__c=reason, Fin_CSAT__c=rating, Conversation_Date__c=str(day),

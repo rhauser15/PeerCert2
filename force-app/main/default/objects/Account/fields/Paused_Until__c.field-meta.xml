@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Paused_Until__c</fullName>
+    <label>Paused Until</label>
+    <description>When a paused location's ads restart.</description>
+    <inlineHelpText>When a paused location's ads restart.</inlineHelpText>
+    <type>Date</type>
+</CustomField>

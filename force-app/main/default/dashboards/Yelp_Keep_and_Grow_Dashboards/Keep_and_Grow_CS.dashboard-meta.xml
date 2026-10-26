@@ -128,6 +128,21 @@
             </dashboardComponent>
             <rowIndex>14</rowIndex><rowSpan>9</rowSpan>
         </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>5</colSpan><columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartAxisRange>Auto</chartAxisRange><enableHover>true</enableHover><legendPosition>Bottom</legendPosition><showPercentage>false</showPercentage><showValues>true</showValues><useReportChart>false</useReportChart><chartSummary><axisBinding>y</axisBinding><column>RowCount</column></chartSummary><groupingColumn>Case.Retention_Offer__c</groupingColumn><sortBy>RowValueDescending</sortBy>
+                <componentType>Donut</componentType>
+                <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
+                <header>Retention offers accepted</header>
+                <report>Yelp_Keep_and_Grow/Fin_Retention_Offers</report>
+                <showRange>false</showRange>
+                <title>How agents resolved Fin handoffs</title>
+            </dashboardComponent>
+            <rowIndex>23</rowIndex><rowSpan>9</rowSpan>
+        </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>

@@ -7,6 +7,22 @@
         <displayContext>Conversation</displayContext>
         <embeddedServiceFormFields>
             <displayOrder>-1</displayOrder>
+            <formField>Fin_Resolution</formField>
+            <formFieldType>Text</formFieldType>
+            <isHidden>true</isHidden>
+            <isRequired>false</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>-1</displayOrder>
+            <formField>Fin_CSAT</formField>
+            <formFieldType>Text</formFieldType>
+            <isHidden>true</isHidden>
+            <isRequired>false</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>-1</displayOrder>
             <formField>Fin_Actions</formField>
             <formFieldType>Text</formFieldType>
             <isHidden>true</isHidden>

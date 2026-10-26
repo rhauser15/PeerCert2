@@ -26,6 +26,17 @@
         </connector>
     </start>
     <formulas>
+        <name>ResolvedSubject</name>
+        <dataType>String</dataType>
+        <expression>"Fin resolved: " &amp; {!Fin_Contact_Reason} &amp; IF(ISBLANK({!Fin_Location}), "", " (" &amp; {!Fin_Location} &amp; ")")</expression>
+    </formulas>
+    <formulas>
+        <name>CsatNumber</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>IF(ISBLANK({!Fin_CSAT}), NULL, VALUE({!Fin_CSAT}))</expression>
+    </formulas>
+    <formulas>
         <name>Transcript</name>
         <dataType>String</dataType>
         <expression>{!Fin_Transcript_1} &amp; {!Fin_Transcript_2} &amp; {!Fin_Transcript_3} &amp; {!Fin_Transcript_4} &amp; {!Fin_Transcript_5} &amp; {!Fin_Transcript_6} &amp; {!Fin_Transcript_7} &amp; {!Fin_Transcript_8} &amp; {!Fin_Transcript_9} &amp; {!Fin_Transcript_10}</expression>
@@ -100,7 +111,7 @@
         <locationY>270</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Case</targetReference>
+            <targetReference>Is_Resolved</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -251,6 +262,149 @@
         </inputAssignments>
         <object>Case</object>
     </recordCreates>
+    <recordCreates>
+        <name>Create_Resolved_Case</name>
+        <label>Create Resolved Case</label>
+        <locationX>176</locationX>
+        <locationY>390</locationY>
+        <assignRecordIdToReference>CaseId</assignRecordIdToReference>
+        <connector>
+            <targetReference>Link_Session</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>ResolvedSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>Summary</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>Get_Contact.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <stringValue>Chat</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Account Support</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FinInvolved__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FinResolutionState__c</field>
+            <value>
+                <stringValue>Hard Resolution</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Summary__c</field>
+            <value>
+                <elementReference>Summary</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Transcript__c</field>
+            <value>
+                <elementReference>Transcript</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Contact_Reason__c</field>
+            <value>
+                <elementReference>Fin_Contact_Reason</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Churn_Risk__c</field>
+            <value>
+                <elementReference>Fin_Churn_Risk</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Churn_Risk_Reason__c</field>
+            <value>
+                <elementReference>Fin_Churn_Reason</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Expansion_Signal__c</field>
+            <value>
+                <elementReference>Fin_Expansion_Signal</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Sentiment__c</field>
+            <value>
+                <elementReference>Fin_Sentiment</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Actions_Taken__c</field>
+            <value>
+                <elementReference>Fin_Actions</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_Location__c</field>
+            <value>
+                <elementReference>Fin_Location</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Conversation_Date__c</field>
+            <value>
+                <elementReference>Today</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Part2_Demo__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fin_CSAT__c</field>
+            <value>
+                <elementReference>CsatNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
     <recordUpdates>
         <name>Link_Session</name>
         <label>Link Case to Session</label>
@@ -324,10 +478,10 @@
         <locationX>50</locationX>
         <locationY>690</locationY>
         <connector>
-            <targetReference>Route_to_Queue</targetReference>
+            <targetReference>Should_Route</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Route_to_Queue</targetReference>
+            <targetReference>Should_Route</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -359,12 +513,59 @@
         <object>Account</object>
     </recordUpdates>
     <decisions>
+        <name>Is_Resolved</name>
+        <label>Did Fin resolve it?</label>
+        <locationX>176</locationX>
+        <locationY>330</locationY>
+        <defaultConnector>
+            <targetReference>Create_Case</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Handoff</defaultConnectorLabel>
+        <rules>
+            <name>Resolved_By_Fin</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Fin_Resolution</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hard Resolution</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Resolved_Case</targetReference>
+            </connector>
+            <label>Resolved by Fin</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Should_Route</name>
+        <label>Route to an agent?</label>
+        <locationX>176</locationX>
+        <locationY>800</locationY>
+        <defaultConnector>
+            <targetReference>Route_to_Queue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes</defaultConnectorLabel>
+        <rules>
+            <name>No_Fin_Resolved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Fin_Resolution</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hard Resolution</stringValue>
+                </rightValue>
+            </conditions>
+            <label>No, Fin resolved it</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Budget_Changed</name>
         <label>Did Fin change a budget?</label>
         <locationX>176</locationX>
         <locationY>570</locationY>
         <defaultConnector>
-            <targetReference>Route_to_Queue</targetReference>
+            <targetReference>Should_Route</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -606,6 +807,20 @@
     </variables>
     <variables>
         <name>Fin_New_Budget_Cap</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Fin_Resolution</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Fin_CSAT</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>

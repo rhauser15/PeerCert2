@@ -4,5 +4,5 @@
     <label>Budget Status</label>
     <description>Whether this location's ads are running.</description>
     <inlineHelpText>Whether this location's ads are running.</inlineHelpText>
-    <type>Picklist</type><valueSet><restricted>true</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>Active</fullName><default>false</default><label>Active</label></value><value><fullName>Paused - Budget Cap Reached</fullName><default>false</default><label>Paused - Budget Cap Reached</label></value></valueSetDefinition></valueSet>
+    <type>Picklist</type><valueSet><restricted>true</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>Active</fullName><default>false</default><label>Active</label></value><value><fullName>Paused - Budget Cap Reached</fullName><default>false</default><label>Paused - Budget Cap Reached</label></value><value><fullName>Paused - Customer Request</fullName><default>false</default><label>Paused - Customer Request</label></value></valueSetDefinition></valueSet>
 </CustomField>

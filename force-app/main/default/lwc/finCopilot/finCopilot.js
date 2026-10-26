@@ -139,6 +139,7 @@ export default class FinCopilot extends LightningElement {
     answerFor(q) {
         const s = q.toLowerCase();
         if (/summar/.test(s)) return this.summary();
+        if (/confirm|wrap|close/.test(s)) return this.confirm();
         if (/draft|reply|write|respond|message/.test(s)) return this.reply();
         if (/retention|offer|qualif|save|keep|cancel|drop|churn|credit|discount/.test(s)) return this.offers();
         return {
@@ -188,6 +189,24 @@ export default class FinCopilot extends LightningElement {
                 `<p>Which would you prefer for ${f.loc}?</p>`,
             text,
             sources: ['policy', 'credit', 'launch', 'pause'],
+            composer: true
+        };
+    }
+
+    confirm() {
+        const f = this.facts();
+        const until = new Date(Date.now() + 90 * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+        const cite = (n) => `<span class="cite">${n}</span>`;
+        const castle = f.expansion
+            ? ` ${f.owner}, your account manager, will reach out this week to get Castle Rock set up before you open.`
+            : '';
+        const text =
+            `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time.` +
+            `${castle} Anything else I can help with tonight?`;
+        return {
+            html: `<p>${text} ${cite(1)}</p>`,
+            text,
+            sources: ['pause', 'policy'],
             composer: true
         };
     }

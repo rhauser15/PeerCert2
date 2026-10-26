@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <columns><field>SUBJECT</field></columns><columns><field>ACCOUNT.NAME</field></columns>
+    <description>How agents resolved the cancel and performance cases Fin handed off.</description>
+    <filter><criteriaItems><column>Case.FinInvolved__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>1</value></criteriaItems><criteriaItems><column>Case.Retention_Offer__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>notEqual</operator><value></value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>Day</dateGranularity><field>Case.Retention_Offer__c</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>Fin Handoffs: Retention Offers Accepted</name>
+    <params><name>units</name><value>h</value></params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    
+    <timeFrameFilter><dateColumn>CREATED_DATE</dateColumn><interval>INTERVAL_CUSTOM</interval></timeFrameFilter>
+</Report>

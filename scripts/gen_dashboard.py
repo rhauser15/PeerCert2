@@ -76,6 +76,10 @@ report("Fin_Flagged_Accounts", "Fin: Accounts Flagged in Conversations", "Accoun
        "Account.Churn_Risk__c", date_col=None, logic="1 AND (2 OR 3)",
        desc="Customers Fin flagged for churn risk or expansion from their conversations.")
 
+report("Fin_Retention_Offers", "Fin Handoffs: Retention Offers Accepted", "CaseList",
+       [("SUBJECT", []), ("ACCOUNT.NAME", [])], FIN + [("Case.Retention_Offer__c", "notEqual", "")], "Case.Retention_Offer__c",
+       desc="How agents resolved the cancel and performance cases Fin handed off.")
+
 write(os.path.join(BASE, "reports", f"{FOLDER}.reportFolder-meta.xml"), """
 <ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <accessType>Public</accessType><name>Yelp Keep and Grow</name><publicFolderAccess>ReadWrite</publicFolderAccess>
@@ -131,6 +135,8 @@ comps = "".join([
          "<flexTableColumn><reportColumn>Account.Expansion_Signal__c</reportColumn><showSubTotal>false</showSubTotal><showTotal>false</showTotal><type>detail</type></flexTableColumn>"
          "<flexTableColumn><reportColumn>USERS.NAME</reportColumn><showSubTotal>false</showSubTotal><showTotal>false</showTotal><type>detail</type></flexTableColumn>"
          "<flexTableSortInfo><sortColumn>Account.Churn_Risk__c</sortColumn><sortOrder>1</sortOrder></flexTableSortInfo><hideChatterPhotos>true</hideChatterPhotos></flexComponentProperties>"),
+    comp("Donut", "Fin_Retention_Offers", "How agents resolved Fin handoffs", "Retention offers accepted", 0, 23, 5, 9,
+         CHART + ROWS + "<groupingColumn>Case.Retention_Offer__c</groupingColumn><sortBy>RowValueDescending</sortBy>"),
 ])
 write(os.path.join(BASE, "dashboards", f"{FOLDER}_Dashboards", "Keep_and_Grow_CS.dashboard-meta.xml"), f"""
 <Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">

@@ -14,6 +14,8 @@
     <fieldPermissions><editable>true</editable><field>Case.Fin_Sentiment__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Fin_Location__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Fin_Actions_Taken__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Case.Retention_Offer__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Case.Resolution_Notes__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Fin_CSAT__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Conversation_Date__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Part2_Demo__c</field><readable>true</readable></fieldPermissions>
@@ -25,6 +27,7 @@
     <fieldPermissions><editable>true</editable><field>Account.Monthly_Budget_Cap__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Budget_Spent_MTD__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Budget_Status__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Account.Paused_Until__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Leads_Last_30_Days__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Cost_Per_Lead__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Part2_Demo__c</field><readable>true</readable></fieldPermissions>

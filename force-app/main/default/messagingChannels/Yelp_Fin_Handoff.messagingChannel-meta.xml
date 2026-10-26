@@ -220,6 +220,26 @@
         <name>Fin_New_Budget_Cap</name>
         <parameterDataType>String</parameterDataType>
     </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Resolution</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_Resolution</externalParameterName>
+        <masterLabel>Fin Resolution</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Resolution</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_CSAT</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>Fin_CSAT</externalParameterName>
+        <masterLabel>Fin CSAT</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_CSAT</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
     <description>Receives live-chat handoffs from Fin. Fin's transcript, summary and attributes arrive as parameters.</description>
     <embeddedConfig>
         <anonymousUserJwtExpirationTime>360</anonymousUserJwtExpirationTime>

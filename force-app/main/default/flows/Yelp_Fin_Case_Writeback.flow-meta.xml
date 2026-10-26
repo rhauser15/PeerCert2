@@ -46,6 +46,13 @@
                 <booleanValue>false</booleanValue>
             </value>
         </filters>
+        <filters>
+            <field>FinResolutionState__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Routed to team</stringValue>
+            </value>
+        </filters>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>

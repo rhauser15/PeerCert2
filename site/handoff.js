@@ -31,7 +31,6 @@ window.Handoff = (() => {
     try {
       const auth = await api("/iamessage/api/v2/authorization/unauthenticated/access-token", {
         orgId: cfg.orgId, esDeveloperName: cfg.deployment, capabilitiesVersion: "1", platform: "Web",
-        context: { appName: "Fin Messenger", clientVersion: "1.0" },
       });
       token = auth.accessToken;
       // Summary and transcript are split across 255-character parameters; the Flow joins them back up.

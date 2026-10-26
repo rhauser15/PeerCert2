@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fin_Case__c</fullName>
+    <label>Fin Case</label>
+    <description>The Case Fin created at handoff (transcript, summary, attributes).</description>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Fin Messaging Sessions</relationshipLabel>
+    <relationshipName>Fin_Messaging_Sessions</relationshipName>
+    <type>Lookup</type>
+</CustomField>

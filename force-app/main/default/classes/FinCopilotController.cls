@@ -11,8 +11,8 @@ public with sharing class FinCopilotController {
         }
         Id caseId = recordId;
         if (recordId.getSObjectType() == MessagingSession.SObjectType) {
-            List<MessagingSession> sessions = [SELECT CaseId FROM MessagingSession WHERE Id = :recordId];
-            caseId = sessions.isEmpty() ? null : sessions[0].CaseId;
+            List<MessagingSession> sessions = [SELECT CaseId, Fin_Case__c FROM MessagingSession WHERE Id = :recordId];
+            caseId = sessions.isEmpty() ? null : (sessions[0].Fin_Case__c != null ? sessions[0].Fin_Case__c : sessions[0].CaseId);
         }
         if (caseId == null || caseId.getSObjectType() != Case.SObjectType) {
             return ctx;

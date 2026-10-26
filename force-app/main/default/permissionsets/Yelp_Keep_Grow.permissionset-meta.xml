@@ -31,4 +31,5 @@
     <fieldPermissions><editable>true</editable><field>Opportunity.Part2_Demo__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>Case.Fin_Resolved__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>Case.Fin_CSAT_Positive__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>MessagingSession.Fin_Case__c</field><readable>true</readable></fieldPermissions>
 </PermissionSet>

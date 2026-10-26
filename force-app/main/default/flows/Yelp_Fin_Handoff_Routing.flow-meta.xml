@@ -52,6 +52,27 @@
         <expression>VALUE({!Fin_New_Budget_Cap})</expression>
     </formulas>
     <recordLookups>
+        <name>Get_Session</name>
+        <label>Get Session</label>
+        <locationX>176</locationX>
+        <locationY>390</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Link_End_User</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>MessagingSession</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
         <locationX>176</locationX>
@@ -236,8 +257,11 @@
         <locationX>176</locationX>
         <locationY>510</locationY>
         <connector>
-            <targetReference>Budget_Changed</targetReference>
+            <targetReference>Get_Session</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Get_Session</targetReference>
+        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -253,18 +277,45 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>EndUserContactId</field>
+            <field>Fin_Case__c</field>
+            <value>
+                <elementReference>CaseId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>MessagingSession</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Link_End_User</name>
+        <label>Link Messaging User to Contact</label>
+        <locationX>176</locationX>
+        <locationY>450</locationY>
+        <connector>
+            <targetReference>Budget_Changed</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Budget_Changed</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Session.MessagingEndUserId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ContactId</field>
             <value>
                 <elementReference>Get_Contact.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>EndUserAccountId</field>
+            <field>AccountId</field>
             <value>
                 <elementReference>Get_Contact.AccountId</elementReference>
             </value>
         </inputAssignments>
-        <object>MessagingSession</object>
+        <object>MessagingEndUser</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Location_Budget</name>

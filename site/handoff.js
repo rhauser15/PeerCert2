@@ -15,7 +15,14 @@ window.Handoff = (() => {
     for (let k = 0; k < n; k++) out[k] = text.slice(k * size, (k + 1) * size);
     return out;
   };
-  async function api(path, body, method = "POST") {
+  // Retries briefly on 503 (the messaging service can be slow to pick up a newly published deployment).
+  async function api(path, body, method = "POST", tries = 3) {
+    for (let k = 1; ; k++) {
+      try { return await once(path, body, method); }
+      catch (e) { if (k >= tries || !/ 503 /.test(e.message)) throw e; await new Promise(r => setTimeout(r, 1500)); }
+    }
+  }
+  async function once(path, body, method) {
     const r = await fetch(cfg.scrt + path, {
       method,
       headers: { "Content-Type": "application/json", ...(token ? { Authorization: "Bearer " + token } : {}) },

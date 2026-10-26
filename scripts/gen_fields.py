@@ -105,6 +105,7 @@ for obj, fields in FIELDS.items():
 # Formula fields (hand-written in objects/Case/fields) are read-only
 perms += [f"    <fieldPermissions><editable>false</editable><field>Case.{f}</field><readable>true</readable></fieldPermissions>"
           for f in ("Fin_Resolved__c", "Fin_CSAT_Positive__c")]
+perms.append("    <fieldPermissions><editable>true</editable><field>MessagingSession.Fin_Case__c</field><readable>true</readable></fieldPermissions>")
 
 os.makedirs(os.path.join(ROOT, "permissionsets"), exist_ok=True)
 with open(os.path.join(ROOT, "permissionsets", "Yelp_Keep_Grow.permissionset-meta.xml"), "w") as f:

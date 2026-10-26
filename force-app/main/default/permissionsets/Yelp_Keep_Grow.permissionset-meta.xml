@@ -30,9 +30,15 @@
     <fieldPermissions><editable>true</editable><field>Account.Paused_Until__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Leads_Last_30_Days__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Cost_Per_Lead__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Account.Renewal_Date__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Account.Annual_Ad_Spend__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Account.Customer_Since__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Account.Part2_Demo__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Opportunity.Part2_Demo__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>Case.Fin_Resolved__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>Case.Fin_CSAT_Positive__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Account.Renewal_Likelihood__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Account.Renewal_Outlook__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Account.Budget_Used_Pct__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>MessagingSession.Fin_Case__c</field><readable>true</readable></fieldPermissions>
 </PermissionSet>

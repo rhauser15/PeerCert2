@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Renewal_Outlook__c</fullName>
+    <label>Renewal Outlook</label>
+    <description>Renewal outlook from the latest churn risk Fin flagged.</description>
+    <formula>IF(ISPICKVAL(Churn_Risk__c, &quot;High&quot;), &quot;At risk&quot;, IF(ISPICKVAL(Churn_Risk__c, &quot;Medium&quot;), &quot;Watch&quot;, &quot;Likely&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <type>Text</type>
+</CustomField>

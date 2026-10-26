@@ -80,6 +80,9 @@ FIELDS = {
         "Paused_Until__c": date("Paused Until", "When a paused location's ads restart."),
         "Leads_Last_30_Days__c": num("Leads (Last 30 Days)", "Leads this location received in the last 30 days."),
         "Cost_Per_Lead__c": cur("Cost per Lead", "Ad spend divided by leads, last 30 days."),
+        "Renewal_Date__c": date("Renewal Date", "When the customer's annual Yelp agreement renews."),
+        "Annual_Ad_Spend__c": cur("Annual Ad Spend", "Ad spend across all locations over the last 12 months."),
+        "Customer_Since__c": date("Customer Since", "When the account became a Yelp Ads customer."),
         "Part2_Demo__c": chk("Keep & Grow demo record", "Created by the Keep & Grow demo seed."),
     },
     "Opportunity": {
@@ -107,9 +110,33 @@ for obj, fields in FIELDS.items():
         perms.append(f"    <fieldPermissions><editable>true</editable><field>{obj}.{name}</field>"
                      f"<readable>true</readable></fieldPermissions>")
 
-# Formula fields (hand-written in objects/Case/fields) are read-only
+# Formula fields (hand-written below and in objects/Case/fields) are read-only
 perms += [f"    <fieldPermissions><editable>false</editable><field>Case.{f}</field><readable>true</readable></fieldPermissions>"
           for f in ("Fin_Resolved__c", "Fin_CSAT_Positive__c")]
+FORMULAS = {
+    "Renewal_Likelihood__c": ("Likelihood to Renew", "Renewal likelihood score (0-100), lowered by churn risk Fin flags.",
+                              "<type>Number</type><precision>4</precision><scale>1</scale>",
+                              "IF(ISPICKVAL(Churn_Risk__c, \"High\"), 58.4, IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), 71.2, 79.5))"),
+    "Renewal_Outlook__c": ("Renewal Outlook", "Renewal outlook from the latest churn risk Fin flagged.",
+                           "<type>Text</type>",
+                           "IF(ISPICKVAL(Churn_Risk__c, \"High\"), \"At risk\", IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), \"Watch\", \"Likely\"))"),
+    "Budget_Used_Pct__c": ("Budget Used (MTD)", "Share of this month's ad budget spent, across all locations.",
+                           "<type>Number</type><precision>3</precision><scale>0</scale>",
+                           "IF(OR(ISBLANK(Monthly_Budget_Cap__c), Monthly_Budget_Cap__c = 0), 0, ROUND(Budget_Spent_MTD__c / Monthly_Budget_Cap__c * 100, 0))"),
+}
+for name, (label, desc, typ, formula) in FORMULAS.items():
+    with open(os.path.join(ROOT, "objects", "Account", "fields", f"{name}.field-meta.xml"), "w") as f:
+        f.write(f"""<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>{name}</fullName>
+    <label>{label}</label>
+    <description>{desc}</description>
+    <formula>{formula.replace('"', '&quot;')}</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    {typ}
+</CustomField>
+""")
+    perms.append(f"    <fieldPermissions><editable>false</editable><field>Account.{name}</field><readable>true</readable></fieldPermissions>")
 perms.append("    <fieldPermissions><editable>true</editable><field>MessagingSession.Fin_Case__c</field><readable>true</readable></fieldPermissions>")
 
 os.makedirs(os.path.join(ROOT, "permissionsets"), exist_ok=True)

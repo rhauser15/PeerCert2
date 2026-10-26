@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Since__c</fullName>
+    <label>Customer Since</label>
+    <description>When the account became a Yelp Ads customer.</description>
+    <inlineHelpText>When the account became a Yelp Ads customer.</inlineHelpText>
+    <type>Date</type>
+</CustomField>

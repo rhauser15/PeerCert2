@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Ad_Spend__c</fullName>
+    <label>Annual Ad Spend</label>
+    <description>Ad spend across all locations over the last 12 months.</description>
+    <inlineHelpText>Ad spend across all locations over the last 12 months.</inlineHelpText>
+    <type>Currency</type><precision>12</precision><scale>0</scale>
+</CustomField>

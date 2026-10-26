@@ -143,6 +143,8 @@ def build():
                         Cost_Per_Lead__c=round(spent / leads), Budget_Status__c="Active", Churn_Risk__c="Low",
                         Fin_Sentiment__c="Positive",
                         Last_Fin_Conversation__c=f"{TODAY - dt.timedelta(days=19)}T20:05:00.000Z",
+                        Renewal_Date__c=D.RENEWAL["close"], Annual_Ad_Spend__c=D.RENEWAL["amount"], Customer_Since__c="2024-03-12",
+                        AccountNumber="YLP-104471", NumberOfEmployees=480, Website="whitakerhospitality.example.com",
                         Description="Multi-location customer since 2024. 7 Dave's Hot Chicken, 4 Jersey Mike's, "
                                     "1 Smoothie King across Denver metro and Colorado Springs.",
                         Part2_Demo__c=True, **owner))
@@ -167,6 +169,8 @@ def build():
                             Location_Count__c=locs, Churn_Risk__c=risk, Churn_Risk_Reason__c=reason or None,
                             Expansion_Signal__c=expansion or None, Fin_Sentiment__c=sentiment,
                             Monthly_Budget_Cap__c=locs * 650, Budget_Spent_MTD__c=locs * 520,
+                            Annual_Ad_Spend__c=locs * 650 * 12, Customer_Since__c=f"{2021 + n % 4}-0{1 + n % 9}-15",
+                            Renewal_Date__c=str(TODAY + dt.timedelta(days=30 + 23 * n)),
                             Last_Fin_Conversation__c=f"{TODAY - dt.timedelta(days=1 + n % 9)}T17:30:00.000Z",
                             Part2_Demo__c=True, **owner))
         contacts.append(rec("Contact", "c" + r, FirstName=first[n], LastName=last[n], Title="Owner",

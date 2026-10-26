@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Renewal_Likelihood__c</fullName>
+    <label>Likelihood to Renew</label>
+    <description>Renewal likelihood score (0-100), lowered by churn risk Fin flags.</description>
+    <formula>IF(ISPICKVAL(Churn_Risk__c, &quot;High&quot;), 58.4, IF(ISPICKVAL(Churn_Risk__c, &quot;Medium&quot;), 71.2, 79.5))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <type>Number</type><precision>4</precision><scale>1</scale>
+</CustomField>

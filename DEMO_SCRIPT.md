@@ -36,12 +36,12 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
-- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u8zUHAAY/view)
+- [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u9b6XAAQ/view)
 - [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU)
 
 **Section 3 · Write-back and alerts**
-- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016xpLuAAI/view)
-- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHPNdAAP/view)
+- [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016z20vAAA/view)
+- [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016xkSfAAI)
 
 **Section 4 · Alisha's view**
@@ -149,23 +149,34 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - spend by location
      - **suggested next step**: "Set up a call with Sam to optimize Aurora location spend during the 90-day pause. Scope the new opportunity for the Castle Rock location."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
-3. **Details tab → Fin Signals** (first section):
-   - Churn Risk **High**: "Not seeing value at Aurora… conserving spend ahead of the Castle Rock launch".
-   - Expansion Signal: **New location: Castle Rock, opening January**.
-   - Sentiment, Last Fin Conversation, locations, monthly budget, spend this month, leads and cost per lead.
-   - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
-4. **Related → Cases:** both of tonight's cases, both closed:
-   - "Fin resolved: Ad not showing (Westminster)", with CSAT 5.
-   - The handoff case, with Retention Offer = 90-day pause.
+3. **Left column, top: the account card.**
+   - **Renewal Date:** Dec 31, 2026
+   - **Likelihood to Renew:** 58.4, *At risk*. It was 79.5 before Fin flagged churn risk tonight.
+   - **Locations:** 12, plus Brands, **Annual Ad Spend** ($119,760) and **Budget Used (MTD)**.
+   - **Left column, below it: Cases.** Both of tonight's cases, closed:
+     - "Fin resolved: Ad not showing (Westminster)", with CSAT 5.
+     - The handoff case, with Retention Offer = 90-day pause.
    - **[Say]** "Support is done. Tom isn't walking into an open problem."
-5. **Related → child accounts:**
+4. **Right column: Account Health (Einstein).** "Likely to Renew? 58.4%, ↓ 21.1% vs last change." The top predictors:
+   - Fin flagged churn risk (Aurora): **-14.6%**
+   - Location cost per lead is 2.4x the average: **-7.9%**
+   - Expansion signal, new location: **+9.1%**
+   - **[Salesforce]** Einstein predictive scoring surfaces what moves the renewal, here the signals that came from a support conversation. *(Demo note: this is the org's Einstein Discovery demo dashboard, set up with this scenario's numbers. Score and predictors are illustrative.)*
+5. **Details tab:**
+   - **Account Information** now includes Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
+   - **Fin Signals** (next section):
+     - Churn Risk **High**: "Not seeing value at Aurora… conserving spend ahead of the Castle Rock launch".
+     - Expansion Signal: **New location: Castle Rock, opening January**.
+     - Sentiment, Last Fin Conversation, locations, monthly budget, spend this month, leads and cost per lead.
+     - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
+6. **Related → child accounts:**
    - **Dave's Hot Chicken - Aurora:** Paused - Customer Request for 90 days. The location was saved, not cancelled.
    - **Dave's Hot Chicken - Westminster:** back to Active with a $1,500 cap from Fin's Procedure.
-6. **Related → Opportunities:**
+7. **Related → Opportunities:**
    - **Annual Renewal:** $119,760, closes Dec 31.
    - **New:** "Whitaker Hospitality Group - New location: Castle Rock, opening January". Qualification stage, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…" and names the case.
    - **[Salesforce]** Same Flow, same moment: the expansion signal became a real opportunity in Tom's pipeline.
-7. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
+8. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
    - **[Say]** "A support conversation at 9pm just protected the renewal and created pipeline. That's the bridge to Part 1: Tom can hand Castle Rock to Hunter to build the launch plan."
 
 ## 4 · Alisha's view (3 min)
@@ -219,7 +230,7 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
   - Fin case card in the center
   - LWC `finCopilot` and screen Flow *Support Tools* on the right
   - screen Flow *Case Resolved* under the conversation
-- **Tom's view:** a "Fin Signals" section on the Sales for Tech account page (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
+- **Tom's view:** on Part 2 accounts, the Sales for Tech account page shows a Yelp account card (renewal date, likelihood to renew, spend), a Cases list on the left, the *Yelp - Account Health (Keep and Grow)* Einstein dashboard on the right, and extra Account Information fields. Other accounts see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created. It updates the account and creates the expansion opportunity.
 - **Alert:** Flow *Yelp - Fin Case Resolved Alert* runs when that case is closed (Case resolved button):
   - creates the brief task

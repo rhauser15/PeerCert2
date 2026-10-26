@@ -82,7 +82,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 1. Open the **Case** from the session: Fin Involved, Fin Resolution State "Routed to team", the transcript, summary, Churn Risk = High (Aurora, performance), Expansion Signal = new location in January, sentiment.
 2. Open **Whitaker Hospitality Group**: the account now carries Churn Risk, the reason, the Expansion Signal and Last Fin Conversation. Aurora's location shows the new $1,200 cap and Active.
 3. The record-triggered Flow also opened an **Expansion opportunity** ("Whitaker Hospitality Group - New location: Castle Rock, opening January") for Tom and sent Tom a **renewal brief** (Tom's task): health, open cases, the renewal, spend by location, and a suggested next step.
-4. **Slack:** the same brief posts to Tom in Slack once the Slack actions are enabled in this org (see Setup notes below). Until then, show the brief task.
+4. **Slack:** the same brief posts to **#sales-notifications** (slack-demo-46882) a few seconds after the handoff: health, renewal, spend by location, suggested next step and a link to the account.
 
 ## 4 · Alisha's view (3 min)
 
@@ -100,5 +100,6 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **Live chat:** Messaging channel *Yelp - Fin Handoff*, Custom Client deployment *Yelp - Fin Handoff* (must be published in Setup → Embedded Service Deployments), routing Flow *Yelp - Fin Handoff Routing* → Messaging queue (*SDO_Service_Messaging*). The Messenger sends Fin's data as hidden pre-chat parameters (summary and transcript are split into 255-character chunks and rejoined by the Flow).
 - **Copilot:** LWC `finCopilot` on the *Messaging Session - Fin Handoff* page, assigned in the Service Console for Tech app.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a Fin handoff case is created.
-- **Slack:** the org doesn't expose Flow's "Send Slack Message" action yet. In Setup → Slack, connect the slack-demo-46882 workspace and enable Slack apps for Flow, then the brief can post to Tom.
+- **Slack:** the write-back Flow posts with the Sales Cloud for Slack app (A028VJ1KG3G) to workspace T0C4N1TMPN3, channel C0CC7K9PY06 (#sales-notifications). It runs on the Flow's async path, so a Slack failure never blocks the case.
+- **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin handoffs, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --reset` removes it all; Part 1 (Find & Win) records aren't touched.

@@ -48,6 +48,12 @@
         </filters>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Get_Locations</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <recordUpdates>
@@ -103,9 +109,6 @@
         <label>Did Fin hear an expansion signal?</label>
         <locationX>176</locationX>
         <locationY>270</locationY>
-        <defaultConnector>
-            <targetReference>Get_Locations</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes_Expansion</name>
@@ -129,9 +132,6 @@
         <locationX>50</locationX>
         <locationY>390</locationY>
         <assignRecordIdToReference>ExpansionId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Get_Locations</targetReference>
-        </connector>
         <inputAssignments>
             <field>Name</field>
             <value>
@@ -191,6 +191,9 @@
     <recordCreates>
         <name>Create_Brief</name>
         <label>Send renewal brief to account owner</label>
+        <connector>
+            <targetReference>Post_to_Slack</targetReference>
+        </connector>
         <locationX>176</locationX>
         <locationY>1230</locationY>
         <inputAssignments>
@@ -382,6 +385,19 @@
             <targetReference>Get_Renewal</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Slack_Failed</name>
+        <label>Slack post failed (brief task still created)</label>
+        <locationX>440</locationX>
+        <locationY>1470</locationY>
+        <assignmentItems>
+            <assignToReference>SlackError</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
     <constants>
         <name>NL</name>
         <dataType>String</dataType>
@@ -453,6 +469,28 @@ Suggested next step
 Fin summary
 {!$Record.Fin_Summary__c}</text>
     </textTemplates>
+    <textTemplates>
+        <name>SlackBrief</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>*Renewal brief: {!$Record.Account.Name}* (for {!$Record.Account.Owner.FirstName} {!$Record.Account.Owner.LastName})
+Fin flagged this account in a conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName} today.
+
+*Health*
+- Churn risk: *{!$Record.Churn_Risk__c}* ({!$Record.Churn_Risk_Reason__c})
+- Expansion signal: *{!$Record.Expansion_Signal__c}* (expansion opportunity created)
+- Sentiment: {!$Record.Fin_Sentiment__c}
+- Open cases: {!OpenCases}
+
+*Renewal*
+- {!Get_Renewal.Name}: ${!Get_Renewal.Amount}, closes {!Get_Renewal.CloseDate}
+
+*Spend by location*{!SpendByLocation}
+
+*Suggested next step*
+{!NextStep}
+
+&lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/{!$Record.AccountId}/view|Open {!$Record.Account.Name} in Salesforce&gt;</text>
+    </textTemplates>
     <variables>
         <name>SpendByLocation</name>
         <dataType>String</dataType>
@@ -475,4 +513,48 @@ Fin summary
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
+    <variables>
+        <name>SlackError</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <actionCalls>
+        <name>Post_to_Slack</name>
+        <label>Post renewal brief to #sales-notifications</label>
+        <locationX>176</locationX>
+        <locationY>1350</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <faultConnector>
+            <targetReference>Slack_Failed</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>T0C4N1TMPN3</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <stringValue>C0CC7K9PY06</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackBrief</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+    </actionCalls>
 </Flow>

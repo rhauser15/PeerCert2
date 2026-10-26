@@ -4,7 +4,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **The story in two conversations**
 - **Issue 1 (Fin alone):** Aurora's ad stopped, plus a billing question. Fin resolves both, Sam rates it *Amazing*, and Fin logs a resolved case in Salesforce. No person involved.
-- **Issue 2 (Fin + John):** Sam wants to drop Aurora and is opening Castle Rock. Fin hands off to John with everything attached. John resolves it with Copilot, closes the case, and Salesforce turns the conversation into a churn save and an expansion opportunity for Tom.
+- **Issue 2 (Fin + John):** Sam wants to cancel Aurora and move that spend to a new location in Castle Rock. Fin hands off to John with everything attached. John saves the location with a pause, closes the case, and Salesforce alerts Tom with a new expansion opportunity.
 
 **Callout key used below**
 - **[Fin]** what Fin does, and why Fin is the right tool for that moment
@@ -42,7 +42,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 **Section 3 · Write-back and alerts**
 - [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016vO02AAE/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AH2Z7AAL/view)
-- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUePAAU)
+- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016v2FfAAI)
 
 **Section 4 · Alisha's view**
 - [Customer Success: Fin Conversations dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
@@ -58,7 +58,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 2. **Salesforce (window 1):** sign in as Rob, open **Service Console for Tech** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
-5. **Tabs to pre-open:** slides.html, fin.html, and the dashboard link.
+5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Sales for Tech** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
 **Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
@@ -94,8 +94,8 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 7. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
 8. **Click "Send us a message".** A new conversation starts.
-9. **Press →.** Sam: "Honestly the Aurora spot isn't paying off. I'm thinking of dropping it. I'm also opening a new location in Castle Rock in January." Fin gives the numbers ($64 per lead vs about $27 at his other Dave's) and connects him to the Multi-Location team. "Connecting you to the team…"
-   - **[Fin]** Fin recognizes churn risk and an expansion signal, and a cancellation is a conversation Yelp wants a person to have. Its Procedure hands off with a summary and sets attributes: Contact reason, Churn risk, Expansion signal, Sentiment.
+9. **Press →.** Sam: "I want to cancel Aurora. It isn't paying off. I'd rather move that spend to the new location I'm opening in Castle Rock in January." Fin gives the numbers ($64 per lead vs about $27 at his other Dave's) and connects him to the Multi-Location team. "Connecting you to the team…"
+   - **[Fin]** Fin recognizes churn risk (a cancellation) and an expansion signal (a new location), and that's a conversation Yelp wants a person to have. Its Procedure hands off with a summary and sets attributes: Contact reason, Churn risk, Expansion signal, Sentiment.
    - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes the chat to the Multi-Location queue.
 
 *Ties to:* replacing the Yelp Bot, case deflection, CSAT.
@@ -106,6 +106,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
    - **[Salesforce]** **Omni-Channel** pushed the chat to the right agent based on queue and capacity. John didn't pick it from a list.
 2. **Walk the page, left to right:**
    - **Left:** the live conversation, starting with Sam's message.
+   - **Center:** Engagement, Details, Knowledge and Related tabs. Identity Verification is removed, since Sam is already signed in.
    - **Right, top:** **Fin Copilot**.
    - **Right, middle:** **Fin Handoff Details**: Case number, Contact reason = Cancel a location, Fin Resolution State = Routed to team, Location = Aurora, Churn risk = High, Expansion signal = Castle Rock, Sentiment, and what Fin did earlier tonight.
    - **Right, bottom:** **Resolve Fin Handoff**.
@@ -113,9 +114,9 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 3. **In Copilot, click Summarize.** The Fin summary and signals appear.
 4. **In the Copilot box, type:** `What retention offers does a 12-location account qualify for?` and press Enter. The answer comes from the internal Multi-Location Retention Policy with numbered citations: 90-day pause, $240/month performance credit, $500 launch credit for Castle Rock, a free ads review. Point at "4 relevant sources found".
    - **[Fin]** Copilot gives agents the same knowledge Fin uses, inside Salesforce. One content set trains both the AI agent and the human agent.
-5. **Type:** `Draft a reply to Sam` and press Enter. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
+5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers a 90-day pause instead of cancelling, moves Aurora's $1,200 budget to Castle Rock when it opens, and mentions the $500 launch credit. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
    - In the help center window, John's reply appears in Sam's Fin Messenger as "John • Yelp Support".
-6. **Switch to window 2 and press →.** Sam: "The pause sounds good for Aurora. And yes, let's get Castle Rock set up." The message appears in the console.
+6. **Switch to window 2 and press →.** Sam: "That works. Pause Aurora and put the budget toward Castle Rock." The message appears in the console.
 
 **Resolve it**
 
@@ -126,23 +127,31 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 10. **In the console, end the conversation** (End Conversation button above the chat). The Messenger shows "The conversation has ended".
    - **[Salesforce]** With Agentforce for Service, the **work summary** that agents write after a chat can be generated for them. Mention it here; it isn't switched on in this org.
 
-## 3 · Write-back and alerts (4 min) · Salesforce and Slack
+## 3 · Tom's view: the account and a new opportunity (4 min) · Slack and Sales for Tech
 
-1. **Open the Case from the Fin Handoff Details card** (click the case number):
-   - Status **Closed**, Retention Offer **90-day pause**, Resolution Notes.
-   - Fin Involved ✓, Fin Resolution State **Routed to team**.
-   - Fin Summary and Fin Transcript.
-   - Churn Risk = High (Aurora, performance), Expansion Signal = new location in January, Sentiment.
-2. **Open Whitaker Hospitality Group** (Account link on the case, or Direct links). Show:
-   - Churn Risk, Churn Risk Reason, Expansion Signal, Sentiment, Last Fin Conversation: written back by Flow.
-   - **Related → Cases:** both of tonight's cases. **"Fin resolved: Ad not showing (Aurora)"** is closed, with CSAT 5. The handoff case is closed with the retention offer.
-   - **Related → Child accounts → Dave's Hot Chicken - Aurora:** cap $1,200 from Fin's Procedure, then **Paused - Customer Request** until January from John's resolution.
-   - **[Salesforce]** One account record holds the AI conversation, the human conversation and the action taken. Nothing lives only in a chat tool.
-3. **Related → Opportunities:** "Whitaker Hospitality Group - New location: Castle Rock, opening January", owned by Tom, created by a **record-triggered Flow** from Fin's expansion signal.
-4. **Switch to Slack, #sales-notifications:** "Renewal brief: Whitaker Hospitality Group (for Tom Jones)". It covers health, open cases, the renewal, spend by location, a suggested next step and a link back to the account.
-   - **[Salesforce]** Flow posts to Slack through **Sales Cloud for Slack**, so the account team hears about churn risk and growth the same night, where they already work.
-   - **[Say]** "A support conversation just created pipeline. That's the bridge to Part 1: Tom can hand Castle Rock to Hunter to build the launch plan."
-5. *(Backup if Slack is slow: Tom's task "Renewal brief: Whitaker Hospitality Group" on the account has the same brief.)*
+Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out that night.
+
+1. **Switch to Slack, #sales-notifications.** The post reads "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has two links (the account and the new expansion opportunity) and a line saying why Tom is getting it.
+   - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, Fin flagged churn risk, and Fin heard growth."
+   - **[Salesforce]** A **record-triggered Flow** reads Fin's signals on the case and decides who needs to know: multi-location accounts (3+ locations) with High churn risk or an expansion signal. **Sales Cloud for Slack** delivers the alert where Tom already works.
+   - Scroll the post: what Fin heard, account health (open cases, the renewal), spend by location, and a suggested next step.
+2. **Click "Open Whitaker Hospitality Group in Salesforce".** The account opens in **Sales for Tech**. Pre-open that app in a tab so the link lands there.
+3. **Details tab → Fin Signals** (first section):
+   - Churn Risk **High**: "Wants to cancel Aurora and move its spend to Castle Rock".
+   - Expansion Signal: **New location: Castle Rock, opening January**.
+   - Sentiment, Last Fin Conversation, locations, monthly budget, spend this month, leads and cost per lead.
+   - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
+4. **Related → Cases:** both of tonight's cases, both closed:
+   - "Fin resolved: Ad not showing (Aurora)", with CSAT 5.
+   - The handoff case, with Retention Offer = 90-day pause.
+   - **[Say]** "Support is done. Tom isn't walking into an open problem."
+5. **Related → child accounts → Dave's Hot Chicken - Aurora:** Paused - Customer Request until January, budget $1,200. The location was saved, not cancelled.
+6. **Related → Opportunities:**
+   - **Annual Renewal:** $119,760, closes Dec 31.
+   - **New:** "Whitaker Hospitality Group - New location: Castle Rock, opening January". Qualification stage, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…" and names the case.
+   - **[Salesforce]** Same Flow, same moment: the expansion signal became a real opportunity in Tom's pipeline.
+7. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
+   - **[Say]** "A support conversation at 9pm just protected the renewal and created pipeline. That's the bridge to Part 1: Tom can hand Castle Rock to Hunter to build the launch plan."
 
 ## 4 · Alisha's view (3 min)
 
@@ -192,10 +201,12 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
     - Handoffs: creates an open case and routes to the Messaging queue (*SDO_Service_Messaging*).
   - Summary and transcript are split into 255-character chunks and rejoined by the Flow.
 - **Copilot and Resolve:** LWC `finCopilot` and screen Flow *Resolve Fin Handoff* are on the *Messaging Session - Fin Handoff* page, assigned in Service Console for Tech.
+- **Tom's view:** a "Fin Signals" section on the Sales for Tech account page (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created:
   - updates the account
   - creates the expansion opportunity
   - creates the brief task
+  - alerts the owner only for multi-location accounts (3+ locations) with High churn risk or an expansion signal
   - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CC7K9PY06
 - **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

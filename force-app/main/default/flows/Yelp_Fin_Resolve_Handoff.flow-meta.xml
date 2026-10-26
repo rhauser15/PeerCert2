@@ -355,7 +355,7 @@
     <textTemplates>
         <name>NotesDefault</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>{!Get_Case.Contact.FirstName} chose to pause {!Get_Case.Fin_Location__c} instead of cancelling. {!Get_Case.Expansion_Signal__c}: handed to the account owner.</text>
+        <text>{!Get_Case.Contact.FirstName} asked to cancel {!Get_Case.Fin_Location__c} and chose a 90-day pause instead, with its budget moving to the new location. {!Get_Case.Expansion_Signal__c}: handed to the account owner.</text>
     </textTemplates>
     <variables>
         <name>recordId</name>

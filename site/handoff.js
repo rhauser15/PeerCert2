@@ -152,7 +152,7 @@ window.Handoff = (() => {
     setTimeout(() => { join(); handlers.onTyping?.(true); }, 5000);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      handlers.onAgentMessage?.("Hi Sam, John here from the Multi-Location team. Thanks for being upfront about Aurora. Before you drop it, there are two options that keep it on Yelp: we can pause Aurora's ads for up to 90 days at no cost, so the page and its reviews stay up, or keep it running with a $240 credit for each of the next two months while our specialist retunes its targeting. And congratulations on Castle Rock! If its ads go live within 30 days of opening, you'll get $500 in launch credit. I've asked Tom, your account manager, to reach out this week so it's set up before you open. Which would you prefer for Aurora?");
+      handlers.onAgentMessage?.("Hi Sam, thanks for being upfront about Aurora. Instead of cancelling, we can pause Aurora's ads for up to 90 days at no cost, so the page and its reviews stay up, and move its $1,200 monthly budget to Castle Rock when it opens. If Castle Rock's ads go live within 30 days of opening, you'll also get $500 in launch credit. Tom, your account manager, will reach out this week to get it set up. Want me to set that up?");
     }, 9000);
   }
   let offlineTurn = 0;
@@ -161,7 +161,7 @@ window.Handoff = (() => {
     setTimeout(() => handlers.onTyping?.(true), 1500);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. Aurora's ads are paused for 90 days with no fee, so the page and its reviews stay up and you can restart any time. Tom, your account manager, will reach out this week to get Castle Rock set up before you open. Anything else I can help with tonight?");
+      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. Aurora's ads are paused for 90 days with no fee, so the page and its reviews stay up and you can restart any time. Its budget moves to Castle Rock when it opens, and Tom will reach out this week to get it set up. Anything else I can help with tonight?");
       else { handlers.onAgentMessage?.("Anytime, Sam. Good luck with Castle Rock!"); setTimeout(() => { active = false; handlers.onEnd?.(); }, 2500); }
     }, 5000);
   }

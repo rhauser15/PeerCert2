@@ -252,13 +252,13 @@ const RESOLVED_SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations
   "Sam confirmed that resolved it and rated the conversation Amazing.";
 const HANDOFF = {
   Fin_Email: DEMO.sam.email, Fin_Contact_Reason: "Cancel a location", Fin_Location: "Aurora", Fin_Churn_Risk: "High",
-  Fin_Churn_Reason: "Aurora ad performance: $64 per lead vs $27 at his other Dave's; considering cancelling",
+  Fin_Churn_Reason: "Wants to cancel Aurora and move its spend to Castle Rock ($64 per lead vs $27 at his other Dave's)",
   Fin_Expansion_Signal: "New location: Castle Rock, opening January", Fin_Sentiment: "Neutral",
   Fin_Actions: "Earlier tonight Fin resolved Aurora's paused ad (cap raised to $1,200; rated Amazing). Procedure 'Cancel or add a location': handed off to the Multi-Location team.",
 };
-const HANDOFF_SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations) says the Dave's Hot Chicken Aurora location isn't paying off " +
-  "($64 per lead vs about $27 at his other Dave's locations) and is thinking of dropping it. " +
-  "He is also opening a new location in Castle Rock in January. Earlier tonight Fin raised Aurora's budget cap to $1,200 after its ad paused.";
+const HANDOFF_SUMMARY = "Sam Whitaker (Whitaker Hospitality Group, 12 locations) wants to cancel the Dave's Hot Chicken Aurora location because it isn't paying off " +
+  "($64 per lead vs about $27 at his other Dave's locations) and move that spend to a new location he's opening in Castle Rock in January. " +
+  "Earlier tonight Fin raised Aurora's budget cap to $1,200 after its ad paused.";
 const transcript = () => log.map(([w, t]) => `${w}: ${t}`).join("\n");
 const GREETING = "<p>Hi Sam! You're speaking with Fin, Yelp's AI agent. I can help with your ads, billing and business pages, and you can ask for the team at any time.</p>";
 
@@ -282,7 +282,7 @@ function showHome() {
 }
 function newConversation() { $("mc").style.display = ""; thread.innerHTML = ""; log.length = 0; fin(GREETING); }
 
-const AFTER_PAUSE = "The pause sounds good for Aurora. And yes, let's get Castle Rock set up.";
+const AFTER_PAUSE = "That works. Pause Aurora and put the budget toward Castle Rock.";
 const steps = [
   ["Tuesday, 9:04 PM. Sam is on the Yelp for Business help center.", async () => {}],
   ["Sam opens the Fin Messenger.", async i => {
@@ -336,12 +336,12 @@ const steps = [
     if (!i && !Presenter.clicked()) await Presenter.press($("newConv"));
     newConversation();
   }],
-  ["Issue 2: Aurora isn't paying off, and he's opening Castle Rock. Fin hands off to John.", async i => {
-    const last = "Honestly the Aurora spot isn't paying off. I'm thinking of dropping it. I'm also opening a new location in Castle Rock in January.";
+  ["Issue 2: Sam wants to cancel Aurora and move the spend to Castle Rock. Fin hands off to John.", async i => {
+    const last = "I want to cancel Aurora. It isn't paying off. I'd rather move that spend to the new location I'm opening in Castle Rock in January.";
     await say(last, i);
     await think(i, 1700);
-    fin(`<p>That's worth a closer look. Over the last 30 days Aurora got 14 leads at <b>$64 per lead</b>, compared with about $27 at your other Dave's Hot Chicken locations.</p>
-      <p>Since you're thinking about cancelling one location and opening another, I'll connect you with our Multi-Location team. They can go over options for Aurora and get Castle Rock ready before it opens. I've passed along our conversation so you won't need to repeat anything.</p>`);
+    fin(`<p>I can see why. Over the last 30 days Aurora got 14 leads at <b>$64 per lead</b>, compared with about $27 at your other Dave's Hot Chicken locations.</p>
+      <p>Cancelling a location and moving its budget to a new one is something our Multi-Location team handles, so I'll connect you now. They can go over your options for Aurora and get Castle Rock's ads ready before it opens. I've passed along our conversation so you won't need to repeat anything.</p>`);
     note("Connecting you to the team…");
     if (i) return;
     await Handoff.start({
@@ -353,7 +353,7 @@ const steps = [
       onEnd: () => { hideAgentTyping(); note("The conversation has ended"); },
     });
   }],
-  ["Live: John sends Copilot's reply. Sam picks the pause.", async i => {
+  ["Live: John sends Copilot's reply. Sam takes the pause and the move.", async i => {
     await say(AFTER_PAUSE, i);
     if (!i) Handoff.send(AFTER_PAUSE);
   }],

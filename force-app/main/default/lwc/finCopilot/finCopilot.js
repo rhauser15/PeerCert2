@@ -172,23 +172,18 @@ export default class FinCopilot extends LightningElement {
     reply() {
         const f = this.facts();
         const cite = (n) => `<span class="cite">${n}</span>`;
-        const castle = f.expansion
-            ? ` And congratulations on Castle Rock! If its ads go live within 30 days of opening, you'll get $500 in launch credit. I've asked ${f.owner}, your account manager, to reach out this week so it's set up before you open.`
+        const budget = money(this.ctx.locationCap || 1200);
+        const p1 =
+            `Hi ${f.first}, thanks for being upfront about ${f.loc}. Instead of cancelling, we can pause ${f.loc}'s ads for up to 90 days at no cost, ` +
+            `so the page and its reviews stay up, and move its ${budget} monthly budget to Castle Rock when it opens.`;
+        const p2 = f.expansion
+            ? `If Castle Rock's ads go live within 30 days of opening, you'll also get $500 in launch credit. ${f.owner}, your account manager, will reach out this week to get it set up.`
             : '';
-        const text =
-            `Hi ${f.first}, thanks for being upfront about ${f.loc}. Before you drop it, there are two options that keep it on Yelp: ` +
-            `we can pause ${f.loc}'s ads for up to 90 days at no cost, so the page and its reviews stay up, or keep it running with a ` +
-            `${money(f.credit)} credit for each of the next two months while our specialist retunes its targeting.${castle} ` +
-            `Which would you prefer for ${f.loc}?`;
+        const p3 = 'Want me to set that up?';
         return {
-            html:
-                `<p>Hi ${f.first}, thanks for being upfront about ${f.loc}. Before you drop it, there are two options that keep it on Yelp: ` +
-                `we can pause ${f.loc}'s ads for up to 90 days at no cost, so the page and its reviews stay up, or keep it running with a ` +
-                `${money(f.credit)} credit for each of the next two months while our specialist retunes its targeting. ${cite(1)} ${cite(2)}</p>` +
-                (castle ? `<p>${castle.trim()} ${cite(3)}</p>` : '') +
-                `<p>Which would you prefer for ${f.loc}?</p>`,
-            text,
-            sources: ['policy', 'credit', 'launch', 'pause'],
+            html: `<p>${p1} ${cite(1)} ${cite(2)}</p>` + (p2 ? `<p>${p2} ${cite(3)}</p>` : '') + `<p>${p3}</p>`,
+            text: [p1, p2, p3].filter((x) => x).join(' '),
+            sources: ['policy', 'pause', 'launch', 'credit'],
             composer: true
         };
     }
@@ -201,8 +196,8 @@ export default class FinCopilot extends LightningElement {
             ? ` ${f.owner}, your account manager, will reach out this week to get Castle Rock set up before you open.`
             : '';
         const text =
-            `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time.` +
-            `${castle} Anything else I can help with tonight?`;
+            `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time. ` +
+            `Its budget moves to Castle Rock when it opens.${castle} Anything else I can help with tonight?`;
         return {
             html: `<p>${text} ${cite(1)}</p>`,
             text,

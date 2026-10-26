@@ -131,7 +131,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 8. **In Copilot, type:** `Draft a confirmation` and press Enter. Click **Add to composer**, then **Send**. Sam sees the confirmation in the Messenger.
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
 10. **In the console, click End Chat** above the conversation. The Messenger shows "The conversation has ended".
-11. **Under the conversation, click Case resolved.** The case closes and you see "{Case} resolved. Tom Jones gets the account alert in Slack."
+11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
    - **[Salesforce]** Closing the case is what alerts sales. A record-triggered Flow fires on resolution, so Tom hears about it once support has finished, with the outcome included.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
 

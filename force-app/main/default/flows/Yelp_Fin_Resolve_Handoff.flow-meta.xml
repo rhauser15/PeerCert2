@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
-    <description>Keep and Grow demo. On the Messaging Session page: the agent records the retention offer the customer accepted, applies it to the location, and closes the case Fin opened at handoff.</description>
-    <label>Resolve Fin Handoff</label>
+    <description>Keep and Grow demo. Support Tools on the Messaging Session page: pick a location and a retention action, then Confirm. Applies the action to the location and records it on the case Fin opened. The case stays open until the agent marks it resolved.</description>
+    <label>Support Tools</label>
     <processType>Flow</processType>
     <status>Active</status>
-    <interviewLabel>Resolve Fin Handoff {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Support Tools {!$Flow.CurrentDateTime}</interviewLabel>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -69,12 +69,12 @@
     </recordLookups>
     <recordLookups>
         <name>Get_Location</name>
-        <label>Get Location</label>
+        <label>Get the location Fin flagged</label>
         <locationX>50</locationX>
         <locationY>490</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Resolve</targetReference>
+            <targetReference>Tools</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -89,6 +89,27 @@
             <operator>Contains</operator>
             <value>
                 <elementReference>Get_Case.Fin_Location__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Selected</name>
+        <label>Get Selected Location</label>
+        <locationX>50</locationX>
+        <locationY>730</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Which_Action</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Location</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -128,62 +149,81 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Is_Pause</name>
-        <label>Pause the location?</label>
+        <name>Which_Action</name>
+        <label>Which action?</label>
         <locationX>50</locationX>
-        <locationY>730</locationY>
+        <locationY>850</locationY>
         <defaultConnector>
-            <targetReference>Close_Case</targetReference>
+            <targetReference>Record_On_Case</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <defaultConnectorLabel>Credit or review</defaultConnectorLabel>
         <rules>
             <name>Pause</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Offer</leftValueReference>
+                <leftValueReference>Action</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>90-day pause</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Get_Location.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Pause_Location</targetReference>
             </connector>
-            <label>Yes</label>
+            <label>Pause</label>
+        </rules>
+        <rules>
+            <name>Cancel</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Action</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None - location cancelled</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Cancel_Location</targetReference>
+            </connector>
+            <label>Cancel</label>
         </rules>
     </decisions>
     <screens>
-        <name>Resolve</name>
-        <label>Resolve</label>
+        <name>Tools</name>
+        <label>Support tools</label>
         <locationX>50</locationX>
         <locationY>610</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Is_Pause</targetReference>
+            <targetReference>Get_Selected</targetReference>
         </connector>
         <fields>
-            <name>Intro</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Case {!Get_Case.CaseNumber}&lt;/b&gt; · {!Get_Case.Fin_Contact_Reason__c} · {!Get_Location.Name}&lt;/p&gt;&lt;p&gt;Record what the customer accepted. Pausing updates the location right away.&lt;/p&gt;</fieldText>
+            <name>Header</name>
+            <fieldText>&lt;p&gt;&lt;b style="font-size:14px"&gt;Support tools&lt;/b&gt;&lt;/p&gt;&lt;p&gt;{!Get_Case.Account.Name} · Case {!Get_Case.CaseNumber}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>Offer</name>
+            <name>Location</name>
+            <choiceReferences>LocationChoices</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Location.Id</elementReference>
+            </defaultValue>
+            <fieldText>Location</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Action</name>
             <choiceReferences>c_pause</choiceReferences>
             <choiceReferences>c_credit</choiceReferences>
             <choiceReferences>c_review</choiceReferences>
             <choiceReferences>c_cancel</choiceReferences>
             <dataType>String</dataType>
             <defaultSelectedChoiceReference>c_pause</defaultSelectedChoiceReference>
-            <fieldText>Retention offer accepted</fieldText>
+            <fieldText>Action</fieldText>
             <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
         </fields>
@@ -193,11 +233,11 @@
             <defaultValue>
                 <elementReference>NotesDefault</elementReference>
             </defaultValue>
-            <fieldText>Resolution notes</fieldText>
+            <fieldText>Notes</fieldText>
             <fieldType>LargeTextArea</fieldType>
             <isRequired>false</isRequired>
         </fields>
-        <nextOrFinishButtonLabel>Resolve case</nextOrFinishButtonLabel>
+        <nextOrFinishButtonLabel>Confirm</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -205,13 +245,13 @@
         <name>Done</name>
         <label>Done</label>
         <locationX>176</locationX>
-        <locationY>1090</locationY>
+        <locationY>1210</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
             <name>DoneText</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;Case {!Get_Case.CaseNumber} resolved.&lt;/b&gt; Retention offer: {!Offer}.&lt;/p&gt;&lt;p&gt;{!DoneDetail}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b style="font-size:14px"&gt;Support tools&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Done:&lt;/b&gt; {!DoneDetail}&lt;/p&gt;&lt;p&gt;Recorded on case {!Get_Case.CaseNumber}. Mark the case resolved when the conversation is done.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>false</showFooter>
@@ -227,7 +267,7 @@
         <allowPause>false</allowPause>
         <fields>
             <name>NoCaseText</name>
-            <fieldText>&lt;p&gt;{!NoCaseMessage}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b style="font-size:14px"&gt;Support tools&lt;/b&gt;&lt;/p&gt;&lt;p&gt;{!NoCaseMessage}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>false</showFooter>
@@ -237,19 +277,18 @@
         <name>Pause_Location</name>
         <label>Pause the location's ads</label>
         <locationX>50</locationX>
-        <locationY>850</locationY>
+        <locationY>970</locationY>
         <connector>
-            <targetReference>Close_Case</targetReference>
+            <targetReference>Record_On_Case</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Location.Id</elementReference>
+                <elementReference>Location</elementReference>
             </value>
         </filters>
-        <object>Account</object>
         <inputAssignments>
             <field>Budget_Status__c</field>
             <value>
@@ -262,12 +301,37 @@
                 <elementReference>PauseUntil</elementReference>
             </value>
         </inputAssignments>
+        <object>Account</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Close_Case</name>
-        <label>Resolve the case</label>
-        <locationX>176</locationX>
+        <name>Cancel_Location</name>
+        <label>Cancel the location</label>
+        <locationX>314</locationX>
         <locationY>970</locationY>
+        <connector>
+            <targetReference>Record_On_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Location</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Budget_Status__c</field>
+            <value>
+                <stringValue>Cancelled</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Record_On_Case</name>
+        <label>Record the action on the case</label>
+        <locationX>176</locationX>
+        <locationY>1090</locationY>
         <connector>
             <targetReference>Done</targetReference>
         </connector>
@@ -280,15 +344,9 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Closed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Retention_Offer__c</field>
             <value>
-                <elementReference>Offer</elementReference>
+                <elementReference>Action</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -299,6 +357,23 @@
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
+    <dynamicChoiceSets>
+        <name>LocationChoices</name>
+        <dataType>String</dataType>
+        <displayField>Name</displayField>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.AccountId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <sortField>Name</sortField>
+        <sortOrder>Asc</sortOrder>
+        <valueField>Id</valueField>
+    </dynamicChoiceSets>
     <choices>
         <name>c_pause</name>
         <choiceText>Pause ads for 90 days, no fee</choiceText>
@@ -345,7 +420,11 @@
     <formulas>
         <name>DoneDetail</name>
         <dataType>String</dataType>
-        <expression>IF({!Offer} = "90-day pause", {!Get_Location.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ". The page and reviews stay live. ", "") &amp; IF(ISBLANK({!Get_Case.Expansion_Signal__c}), "", "The expansion opportunity is with the account owner.")</expression>
+        <expression>CASE({!Action},
+"90-day pause", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee. The page and reviews stay live.",
+"Performance credit", "Performance credit of $" &amp; TEXT(ROUND(BLANKVALUE({!Get_Selected.Monthly_Budget_Cap__c}, 0) * 0.2, 0)) &amp; "/month for 2 months on " &amp; {!Get_Selected.Name} &amp; ".",
+"Free ads review", "Free Ads Optimization review requested for " &amp; {!Get_Selected.Name} &amp; ".",
+{!Get_Selected.Name} &amp; " is cancelled.")</expression>
     </formulas>
     <formulas>
         <name>NoCaseMessage</name>

@@ -39,7 +39,7 @@ window.SF_LINKS = [
    ],
    [
     "Fin write-back Flow (account, expansion opportunity, renewal brief)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016v2FfAAI"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016xkSfAAI"
    ]
   ]
  ],

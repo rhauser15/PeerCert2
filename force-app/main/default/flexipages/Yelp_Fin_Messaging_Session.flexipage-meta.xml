@@ -312,6 +312,15 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties><name>lookupFieldName</name><value>MessagingSession.CaseId</value></componentInstanceProperties>
+                <componentInstanceProperties><name>titleFieldName</name><value>Case.Subject</value></componentInstanceProperties>
+                <componentInstanceProperties><name>updateQuickActionName</name><value>Case.Fin_Handoff_Details</value></componentInstanceProperties>
+                <componentName>console:relatedRecord</componentName>
+                <identifier>console_relatedRecord_finCase</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-fb64bf9d-7062-47d3-9015-aeecf51e86a6</value>
@@ -328,15 +337,6 @@
             <componentInstance>
                 <componentName>finCopilot</componentName>
                 <identifier>c_finCopilot</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties><name>lookupFieldName</name><value>MessagingSession.CaseId</value></componentInstanceProperties>
-                <componentInstanceProperties><name>titleFieldName</name><value>Case.Subject</value></componentInstanceProperties>
-                <componentInstanceProperties><name>updateQuickActionName</name><value>Case.Fin_Handoff_Details</value></componentInstanceProperties>
-                <componentName>console:relatedRecord</componentName>
-                <identifier>console_relatedRecord_finCase</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -392,6 +392,15 @@
                 </componentInstanceProperties>
                 <componentName>scrt:conversationBody</componentName>
                 <identifier>scrt_conversationBody</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties><name>flowArguments</name><value>[{&quot;label&quot;:&quot;recordId&quot;,&quot;dataType&quot;:&quot;String&quot;,&quot;supportsRecordId&quot;:true,&quot;value&quot;:&quot;{!Record.Id}&quot;}]</value></componentInstanceProperties>
+                <componentInstanceProperties><name>flowLayout</name><value>oneColumn</value></componentInstanceProperties>
+                <componentInstanceProperties><name>flowName</name><value>Yelp_Fin_Case_Resolved</value></componentInstanceProperties>
+                <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_caseResolved</identifier>
             </componentInstance>
         </itemInstances>
         <name>leftsidebar</name>

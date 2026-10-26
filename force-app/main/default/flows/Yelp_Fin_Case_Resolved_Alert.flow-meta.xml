@@ -378,7 +378,7 @@
     <formulas>
         <name>NextStep</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!$Record.Retention_Offer__c}) = "90-day pause", "Optimize " &amp; {!$Record.Fin_Location__c} &amp; " location spend during the 90-day pause. ", IF(TEXT({!$Record.Churn_Risk__c}) = "High", "Follow up on " &amp; {!$Record.Fin_Location__c} &amp; " before the renewal. ", "")) &amp; IF(ISBLANK({!$Record.Expansion_Signal__c}), "", "Scope the new opportunity for the " &amp; IF(AND(CONTAINS({!$Record.Expansion_Signal__c}, ":"), CONTAINS({!$Record.Expansion_Signal__c}, ",")), TRIM(MID({!$Record.Expansion_Signal__c}, FIND(":", {!$Record.Expansion_Signal__c}) + 1, FIND(",", {!$Record.Expansion_Signal__c}) - FIND(":", {!$Record.Expansion_Signal__c}) - 1)), "new") &amp; " location.")</expression>
+        <expression>IF(TEXT({!$Record.Retention_Offer__c}) = "90-day pause", "Set up a call with " &amp; {!$Record.Contact.FirstName} &amp; " to optimize " &amp; {!$Record.Fin_Location__c} &amp; " location spend during the 90-day pause. ", IF(TEXT({!$Record.Churn_Risk__c}) = "High", "Follow up on " &amp; {!$Record.Fin_Location__c} &amp; " before the renewal. ", "")) &amp; IF(ISBLANK({!$Record.Expansion_Signal__c}), "", "Scope the new opportunity for the " &amp; IF(AND(CONTAINS({!$Record.Expansion_Signal__c}, ":"), CONTAINS({!$Record.Expansion_Signal__c}, ",")), TRIM(MID({!$Record.Expansion_Signal__c}, FIND(":", {!$Record.Expansion_Signal__c}) + 1, FIND(",", {!$Record.Expansion_Signal__c}) - FIND(":", {!$Record.Expansion_Signal__c}) - 1)), "new") &amp; " location.")</expression>
     </formulas>
     <formulas>
         <name>OppLink</name>

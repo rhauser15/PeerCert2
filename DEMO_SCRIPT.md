@@ -112,13 +112,13 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 3. **In Copilot, click Summarize.** The Fin summary and signals appear.
 4. **In the Copilot box, type:** `What should I offer Sam for Aurora?` and press Enter. Copilot answers from the Multi-Location Retention Policy, with numbered citations:
    - **Pause Aurora's ads for 90 days, no fee**, or **extend a retention credit** ($180/month for 2 months, since Aurora's cost per lead is more than 2x his other locations).
-   - **Suggested touchpoint:** a call with Sam and Tom to review Aurora's ad spend given its results, and plan the Castle Rock launch budget.
+   - **Suggested touchpoint (for Tom):** a call with Sam to review Aurora's ad spend given its results, and plan the Castle Rock launch budget. John doesn't offer the call himself; it goes to Tom in the Slack alert.
    - **Heads up:** the Annual Renewal ($119,760) closes **December 31**.
    - Point at "4 relevant sources found".
    - **[Fin]** Copilot gives agents the same knowledge Fin uses, inside Salesforce. One content set trains both the AI agent and the human agent.
-5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers the 90-day pause or the $180 retention credit, and proposes a call with Tom to review Aurora's spend and plan Castle Rock. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
+5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers the 90-day pause or the $180 retention credit. It doesn't promise Sam a call; that suggestion goes to Tom in Slack. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
    - In the help center window, John's reply appears in Sam's Fin Messenger as "John • Yelp Support".
-6. **Switch to window 2 and press →.** Sam: "Let's do the 90-day pause. And yes, a call to go over spend before Castle Rock opens would help." The message appears in the console.
+6. **Switch to window 2 and press →.** Sam: "Let's do the 90-day pause on Aurora." The message appears in the console.
 
 **Resolve it**
 
@@ -147,7 +147,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - **how support resolved it** (case number, 90-day pause on Aurora, notes)
      - account health (open cases, the renewal)
      - spend by location
-     - **suggested next step**: "Optimize Aurora location spend during the 90-day pause. Scope the new opportunity for the Castle Rock location."
+     - **suggested next step**: "Set up a call with Sam to optimize Aurora location spend during the 90-day pause. Scope the new opportunity for the Castle Rock location."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
 3. **Details tab → Fin Signals** (first section):
    - Churn Risk **High**: "Not seeing value at Aurora… conserving spend ahead of the Castle Rock launch".

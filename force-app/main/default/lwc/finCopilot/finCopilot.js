@@ -163,7 +163,7 @@ export default class FinCopilot extends LightningElement {
                 `<p><b>Offer one of these before cancelling</b></p><ul>` +
                 `<li><b>Pause ${f.loc}'s ads for 90 days, no fee.</b> The page, reviews and ad history stay live while ${f.first} focuses spend on the new location. ${cite(1)}</li>` +
                 `<li><b>Or extend a retention credit:</b> ${f.loc}'s cost per lead (${money(f.cpl)}) is more than 2x his other locations (${money(f.avg)}), so it qualifies for 20% of its budget for 2 months: <b>${money(f.credit)}/month</b>. ${cite(2)}</li>` +
-                `</ul><p><b>Suggested touchpoint:</b> set up a call with ${f.first} and ${f.owner}, the account manager, to review ${f.loc}'s ad spend given its results, and plan the budget for Castle Rock's launch ($500 launch credit if its ads go live within 30 days of opening). ${cite(3)}</p>` +
+                `</ul><p><b>Suggested touchpoint (for ${f.owner}, the account manager):</b> a call with ${f.first} to review ${f.loc}'s ad spend given its results, and plan the budget for Castle Rock's launch ($500 launch credit if its ads go live within 30 days of opening). ${cite(3)}</p>` +
                 renewal,
             text: '',
             sources: ['policy', 'credit', 'launch', 'renewal'],
@@ -177,11 +177,10 @@ export default class FinCopilot extends LightningElement {
         const p1 =
             `Hi ${f.first}, thanks for being upfront about ${f.loc}. Two options before you cancel: we can pause ${f.loc}'s ads for 90 days at no cost, ` +
             `so the page and its reviews stay up while you focus spend on Castle Rock, or keep it running with a ${money(f.credit)} retention credit for each of the next two months.`;
-        const p2 = `Either way, I'd like to set up a call with you and ${f.owner}, your account manager, to review ${f.loc}'s ad spend and plan Castle Rock's launch.`;
-        const p3 = 'Which option works best?';
+        const p3 = 'Which option works best for you?';
         return {
-            html: `<p>${p1} ${cite(1)} ${cite(2)}</p><p>${p2}</p><p>${p3}</p>`,
-            text: [p1, p2, p3].join(' '),
+            html: `<p>${p1} ${cite(1)} ${cite(2)}</p><p>${p3}</p>`,
+            text: [p1, p3].join(' '),
             sources: ['policy', 'credit', 'pause'],
             composer: true
         };
@@ -193,7 +192,7 @@ export default class FinCopilot extends LightningElement {
         const cite = (n) => `<span class="cite">${n}</span>`;
         const text =
             `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time. ` +
-            `${f.owner} will reach out this week to set up a call to review ${f.loc}'s spend and plan Castle Rock's launch. Anything else I can help with tonight?`;
+            `Anything else I can help with tonight?`;
         return { html: `<p>${text} ${cite(1)}</p>`, text, sources: ['pause', 'policy'], composer: true };
     }
 

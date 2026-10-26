@@ -32,9 +32,9 @@ def dtm(label, desc):
     return "<type>DateTime</type>", label, desc
 
 
-def pick(label, desc, values):
+def pick(label, desc, values, restricted=True):
     vals = "".join(f"<value><fullName>{v}</fullName><default>false</default><label>{v}</label></value>" for v in values)
-    return ("<type>Picklist</type><valueSet><restricted>true</restricted>"
+    return (f"<type>Picklist</type><valueSet><restricted>{str(restricted).lower()}</restricted>"
             f"<valueSetDefinition><sorted>false</sorted>{vals}</valueSetDefinition></valueSet>"), label, desc
 
 
@@ -75,7 +75,8 @@ FIELDS = {
         "Monthly_Budget_Cap__c": cur("Monthly Budget Cap", "Monthly ad budget cap for this location."),
         "Budget_Spent_MTD__c": cur("Budget Spent (MTD)", "Ad budget spent this month."),
         "Budget_Status__c": pick("Budget Status", "Whether this location's ads are running.",
-                                 ["Active", "Paused - Budget Cap Reached", "Paused - Customer Request", "Cancelled"]),
+                                 ["Active", "Paused - Budget Cap Reached", "Paused - Customer Request", "Cancelled"],
+                                 restricted=False),  # not restricted: Account record types don't list the newer values
         "Paused_Until__c": date("Paused Until", "When a paused location's ads restart."),
         "Leads_Last_30_Days__c": num("Leads (Last 30 Days)", "Leads this location received in the last 30 days."),
         "Cost_Per_Lead__c": cur("Cost per Lead", "Ad spend divided by leads, last 30 days."),

@@ -282,7 +282,7 @@ function showHome() {
 }
 function newConversation() { $("mc").style.display = ""; thread.innerHTML = ""; log.length = 0; fin(GREETING); }
 
-const AFTER_PAUSE = "Let's do the 90-day pause. And yes, a call to go over spend before Castle Rock opens would help.";
+const AFTER_PAUSE = "Let's do the 90-day pause on Aurora.";
 const steps = [
   ["Tuesday, 9:04 PM. Sam is on the Yelp for Business help center.", async () => {}],
   ["Sam opens the Fin Messenger.", async i => {
@@ -353,7 +353,7 @@ const steps = [
       onEnd: () => { hideAgentTyping(); note("The conversation has ended"); },
     });
   }],
-  ["Live: John sends Copilot's reply. Sam takes the pause and the spend review.", async i => {
+  ["Live: John sends Copilot's reply. Sam takes the pause.", async i => {
     await say(AFTER_PAUSE, i);
     if (!i) Handoff.send(AFTER_PAUSE);
   }],

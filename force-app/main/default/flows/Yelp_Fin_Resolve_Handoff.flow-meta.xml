@@ -98,6 +98,9 @@
     <recordLookups>
         <name>Get_Selected</name>
         <label>Get Selected Location</label>
+        <faultConnector>
+            <targetReference>Done</targetReference>
+        </faultConnector>
         <locationX>50</locationX>
         <locationY>730</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -276,6 +279,9 @@
     <recordUpdates>
         <name>Pause_Location</name>
         <label>Pause the location's ads</label>
+        <faultConnector>
+            <targetReference>Done</targetReference>
+        </faultConnector>
         <locationX>50</locationX>
         <locationY>970</locationY>
         <connector>
@@ -306,6 +312,9 @@
     <recordUpdates>
         <name>Cancel_Location</name>
         <label>Cancel the location</label>
+        <faultConnector>
+            <targetReference>Done</targetReference>
+        </faultConnector>
         <locationX>314</locationX>
         <locationY>970</locationY>
         <connector>
@@ -330,6 +339,9 @@
     <recordUpdates>
         <name>Record_On_Case</name>
         <label>Record the action on the case</label>
+        <faultConnector>
+            <targetReference>Done</targetReference>
+        </faultConnector>
         <locationX>176</locationX>
         <locationY>1090</locationY>
         <connector>

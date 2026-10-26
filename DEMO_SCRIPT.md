@@ -131,11 +131,11 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out that night.
 
-1. **Switch to Slack, #sales-notifications.** The post reads "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has two links (the account and the new expansion opportunity) and a line saying why Tom is getting it.
+1. **Switch to Slack, #sales-notifications.** The post reads "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Sales for Tech, plus a line saying why Tom is getting it.
    - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, Fin flagged churn risk, and Fin heard growth."
    - **[Salesforce]** A **record-triggered Flow** reads Fin's signals on the case and decides who needs to know: multi-location accounts (3+ locations) with High churn risk or an expansion signal. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post: what Fin heard, account health (open cases, the renewal), spend by location, and a suggested next step.
-2. **Click "Open Whitaker Hospitality Group in Salesforce".** The account opens in **Sales for Tech**. Pre-open that app in a tab so the link lands there.
+2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
 3. **Details tab → Fin Signals** (first section):
    - Churn Risk **High**: "Wants to cancel Aurora and move its spend to Castle Rock".
    - Expansion Signal: **New location: Castle Rock, opening January**.

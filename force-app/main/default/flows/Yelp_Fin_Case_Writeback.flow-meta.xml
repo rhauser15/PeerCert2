@@ -525,7 +525,7 @@
     <formulas>
         <name>OppLink</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!Get_Expansion.Id}), "", "  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/" &amp; {!Get_Expansion.Id} &amp; "/view|Open the new expansion opportunity&gt;")</expression>
+        <expression>IF(ISBLANK({!Get_Expansion.Id}), "", "  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/" &amp; {!Get_Expansion.Id} &amp; "/view|New expansion opportunity&gt;")</expression>
     </formulas>
     <textTemplates>
         <name>LocationLine</name>
@@ -558,7 +558,7 @@ Fin summary
         <name>SlackBrief</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>*Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
-&lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/{!$Record.AccountId}/view|Open {!$Record.Account.Name} in Salesforce&gt;{!OppLink}
+&lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Open the renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|Account&gt;
 
 _Why you're getting this: you own this multi-location account, and Fin flagged churn risk or growth in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}._
 

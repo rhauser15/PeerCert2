@@ -203,7 +203,7 @@
         <name>ExpansionAmount</name>
         <dataType>Currency</dataType>
         <scale>0</scale>
-        <expression>IF(OR(ISBLANK({!$Record.Account.Location_Count__c}), {!$Record.Account.Location_Count__c} = 0), 12000, ROUND({!$Record.Account.Monthly_Budget_Cap__c} / {!$Record.Account.Location_Count__c}, -2) * 12)</expression>
+        <expression>IF(OR(ISBLANK({!$Record.Account.Location_Count__c}), {!$Record.Account.Location_Count__c} = 0), 12000, ROUND({!$Record.Account.Monthly_Budget_Cap__c} / {!$Record.Account.Location_Count__c}, -2) * 12) * IF(ISNUMBER(LEFT({!$Record.Expansion_Signal__c}, FIND(" ", {!$Record.Expansion_Signal__c}) - 1)), VALUE(LEFT({!$Record.Expansion_Signal__c}, FIND(" ", {!$Record.Expansion_Signal__c}) - 1)), 1)</expression>
     </formulas>
     <formulas>
         <name>ExpansionDescription</name>

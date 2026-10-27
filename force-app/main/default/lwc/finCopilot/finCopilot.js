@@ -11,6 +11,8 @@ const SOURCES = {
     pause: { type: 'Public article', title: 'Pause ads for one location' },
     convo: { type: 'Conversation', title: 'Front Range Burger Co. · Cancel a location' },
     renewal: { type: 'Salesforce', title: 'Opportunity: Annual Renewal' },
+    program: { type: 'Internal article', title: 'New Location Launch Program (10+ locations)' },
+    shift: { type: 'Public article', title: 'Move budget between your locations' },
     launch: { type: 'Internal article', title: 'New location launch credit' }
 };
 const THINKING_MS = 1600;
@@ -142,7 +144,7 @@ export default class FinCopilot extends LightningElement {
         if (/summar/.test(s)) return this.summary();
         if (/confirm|wrap|close/.test(s)) return this.confirm();
         if (/draft|reply|write|respond|message/.test(s)) return this.reply();
-        if (/retention|offer|qualif|save|keep|cancel|drop|churn|credit|discount/.test(s)) return this.offers();
+        if (/option|offer|program|qualif|retention|save|keep|cancel|churn|credit|discount|new location|redirect|spend/.test(s)) return this.offers();
         return {
             html: "<p>I couldn't find anything in your team's content about that. Try asking about this customer's account, a policy, or a past conversation.</p>",
             sources: [],
@@ -150,50 +152,59 @@ export default class FinCopilot extends LightningElement {
         };
     }
 
+    newCount() {
+        const m = /^(\d+)/.exec((this.ctx && this.ctx.expansion) || '');
+        return m ? Number(m[1]) : 4;
+    }
+
     offers() {
         const f = this.facts();
-        const cite = (n) => `<span class="cite">${n}</span>`;
+        const n = this.newCount();
+        const cite = (k) => `<span class="cite">${k}</span>`;
         const c = this.ctx || {};
         const renewal = c.renewalClose
-            ? `<p><b>Heads up:</b> the ${c.renewalName ? 'Annual Renewal' : 'renewal'} (${money(c.renewalAmount || 0)}) closes <b>${this.longDate(c.renewalClose)}</b>. ${cite(4)}</p>`
+            ? `<p><b>Heads up:</b> the Annual Renewal (${money(c.renewalAmount || 0)}) closes <b>${this.longDate(c.renewalClose)}</b>. ${cite(4)}</p>`
             : '';
         return {
             html:
-                `<p>${f.account} has <b>${f.count} active locations</b>, so ${f.loc} is covered by the Multi-Location Retention Policy. ${cite(1)}</p>` +
-                `<p><b>Offer one of these before cancelling</b></p><ul>` +
-                `<li><b>Pause ${f.loc}'s ads for 90 days, no fee.</b> The page, reviews and ad history stay live while ${f.first} focuses spend on the new location. ${cite(1)}</li>` +
-                `<li><b>Or extend a retention credit:</b> ${f.loc}'s cost per lead (${money(f.cpl)}) is more than 2x his other locations (${money(f.avg)}), so it qualifies for 20% of its budget for 2 months: <b>${money(f.credit)}/month</b>. ${cite(2)}</li>` +
-                `</ul><p><b>Suggested touchpoint (for ${f.owner}, the account manager):</b> a call with ${f.first} to review ${f.loc}'s ad spend given its results, and plan the budget for Castle Rock's launch ($500 launch credit if its ads go live within 30 days of opening). ${cite(3)}</p>` +
+                `<p>${f.first} is opening <b>${n} new locations</b> in January and wants to see how they perform before investing more. With <b>${f.count} active locations</b>, ${f.account} qualifies for two options:</p><ul>` +
+                `<li><b>New: New Location Launch Program.</b> Existing customers with 10+ locations get <b>$500 in ad credit per new location</b> in its first 60 days. For ${n} locations that's <b>${money(500 * n)}</b> to test performance before adding budget. ${cite(1)}</li>` +
+                `<li><b>Temporary budget shift.</b> Up to 20% of an existing location's monthly budget can move to a new location for 90 days, then it switches back automatically. ${cite(2)}</li>` +
+                `</ul><p><b>Suggested touchpoint (for ${f.owner}, the account manager):</b> an Ads Optimization Review session to set launch budgets for the new locations. ${cite(3)}</p>` +
                 renewal,
             text: '',
-            sources: ['policy', 'credit', 'launch', 'renewal'],
+            sources: ['program', 'shift', 'review', 'renewal'],
             composer: false
         };
     }
 
     reply() {
         const f = this.facts();
-        const cite = (n) => `<span class="cite">${n}</span>`;
+        const n = this.newCount();
+        const cite = (k) => `<span class="cite">${k}</span>`;
         const p1 =
-            `Hi ${f.first}, thanks for being upfront about ${f.loc}. Two options before you cancel: we can pause ${f.loc}'s ads for 90 days at no cost, ` +
-            `so the page and its reviews stay up while you focus spend on Castle Rock, or keep it running with a ${money(f.credit)} retention credit for each of the next two months.`;
-        const p3 = 'Which option works best for you?';
+            `Hi ${f.first}, congratulations on the ${n} new locations! Because you have ${f.count} active locations, you qualify for our New Location Launch Program: ` +
+            `$500 in ad credit for each new location in its first 60 days, so ${money(500 * n)} across all ${n}. It's a way to see how they perform before you invest more.`;
+        const p2 =
+            `If you'd like, we can also temporarily move up to 20% of an existing location's budget to the new ones for 90 days, and it switches back automatically. ` +
+            `Here's how the program works: credits are applied when each new location's page goes live, and you can track their leads side by side in Yelp for Business.`;
+        const p3 = 'Want me to enroll you?';
         return {
-            html: `<p>${p1} ${cite(1)} ${cite(2)}</p><p>${p3}</p>`,
-            text: [p1, p3].join(' '),
-            sources: ['policy', 'credit', 'pause'],
+            html: `<p>${p1} ${cite(1)}</p><p>${p2} ${cite(2)}</p><p>${p3}</p>`,
+            text: [p1, p2, p3].join(' '),
+            sources: ['program', 'shift'],
             composer: true
         };
     }
 
     confirm() {
         const f = this.facts();
-        const until = new Date(Date.now() + 90 * 864e5).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-        const cite = (n) => `<span class="cite">${n}</span>`;
+        const n = this.newCount();
+        const cite = (k) => `<span class="cite">${k}</span>`;
         const text =
-            `Done, ${f.first}. ${f.loc}'s ads are paused until ${until} with no fee, so the page and its reviews stay up and you can restart any time. ` +
-            `Anything else I can help with tonight?`;
-        return { html: `<p>${text} ${cite(1)}</p>`, text, sources: ['pause', 'policy'], composer: true };
+            `Done, ${f.first}. You're enrolled in the New Location Launch Program. Each of your ${n} new locations gets $500 in ad credit for its first 60 days once its page is live. ` +
+            `Anything else I can help with today?`;
+        return { html: `<p>${text} ${cite(1)}</p>`, text, sources: ['program'], composer: true };
     }
 
     longDate(d) {
@@ -216,7 +227,7 @@ export default class FinCopilot extends LightningElement {
         ].filter((x) => x);
         return {
             html:
-                `<p class="h">Question</p><p>${c.contactName || 'The customer'} is thinking about cancelling ${f.loc} to conserve spend ahead of a new location launch.</p>` +
+                `<p class="h">Question</p><p>${c.contactName || 'The customer'} is opening new locations and wants to redirect some existing spend to test them first.</p>` +
                 `<p class="h">Summary</p><ul>${bullets}</ul>${actions}` +
                 (flags.length ? `<p class="h">Signals</p><ul>${flags.map((x) => `<li>${x}</li>`).join('')}</ul>` : ''),
             text: (c.summary || '').trim(),

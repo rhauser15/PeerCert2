@@ -39,7 +39,7 @@ def pick(label, desc, values, restricted=True):
 
 
 RISK = ["High", "Medium", "Low"]
-SENTIMENT = ["Positive", "Neutral", "Negative"]
+SENTIMENT = ["Positive", "Neutral", "Slightly Negative", "Negative"]
 REASONS = ["Ad not showing", "Budget and billing", "Invoice question", "Ad performance", "Cancel a location",
            "Add a location", "Account access", "Other"]
 
@@ -56,11 +56,12 @@ FIELDS = {
         "Churn_Risk__c": pick("Churn Risk", "Churn risk Fin detected in the conversation.", RISK),
         "Churn_Risk_Reason__c": txt("Churn Risk Reason", "Why Fin flagged churn risk."),
         "Expansion_Signal__c": txt("Expansion Signal", "Growth the customer mentioned, e.g. a new location."),
-        "Fin_Sentiment__c": pick("Sentiment", "Customer sentiment, set by Fin.", SENTIMENT),
+        "Fin_Sentiment__c": pick("Sentiment", "Customer sentiment, set by Fin.", SENTIMENT, restricted=False),
         "Fin_Location__c": txt("Location", "Location the conversation was about."),
         "Fin_Actions_Taken__c": txt("Fin Actions Taken", "What Fin did for the customer before handoff, e.g. a Procedure it ran."),
-        "Retention_Offer__c": pick("Retention Offer", "Retention offer the customer accepted (set from Support Tools).",
-                                   ["90-day pause", "Performance credit", "Free ads review", "None - location cancelled"]),
+        "Retention_Offer__c": pick("Offer Accepted", "Program or retention offer the customer accepted (set from Support Tools).",
+                                   ["New Location Launch Program", "Budget shift", "90-day pause", "Performance credit",
+                                    "Free ads review", "None - location cancelled"], restricted=False),
         "Resolution_Notes__c": lta("Resolution Notes", "How the agent resolved the case.", 4),
         "Fin_CSAT__c": num("CSAT", "Conversation rating, 1 to 5.", 1, 0),
         "Conversation_Date__c": date("Conversation Date", "Date of the Fin conversation."),
@@ -70,7 +71,7 @@ FIELDS = {
         "Churn_Risk__c": pick("Churn Risk", "Latest churn risk Fin flagged for this account.", RISK),
         "Churn_Risk_Reason__c": txt("Churn Risk Reason", "Why Fin flagged churn risk."),
         "Expansion_Signal__c": txt("Expansion Signal", "Growth the customer mentioned to Fin."),
-        "Fin_Sentiment__c": pick("Sentiment", "Sentiment in the latest Fin conversation.", SENTIMENT),
+        "Fin_Sentiment__c": pick("Sentiment", "Sentiment in the latest Fin conversation.", SENTIMENT, restricted=False),
         "Last_Fin_Conversation__c": dtm("Last Fin Conversation", "When the customer last talked to Fin."),
         "Monthly_Budget_Cap__c": cur("Monthly Budget Cap", "Monthly ad budget cap for this location."),
         "Budget_Spent_MTD__c": cur("Budget Spent (MTD)", "Ad budget spent this month."),
@@ -116,10 +117,12 @@ perms += [f"    <fieldPermissions><editable>false</editable><field>Case.{f}</fie
 FORMULAS = {
     "Renewal_Likelihood__c": ("Likelihood to Renew", "Renewal likelihood score (0-100), lowered by churn risk Fin flags.",
                               "<type>Number</type><precision>4</precision><scale>1</scale>",
-                              "IF(ISPICKVAL(Churn_Risk__c, \"High\"), 58.4, IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), 71.2, 79.5))"),
+                              "IF(ISPICKVAL(Churn_Risk__c, \"High\"), 58.4, IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), 71.2, "
+                              "IF(OR(ISPICKVAL(Fin_Sentiment__c, \"Slightly Negative\"), ISPICKVAL(Fin_Sentiment__c, \"Negative\")), 74.6, 79.5)))"),
     "Renewal_Outlook__c": ("Renewal Outlook", "Renewal outlook from the latest churn risk Fin flagged.",
                            "<type>Text</type>",
-                           "IF(ISPICKVAL(Churn_Risk__c, \"High\"), \"At risk\", IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), \"Watch\", \"Likely\"))"),
+                           "IF(ISPICKVAL(Churn_Risk__c, \"High\"), \"At risk\", IF(ISPICKVAL(Churn_Risk__c, \"Medium\"), \"Watch\", "
+                           "IF(OR(ISPICKVAL(Fin_Sentiment__c, \"Slightly Negative\"), ISPICKVAL(Fin_Sentiment__c, \"Negative\")), \"Likely, watch value\", \"Likely\")))"),
     "Budget_Used_Pct__c": ("Budget Used (MTD)", "Share of this month's ad budget spent, across all locations.",
                            "<type>Number</type><precision>3</precision><scale>0</scale>",
                            "IF(OR(ISBLANK(Monthly_Budget_Cap__c), Monthly_Budget_Cap__c = 0), 0, ROUND(Budget_Spent_MTD__c / Monthly_Budget_Cap__c * 100, 0))"),

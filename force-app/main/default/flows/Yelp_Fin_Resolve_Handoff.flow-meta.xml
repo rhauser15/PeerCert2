@@ -119,6 +119,38 @@
         <object>Account</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <choices>
+        <name>c_program</name>
+        <choiceText>Enroll in New Location Launch Program ($500 credit per new location)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Location Launch Program</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>c_shift</name>
+        <choiceText>Temporary budget shift to new locations (up to 20%, 90 days)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Budget shift</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>c_review</name>
+        <choiceText>Free Ads Optimization review</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Free ads review</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>c_pause</name>
+        <choiceText>Pause ads for 90 days, no fee</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>90-day pause</stringValue>
+        </value>
+    </choices>
     <decisions>
         <name>Has_Case</name>
         <label>Is there an open Fin case?</label>
@@ -170,25 +202,17 @@
                     <stringValue>90-day pause</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Location</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Pause_Location</targetReference>
             </connector>
             <label>Pause</label>
-        </rules>
-        <rules>
-            <name>Cancel</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Action</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>None - location cancelled</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Cancel_Location</targetReference>
-            </connector>
-            <label>Cancel</label>
         </rules>
     </decisions>
     <screens>
@@ -214,18 +238,18 @@
             <defaultValue>
                 <elementReference>Get_Location.Id</elementReference>
             </defaultValue>
-            <fieldText>Location</fieldText>
+            <fieldText>Location (for a budget shift or pause)</fieldText>
             <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
+            <isRequired>false</isRequired>
         </fields>
         <fields>
             <name>Action</name>
-            <choiceReferences>c_pause</choiceReferences>
-            <choiceReferences>c_credit</choiceReferences>
+            <choiceReferences>c_program</choiceReferences>
+            <choiceReferences>c_shift</choiceReferences>
             <choiceReferences>c_review</choiceReferences>
-            <choiceReferences>c_cancel</choiceReferences>
+            <choiceReferences>c_pause</choiceReferences>
             <dataType>String</dataType>
-            <defaultSelectedChoiceReference>c_pause</defaultSelectedChoiceReference>
+            <defaultSelectedChoiceReference>c_program</defaultSelectedChoiceReference>
             <fieldText>Action</fieldText>
             <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
@@ -310,33 +334,6 @@
         <object>Account</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Cancel_Location</name>
-        <label>Cancel the location</label>
-        <faultConnector>
-            <targetReference>Done</targetReference>
-        </faultConnector>
-        <locationX>314</locationX>
-        <locationY>970</locationY>
-        <connector>
-            <targetReference>Record_On_Case</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Location</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Budget_Status__c</field>
-            <value>
-                <stringValue>Cancelled</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Record_On_Case</name>
         <label>Record the action on the case</label>
         <faultConnector>
@@ -386,38 +383,6 @@
         <sortOrder>Asc</sortOrder>
         <valueField>Id</valueField>
     </dynamicChoiceSets>
-    <choices>
-        <name>c_pause</name>
-        <choiceText>Pause ads for 90 days, no fee</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>90-day pause</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>c_credit</name>
-        <choiceText>Performance credit: {!CreditAmount}/month for 2 months</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Performance credit</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>c_review</name>
-        <choiceText>Free Ads Optimization review</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Free ads review</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>c_cancel</name>
-        <choiceText>Cancel the location</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>None - location cancelled</stringValue>
-        </value>
-    </choices>
     <formulas>
         <name>PauseUntil</name>
         <dataType>Date</dataType>
@@ -433,10 +398,10 @@
         <name>DoneDetail</name>
         <dataType>String</dataType>
         <expression>CASE({!Action},
-"90-day pause", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee. The page and reviews stay live.",
-"Performance credit", "Performance credit of $" &amp; TEXT(ROUND(BLANKVALUE({!Get_Selected.Monthly_Budget_Cap__c}, 0) * 0.2, 0)) &amp; "/month for 2 months on " &amp; {!Get_Selected.Name} &amp; ".",
-"Free ads review", "Free Ads Optimization review requested for " &amp; {!Get_Selected.Name} &amp; ".",
-{!Get_Selected.Name} &amp; " is cancelled.")</expression>
+"New Location Launch Program", {!Get_Case.Account.Name} &amp; " is enrolled in the New Location Launch Program: $500 in ad credit for each new location in its first 60 days.",
+"Budget shift", "Temporary budget shift set up: up to 20% of " &amp; IF(ISBLANK({!Get_Selected.Name}), "existing locations", {!Get_Selected.Name}) &amp; " budget moves to the new locations for 90 days.",
+"Free ads review", "Free Ads Optimization review requested.",
+IF(ISBLANK({!Get_Selected.Name}), "Pick a location to pause.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."))</expression>
     </formulas>
     <formulas>
         <name>NoCaseMessage</name>
@@ -446,7 +411,7 @@
     <textTemplates>
         <name>NotesDefault</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>{!Get_Case.Contact.FirstName} was thinking about cancelling {!Get_Case.Fin_Location__c} to conserve spend before the new location launch, and chose a 90-day pause instead. Account manager to set up a call to review {!Get_Case.Fin_Location__c} spend and plan the launch ({!Get_Case.Expansion_Signal__c}).</text>
+        <text>{!Get_Case.Contact.FirstName} is opening {!Get_Case.Expansion_Signal__c} and wants to see performance before investing more. Enrolled in the New Location Launch Program ($500 credit per new location). Account manager to book an Ads Optimization Review.</text>
     </textTemplates>
     <variables>
         <name>recordId</name>

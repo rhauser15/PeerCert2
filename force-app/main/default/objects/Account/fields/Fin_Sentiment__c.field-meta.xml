@@ -4,5 +4,5 @@
     <label>Sentiment</label>
     <description>Sentiment in the latest Fin conversation.</description>
     <inlineHelpText>Sentiment in the latest Fin conversation.</inlineHelpText>
-    <type>Picklist</type><valueSet><restricted>true</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>Positive</fullName><default>false</default><label>Positive</label></value><value><fullName>Neutral</fullName><default>false</default><label>Neutral</label></value><value><fullName>Negative</fullName><default>false</default><label>Negative</label></value></valueSetDefinition></valueSet>
+    <type>Picklist</type><valueSet><restricted>false</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>Positive</fullName><default>false</default><label>Positive</label></value><value><fullName>Neutral</fullName><default>false</default><label>Neutral</label></value><value><fullName>Slightly Negative</fullName><default>false</default><label>Slightly Negative</label></value><value><fullName>Negative</fullName><default>false</default><label>Negative</label></value></valueSetDefinition></valueSet>
 </CustomField>

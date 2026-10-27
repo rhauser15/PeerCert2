@@ -152,7 +152,7 @@ window.Handoff = (() => {
     setTimeout(() => { join(); handlers.onTyping?.(true); }, 5000);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      handlers.onAgentMessage?.("Hi Sam, thanks for being upfront about Aurora. Two options before you cancel: we can pause Aurora's ads for 90 days at no cost, so the page and its reviews stay up while you focus spend on Castle Rock, or keep it running with a $180 retention credit for each of the next two months. Which option works best for you?");
+      handlers.onAgentMessage?.("Hi Sam, congratulations on the 4 new locations! Because you have 12 active locations, you qualify for our New Location Launch Program: $500 in ad credit for each new location in its first 60 days, so $2,000 across all 4. It's a way to see how they perform before you invest more. If you'd like, we can also temporarily move up to 20% of an existing location's budget to the new ones for 90 days, and it switches back automatically. Want me to enroll you?");
     }, 9000);
   }
   let offlineTurn = 0;
@@ -161,8 +161,8 @@ window.Handoff = (() => {
     setTimeout(() => handlers.onTyping?.(true), 1500);
     setTimeout(() => {
       handlers.onTyping?.(false);
-      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. Aurora's ads are paused for 90 days with no fee, so the page and its reviews stay up and you can restart any time. Anything else I can help with tonight?");
-      else { handlers.onAgentMessage?.("Anytime, Sam. Good luck with Castle Rock!"); setTimeout(() => { active = false; handlers.onEnd?.(); }, 2500); }
+      if (turn === 1) handlers.onAgentMessage?.("Done, Sam. You're enrolled in the New Location Launch Program. Each of your 4 new locations gets $500 in ad credit for its first 60 days once its page is live. Anything else I can help with today?");
+      else { handlers.onAgentMessage?.("Anytime, Sam. Good luck with the openings!"); setTimeout(() => { active = false; handlers.onEnd?.(); }, 2500); }
     }, 5000);
   }
 

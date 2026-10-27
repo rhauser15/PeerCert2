@@ -2387,6 +2387,7 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard5</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -2531,6 +2532,50 @@
                 </componentInstanceProperties>
                 <componentName>nbaDemo</componentName>
                 <identifier>c_nbaDemo</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionDestination</name>
+                    <value>/lightning/r/Opportunity/006g800000AHMWEAA5/view</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>actionType</name>
+                    <value>Go to URL</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Whitaker is opening 4 new locations in January and just enrolled in the New Location Launch Program. Book an Ads Optimization Review with Sam to set launch budgets, then review the renewal (Dec 31).</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>button1Label</name>
+                    <value>View Renewal Opportunity</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>button2Label</name>
+                    <value>Not now</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>delay</name>
+                    <value>500</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>header</name>
+                    <value>Ads Optimization Review session</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>imgSrc</name>
+                    <value>https://i.imgur.com/AJ3t0oo.png</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Next Best Action</value>
+                </componentInstanceProperties>
+                <componentName>nbaDemo</componentName>
+                <identifier>c_nbaDemo_yelp</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-m2w3cuv29m</name>

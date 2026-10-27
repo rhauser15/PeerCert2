@@ -3,7 +3,7 @@
     <fullName>Renewal_Outlook__c</fullName>
     <label>Renewal Outlook</label>
     <description>Renewal outlook from the latest churn risk Fin flagged.</description>
-    <formula>IF(ISPICKVAL(Churn_Risk__c, &quot;High&quot;), &quot;At risk&quot;, IF(ISPICKVAL(Churn_Risk__c, &quot;Medium&quot;), &quot;Watch&quot;, &quot;Likely&quot;))</formula>
+    <formula>IF(ISPICKVAL(Churn_Risk__c, &quot;High&quot;), &quot;At risk&quot;, IF(ISPICKVAL(Churn_Risk__c, &quot;Medium&quot;), &quot;Watch&quot;, IF(OR(ISPICKVAL(Fin_Sentiment__c, &quot;Slightly Negative&quot;), ISPICKVAL(Fin_Sentiment__c, &quot;Negative&quot;)), &quot;Likely, watch value&quot;, &quot;Likely&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <type>Text</type>
 </CustomField>

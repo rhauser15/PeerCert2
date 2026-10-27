@@ -82,7 +82,7 @@
         <defaultConnectorLabel>No alert</defaultConnectorLabel>
         <rules>
             <name>Multi_Location_Signal</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditionLogic>1 AND 4 AND (2 OR 3)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Account.Location_Count__c</leftValueReference>
                 <operator>GreaterThanOrEqualTo</operator>
@@ -104,10 +104,17 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.Annual_Ad_Spend__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Get_Locations</targetReference>
             </connector>
-            <label>Multi-location account with churn risk or growth</label>
+            <label>Multi-location account, $50K+ spend, with churn risk or growth</label>
         </rules>
     </decisions>
     <recordCreates>
@@ -378,7 +385,7 @@
     <formulas>
         <name>NextStep</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!$Record.Retention_Offer__c}) = "90-day pause", "Set up a call with " &amp; {!$Record.Contact.FirstName} &amp; " to optimize " &amp; {!$Record.Fin_Location__c} &amp; " location spend during the 90-day pause. ", IF(TEXT({!$Record.Churn_Risk__c}) = "High", "Follow up on " &amp; {!$Record.Fin_Location__c} &amp; " before the renewal. ", "")) &amp; IF(ISBLANK({!$Record.Expansion_Signal__c}), "", "Scope the new opportunity for the " &amp; IF(AND(CONTAINS({!$Record.Expansion_Signal__c}, ":"), CONTAINS({!$Record.Expansion_Signal__c}, ",")), TRIM(MID({!$Record.Expansion_Signal__c}, FIND(":", {!$Record.Expansion_Signal__c}) + 1, FIND(",", {!$Record.Expansion_Signal__c}) - FIND(":", {!$Record.Expansion_Signal__c}) - 1)), "new") &amp; " location.")</expression>
+        <expression>IF(ISBLANK({!$Record.Expansion_Signal__c}), "", "Book an Ads Optimization Review session with " &amp; {!$Record.Contact.FirstName} &amp; " to plan launch budgets for the " &amp; {!$Record.Expansion_Signal__c} &amp; ", and scope the expansion opportunity. ") &amp; IF(TEXT({!$Record.Retention_Offer__c}) = "90-day pause", "Set up a call with " &amp; {!$Record.Contact.FirstName} &amp; " to optimize " &amp; {!$Record.Fin_Location__c} &amp; " location spend during the 90-day pause. ", "") &amp; IF(TEXT({!$Record.Churn_Risk__c}) = "High", "Follow up on the churn risk before the renewal.", "Confirm the value " &amp; {!$Record.Contact.FirstName} &amp; " is seeing before the renewal.")</expression>
     </formulas>
     <formulas>
         <name>OppLink</name>
@@ -402,7 +409,7 @@ Health
 - Open cases: {!OpenCases}
 
 How support resolved it
-- Retention offer: {!$Record.Retention_Offer__c}
+- Offer accepted: {!$Record.Retention_Offer__c}
 - {!$Record.Resolution_Notes__c}
 
 Renewal
@@ -422,15 +429,15 @@ Fin summary
         <text>*Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
 &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Open the renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|Account&gt;
 
-_Why you're getting this: you own this multi-location account, Fin flagged churn risk or growth in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}, and support just resolved the case._
+_Why you're getting this: you own this multi-location account (${!$Record.Account.Annual_Ad_Spend__c} annual ad spend), Fin flagged growth or churn risk in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}, and support just resolved the case._
 
 *What Fin heard*
-- Churn risk: *{!$Record.Churn_Risk__c}* ({!$Record.Churn_Risk_Reason__c})
 - Expansion signal: *{!$Record.Expansion_Signal__c}*
+- Churn risk: *{!$Record.Churn_Risk__c}* ({!$Record.Churn_Risk_Reason__c})
 - Sentiment: {!$Record.Fin_Sentiment__c}
 
 *How support resolved it* (case {!$Record.CaseNumber})
-- Retention offer: *{!$Record.Retention_Offer__c}*
+- Offer accepted: *{!$Record.Retention_Offer__c}*
 - {!$Record.Resolution_Notes__c}
 
 *Account health*

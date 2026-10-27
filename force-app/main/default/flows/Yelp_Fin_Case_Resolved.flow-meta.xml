@@ -112,7 +112,7 @@
         </connector>
         <fields>
             <name>Info</name>
-            <fieldText>&lt;p&gt;Case {!Get_Case.CaseNumber} · {!Get_Case.Status} · Retention offer: {!Get_Case.Retention_Offer__c}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Case {!Get_Case.CaseNumber} · {!Get_Case.Status} · Offer accepted: {!Get_Case.Retention_Offer__c}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Case resolved</nextOrFinishButtonLabel>

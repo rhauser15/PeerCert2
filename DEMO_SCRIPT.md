@@ -4,7 +4,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **The story in two conversations**
 - **Issue 1 (Fin alone):** Westminster's ad stopped, plus a billing question. Fin resolves both, Sam rates it *Amazing*, and Fin logs a resolved case in Salesforce. No person involved.
-- **Issue 2 (Fin + John):** Later, Sam is thinking about cancelling Aurora: he isn't seeing value and wants to conserve spend before the Castle Rock launch. Fin connects him to a specialist (John). Copilot suggests a 90-day pause or a retention credit, a spend-review touchpoint, and flags the December 31 renewal. John saves the location, resolves the case, and Salesforce alerts Tom.
+- **Issue 2 (Fin + John):** Sam is opening 4 new locations and wants to temporarily redirect spend to test them first. Fin escalates to John (CSR) with a summary. Copilot flags the New Location Launch Program ($500 credit per new location for 10+ location customers). John sends the details and resolves the case. Fin's signals (low churn risk for value realization, slightly negative sentiment, expansion upside) alert Tom in Slack.
 
 **Callout key used below**
 - **[Fin]** what Fin does, and why Fin is the right tool for that moment
@@ -42,7 +42,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 **Section 3 · Write-back and alerts**
 - [Whitaker Hospitality Group (account)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHMWEAA5/view)
-- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016xkSfAAI)
+- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g80000171uelAAA)
 
 **Section 4 · Alisha's view**
 - [Customer Success: Fin Conversations dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
@@ -54,7 +54,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 ## Before the demo (10 minutes)
 
-1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. For a full reload, run `python3 scripts/seed.py`.
+1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. Whitaker, its locations, Sam and the renewal keep the same record IDs, so links keep working. For a full reload, run `python3 scripts/seed.py`.
 2. **Salesforce (window 1):** sign in as Rob, open **Service Console for Tech** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
@@ -90,94 +90,104 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
    - **[Salesforce]** Fin's "Create Salesforce case on resolution" puts a **closed case** in Salesforce with the transcript, summary, CSAT 5 and Fin Resolution State = Hard Resolution. *(You'll open it in section 3.)* Every Fin-only conversation still shows up in Yelp's reporting.
    - **[Say]** "That's tier 1, resolved at 9pm, no ticket in anyone's queue, and the customer loved it."
 
-**Issue 2: Fin knows when to hand off**
+**Issue 2: a bigger question, so Fin escalates to a person**
 
 7. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
 8. **Click "Send us a message".** A new conversation starts.
-9. **Press →.** Sam: "I'm thinking about cancelling Aurora. I'm not seeing the value there, and I want to conserve spend ahead of launching the new Castle Rock location in January." Fin: "Understood, and congratulations on Castle Rock. A Multi-Location specialist can go over your options for Aurora and help you plan spend for the Castle Rock launch, so I'll connect you now." Then "Connecting you to the team…"
-   - **[Fin]** Fin recognizes churn risk (a cancellation) and an expansion signal (a new location), and that's a conversation Yelp wants a person to have. It doesn't argue numbers with the customer. The cost-per-lead comparison ($64 at Aurora vs about $27 at his other Dave's) goes into the summary for the team. Its Procedure hands off with a summary and sets attributes: Contact reason, Churn risk, Expansion signal, Sentiment.
-   - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes the chat to the Multi-Location queue.
+9. **Press →.** Sam types:
+
+   > "I'm planning to open 4 new locations in January. Can I temporarily redirect a portion of my existing spend to the new locations? I want to see performance before investing more. New locations don't always perform as expected."
+
+   Fin replies: "Congratulations on the new locations, and that's a fair concern. Moving budget across locations and planning a launch is something our Multi-Location specialists handle, so I'll connect you now. I've passed along a summary…" Then "Connecting you to the team…"
+   - **[Fin]** Fin knows this one needs a person: it's a budget decision across locations with a value concern behind it.
+   - **[Fin]** Its Procedure hands off with a summary and attributes for the team:
+     - contact reason: Add a location
+     - expansion signal: 4 new locations, opening January
+     - churn risk: Low, reason "Value realization"
+     - sentiment: Slightly Negative
+   - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes it to John, the CSR.
 
 *Ties to:* replacing the Yelp Bot, case deflection, CSAT.
 
-## 2 · Fin makes agents better (4 min) · Service Console
+## 2 · Fin makes agents better (4 min) · Service Console (John, CSR)
 
 1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
-   - **[Salesforce]** **Omni-Channel** pushed the chat to the right agent based on queue and capacity. John didn't pick it from a list.
+   - **[Salesforce]** **Omni-Channel** pushed the chat to an available specialist based on queue and capacity.
 2. **Walk the page, left to right:**
-   - **Left:** the live conversation, starting with Sam's message, with **Case resolved** underneath.
-   - **Center:** **Fin Handoff Details**, the case Fin opened: Case number, Contact reason = Cancel a location, Fin Resolution State = Routed to team, Location = Aurora, Churn risk = High, Expansion signal = Castle Rock, Sentiment, and what Fin did earlier tonight. Below it are the Engagement, Details, Knowledge and Related tabs. Identity Verification is removed, since Sam is already signed in.
+   - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
+   - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it are the Engagement, Details, Knowledge and Related tabs.
    - **Right:** **Fin Copilot** on top, **Support tools** below.
-   - **[Say]** "John hasn't asked Sam a single question yet, and he already knows the account, the problem, the risk and the opportunity."
-3. **In Copilot, click Summarize.** The Fin summary and signals appear.
-4. **In the Copilot box, type:** `What should I offer Sam for Aurora?` and press Enter. Copilot answers from the Multi-Location Retention Policy, with numbered citations:
-   - **Pause Aurora's ads for 90 days, no fee**, or **extend a retention credit** ($180/month for 2 months, since Aurora's cost per lead is more than 2x his other locations).
-   - **Suggested touchpoint (for Tom):** a call with Sam to review Aurora's ad spend given its results, and plan the Castle Rock launch budget. John doesn't offer the call himself; it goes to Tom in the Slack alert.
+3. **Fin summarizes the issue. In Copilot, click Summarize.** You'll see:
+   - the question: redirect existing spend to test new locations
+   - the summary: 4 new locations in January, wants performance proof before investing more, value concern
+   - the signals Fin set
+   - **[Say]** "John hasn't asked Sam a single question, and he knows the account, the ask and what's behind it."
+4. **John asks Copilot for options. Type:** `What options can I offer Sam?` and press Enter. Copilot answers with numbered citations:
+   - **New: New Location Launch Program.** Existing customers with 10+ locations get **$500 in ad credit per new location** in its first 60 days. For 4 locations that's $2,000 to test performance before adding budget.
+   - **Temporary budget shift.** Up to 20% of an existing location's budget can move to a new location for 90 days, then it switches back.
+   - **Suggested touchpoint (for Tom):** an Ads Optimization Review session to set launch budgets.
    - **Heads up:** the Annual Renewal ($119,760) closes **December 31**.
    - Point at "4 relevant sources found".
-   - **[Fin]** Copilot gives agents the same knowledge Fin uses, inside Salesforce. One content set trains both the AI agent and the human agent.
-5. **Type:** `Draft a reply to Sam` and press Enter. The draft offers the 90-day pause or the $180 retention credit. It doesn't promise Sam a call; that suggestion goes to Tom in Slack. Click **Add to composer**. The reply lands in the message box. Click **Send**. About 30 seconds from accept to reply.
-   - In the help center window, John's reply appears in Sam's Fin Messenger as "John • Yelp Support".
-6. **Switch to window 2 and press →.** Sam: "Let's do the 90-day pause on Aurora." The message appears in the console.
+   - **[Fin]** Copilot surfaced a program John might not know about, from the same content Fin uses. A new program reaches every agent on day one.
+5. **John sends the program details. Type:** `Draft a reply to Sam` and press Enter. The draft explains the New Location Launch Program, the $2,000 across 4 locations, the optional budget shift, and how credits apply. It ends "Want me to enroll you?" Click **Add to composer**, then **Send**. About 30 seconds from accept to reply.
+   - In the help center window, the reply appears in Sam's Fin Messenger as "John • Yelp Support".
+6. **Switch to window 2 and press →.** Sam: "That sounds great. Yes, please enroll me." The message appears in the console.
 
 **Resolve it**
 
 7. **In Support tools (right):**
-   - **Location** is preselected to *Dave's Hot Chicken - Aurora*; the dropdown lists all 12 locations.
-   - **Action** options: *Pause ads for 90 days, no fee*, *Performance credit: $180/month for 2 months*, *Free Ads Optimization review*, *Cancel the location*. The credit is 20% of Aurora's $900 budget.
-   - Leave **Pause ads for 90 days, no fee** selected, check the notes, and click **Confirm**.
-   - You'll see "Done: Dave's Hot Chicken - Aurora is paused until …, no fee."
-   - **[Salesforce]** A **screen Flow** applies the action to the location record and records the retention offer on the case. Agents act on the account without leaving the conversation or switching systems.
-8. **In Copilot, type:** `Draft a confirmation` and press Enter. Click **Add to composer**, then **Send**. Sam sees the confirmation in the Messenger.
+   - **Action:** *Enroll in New Location Launch Program ($500 credit per new location)* is selected. The other options are *Temporary budget shift to new locations*, *Free Ads Optimization review* and *Pause ads for 90 days, no fee*.
+   - Leave **Location** blank (it's only used for a budget shift or a pause), check the notes, and click **Confirm**.
+   - You'll see "Done: Whitaker Hospitality Group is enrolled in the New Location Launch Program…"
+   - **[Salesforce]** A **screen Flow** records the program on the case. Agents act without leaving the conversation or switching systems.
+8. **In Copilot, type:** `Draft a confirmation` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. You're enrolled in the New Location Launch Program…".
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
 10. **In the console, click End Chat** above the conversation. The Messenger shows "The conversation has ended".
 11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
-   - **[Salesforce]** Closing the case is what alerts sales. A record-triggered Flow fires on resolution, so Tom hears about it once support has finished, with the outcome included.
+   - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
 
 ## 3 · Tom's view: the account and a new opportunity (4 min) · Slack and Sales for Tech
 
-Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out that night.
+Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
-1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved. It reads "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Sales for Tech, plus a line saying why Tom is getting it.
-   - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, Fin flagged churn risk, and Fin heard growth."
-   - **[Salesforce]** A **record-triggered Flow** reads Fin's signals on the case and decides who needs to know: multi-location accounts (3+ locations) with High churn risk or an expansion signal. **Sales Cloud for Slack** delivers the alert where Tom already works.
+1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Sales for Tech.
+   - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, it spends $119,760 a year, and Fin heard growth."
+   - **[Salesforce]** A **record-triggered Flow** decides who needs to know. It alerts on multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or high churn risk. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post:
-     - what Fin heard
-     - **how support resolved it** (case number, 90-day pause on Aurora, notes)
-     - account health (open cases, the renewal)
+     - what Fin heard: expansion signal 4 new locations, churn risk Low (value realization), sentiment Slightly Negative
+     - **how support resolved it:** offer accepted, New Location Launch Program
+     - account health: open cases, the renewal
      - spend by location
-     - **suggested next step**: "Set up a call with Sam to optimize Aurora location spend during the 90-day pause. Scope the new opportunity for the Castle Rock location."
+     - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
 3. **Left column, top: the account card.**
    - **Renewal Date:** Dec 31, 2026
-   - **Likelihood to Renew:** 58.4, *At risk*. It was 79.5 before Fin flagged churn risk tonight.
+   - **Likelihood to Renew:** 74.6, *Likely, watch value*. It was 79.5 before tonight's conversation.
    - **Locations:** 12, plus Brands, **Annual Ad Spend** ($119,760) and **Budget Used (MTD)**.
    - **Left column, below it: Cases.** Both of tonight's cases, closed:
      - "Fin resolved: Ad not showing (Westminster)", with CSAT 5.
-     - The handoff case, with Retention Offer = 90-day pause.
-   - **[Say]** "Support is done. Tom isn't walking into an open problem."
-4. **Right column: Account Health (Einstein).** "Likely to Renew? 58.4%, ↓ 21.1% vs last change." The top predictors:
-   - Fin flagged churn risk (Aurora): **-14.6%**
-   - Location cost per lead is 2.4x the average: **-7.9%**
-   - Expansion signal, new location: **+9.1%**
-   - **[Salesforce]** Einstein predictive scoring surfaces what moves the renewal, here the signals that came from a support conversation. *(Demo note: this is the org's Einstein Discovery demo dashboard, set up with this scenario's numbers. Score and predictors are illustrative.)*
-5. **Details tab:**
-   - **Account Information** now includes Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
-   - **Fin Signals** (next section):
-     - Churn Risk **High**: "Not seeing value at Aurora… conserving spend ahead of the Castle Rock launch".
-     - Expansion Signal: **New location: Castle Rock, opening January**.
-     - Sentiment, Last Fin Conversation, locations, monthly budget, spend this month, leads and cost per lead.
-     - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
-6. **Related → child accounts:**
-   - **Dave's Hot Chicken - Aurora:** Paused - Customer Request for 90 days. The location was saved, not cancelled.
-   - **Dave's Hot Chicken - Westminster:** back to Active with a $1,500 cap from Fin's Procedure.
+     - The handoff case, with Offer Accepted = New Location Launch Program.
+4. **Right column: Account Health (Einstein).** "Likely to Renew? 74.6%, ↓ 4.9% vs last change." The top predictors:
+   - Fin flagged low churn risk: **moderate negative**
+   - Location cost per lead is 1.4x average: **minor negative**
+   - Expansion signal, new locations: **high impact**
+   - **[Salesforce]** Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation. *(Demo note: this is the org's Einstein Discovery demo dashboard, set up with this scenario. Score and predictors are illustrative.)*
+5. **Right column: Next Best Action.** "Ads Optimization Review session". It suggests booking the review with Sam to set launch budgets, then reviewing the renewal. Click **View Renewal Opportunity** to open the renewal.
+6. **Details tab:**
+   - **Account Information:** Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
+   - **Fin Signals:**
+     - Churn Risk **Low**: "Value realization: wants proof new locations perform before investing more".
+     - Expansion Signal **4 new locations, opening January**.
+     - Sentiment **Slightly Negative**.
+     - Last Fin Conversation, locations, budget, spend, leads and cost per lead.
+   - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
 7. **Related → Opportunities:**
    - **Annual Renewal:** $119,760, closes Dec 31.
-   - **New:** "Whitaker Hospitality Group - New location: Castle Rock, opening January". Qualification stage, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…" and names the case.
-   - **[Salesforce]** Same Flow, same moment: the expansion signal became a real opportunity in Tom's pipeline.
+   - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…".
+   - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
 8. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
-   - **[Say]** "A support conversation at 9pm just protected the renewal and created pipeline. That's the bridge to Part 1: Tom can hand Castle Rock to Hunter to build the launch plan."
+   - **[Say]** "A support question about budget just protected a $120K renewal and created $38K of pipeline. That's the bridge to Part 1: Tom can hand the 4 openings to Hunter to build the launch plan."
 
 ## 4 · Alisha's view (3 min)
 
@@ -185,12 +195,12 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **Fin resolution rate** (57%) and its weekly trend (46% → 64%).
    - **CSAT** and its trend.
    - **Top contact reasons.**
-   - **At-risk and growing accounts:** Whitaker appears after the live run.
-   - **Retention offers accepted:** how the team saves locations Fin flags.
+   - **At-risk and growing accounts:** Whitaker appears after the live run, with its expansion signal.
+   - **Retention offers accepted:** the programs and offers agents used on Fin handoffs.
    - **[Salesforce]** These are standard **Reports and Dashboards** on the cases Fin syncs. CS leadership doesn't need a separate tool to see AI and human support together.
 2. **Switch to fin.html.** Performance: automation rate, involvement, resolution rate, CX Score.
    - **[Fin]** The CX Score rates every conversation, not just the ones customers rate.
-3. **Click Topics Explorer, then click the "Cancel a location" tile.** The conversations behind the churn signals, with Sam's at the top.
+3. **Click Topics Explorer, then click the "Add a location" tile.** The conversations behind the growth signals, with Sam's at the top (4 new locations, value concern).
    - **[Fin]** Topics are grouped automatically, with no manual tagging, so Alisha sees what's driving volume and where CX is weakest.
 4. *(Optional)* **Click Procedures.** "Ad not showing": the steps, data connectors and handoff rule Fin followed for Sam.
 
@@ -230,11 +240,17 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
   - Fin case card in the center
   - LWC `finCopilot` and screen Flow *Support Tools* on the right
   - screen Flow *Case Resolved* under the conversation
-- **Tom's view:** on Part 2 accounts, the Sales for Tech account page shows a Yelp account card (renewal date, likelihood to renew, spend), a Cases list on the left, the *Yelp - Account Health (Keep and Grow)* Einstein dashboard on the right, and extra Account Information fields. Other accounts see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
+- **Tom's view:** on Part 2 accounts, the Sales for Tech account page shows:
+  - a Yelp account card (renewal date, likelihood to renew, spend) and a Cases list on the left
+  - the *Yelp - Account Health (Keep and Grow)* Einstein dashboard and a Yelp Next Best Action on the right
+  - extra Account Information fields
+  - no "Likely to buy" panel
+
+  Part 2 opportunities hide the MEDDIC methodology card, which errors in this org. Other accounts and opportunities see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created. It updates the account and creates the expansion opportunity.
 - **Alert:** Flow *Yelp - Fin Case Resolved Alert* runs when that case is closed (Case resolved button):
   - creates the brief task
-  - alerts the owner only for multi-location accounts (3+ locations) with High churn risk or an expansion signal
+  - alerts the owner only for multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or High churn risk
   - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CC7K9PY06
 - **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

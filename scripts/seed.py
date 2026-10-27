@@ -68,29 +68,70 @@ update west;
 
 
 def reset():
+    """Delete demo records, except Whitaker Hospitality Group, its locations, Sam and the renewal: those keep
+    their record IDs (so links in Slack, the script and the launcher keep working) and are updated in place."""
     print("Deleting existing demo records...")
-    apex("""
+    apex(f"""
+Set<Id> keep = new Map<Id, Account>([SELECT Id FROM Account WHERE Part2_Demo__c = true
+    AND (Name = '{D.COMPANY}' OR Parent.Name = '{D.COMPANY}')]).keySet();
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND WhatId IN (SELECT Id FROM Account WHERE Part2_Demo__c = true)];
 delete [SELECT Id FROM Case WHERE Part2_Demo__c = true];
-delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true];
-delete [SELECT Id FROM Contact WHERE Account.Part2_Demo__c = true];
-delete [SELECT Id FROM Account WHERE Part2_Demo__c = true AND ParentId != null];
-delete [SELECT Id FROM Account WHERE Part2_Demo__c = true];
+delete [SELECT Id FROM Case WHERE Subject = 'Support EmbeddedMessaging Conversation' AND CreatedDate = LAST_N_DAYS:7];
+Set<Id> keepOpps = new Map<Id, Opportunity>([SELECT Id FROM Opportunity WHERE Part2_Demo__c = true
+    AND Name LIKE '%Annual Renewal' AND AccountId IN :keep]).keySet();
+delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Id NOT IN :keepOpps];
+delete [SELECT Id FROM Contact WHERE Account.Part2_Demo__c = true AND AccountId NOT IN :keep];
+delete [SELECT Id FROM Account WHERE Part2_Demo__c = true AND ParentId != null AND Id NOT IN :keep];
+delete [SELECT Id FROM Account WHERE Part2_Demo__c = true AND Id NOT IN :keep];
 """)
+
+
+def existing_ids():
+    """Reference IDs for the Whitaker records that survive a reseed."""
+    acct = query(f"SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1")
+    if not acct:
+        return {}
+    whg = acct[0]["Id"]
+    ids = {"whg": whg}
+    for r in query(f"SELECT Id, Name FROM Account WHERE ParentId = '{whg}'"):
+        ids[ref(r["Name"].replace(" - ", ""))] = r["Id"]
+    for r in query(f"SELECT Id FROM Contact WHERE AccountId = '{whg}' AND Email = '{D.SAM['email']}' LIMIT 1"):
+        ids["sam"] = r["Id"]
+    for r in query(f"SELECT Id FROM Opportunity WHERE AccountId = '{whg}' AND Name LIKE '%Annual Renewal' LIMIT 1"):
+        ids["renewal"] = r["Id"]
+    return ids
 
 
 def rec(sobject, ref, **fields):
     return {"attributes": {"type": sobject, "referenceId": ref}, **fields}
 
 
-def import_plan(steps):
+def import_plan(steps, ids=None):
     """steps: list of (sobject, [records]). Inserts in order through the Composite API, resolving "@ref" lookups.
 
     Uses the duplicate-rule header so the org's duplicate rules don't block demo locations that share a
     name with other accounts (e.g. Find & Win's Dave's Hot Chicken locations), and turns off case assignment
     rules so the historical cases stay with the running user instead of landing in an Omni-Channel queue."""
-    ids, total = {}, 0
-    for sobject, records in steps:
+    ids, total = dict(ids or {}), 0
+    keep = set(ids)
+    for sobject, all_records in steps:
+        updates = [r for r in all_records if r["attributes"]["referenceId"] in keep]
+        records = [r for r in all_records if r["attributes"]["referenceId"] not in keep]
+        if updates:
+            body = {"allOrNone": True, "records": [
+                {"attributes": {"type": sobject}, "id": ids[r["attributes"]["referenceId"]],
+                 **{k: (ids[v[1:]] if isinstance(v, str) and v.startswith("@") else v)
+                    for k, v in r.items() if k not in ("attributes", "ParentId", "AccountId")}} for r in updates]}
+            with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+                json.dump(body, f)
+            r = subprocess.run(["sf", "api", "request", "rest", "/services/data/v64.0/composite/sobjects", "-X", "PATCH",
+                                "-H", "Content-Type:application/json", "-H", "Sforce-Duplicate-Rule-Header:allowSave=true",
+                                "-b", "@" + f.name, "-o", ORG], capture_output=True, text=True)
+            os.unlink(f.name)
+            bad = [x for x in json.loads(r.stdout) if not x.get("success")]
+            if bad:
+                sys.exit(f"{sobject} update failed:\n{json.dumps(bad[:3], indent=1)}")
+            total += len(updates)
         for c in range(0, len(records), 200):
             chunk = records[c:c + 200]
             body = {"allOrNone": True, "records": []}
@@ -232,7 +273,7 @@ def main():
     if a.reset:
         return
     print("Loading demo records...")
-    import_plan(build())
+    import_plan(build(), existing_ids())
     # The org's case automation puts new cases in the General queue, which Omni-Channel routes to agents.
     # Keep the historical Fin cases with the running user so they never show up in the Omni inbox.
     apex("""

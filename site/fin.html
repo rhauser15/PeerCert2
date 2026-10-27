@@ -157,8 +157,8 @@
           <div class="panel"><div id="sparks"></div><div class="axis"><span></span><span>Sep 6</span><span>Sep 20</span><span>Oct 4</span><span>Oct 18</span></div><div class="scale">0%<i></i>100%</div></div>
         </div>
         <div class="card drill" id="drill">
-          <h4>Cancel a location</h4>
-          <div class="s">4,620 conversations · 61.7% CX score · 72% routed to the team. Fin tags churn risk and expansion signals on each one and syncs them to Salesforce.</div>
+          <h4>Add a location</h4>
+          <div class="s">6,150 conversations · 86.0% CX score · 41% routed to a Multi-Location specialist. Fin tags expansion signals and churn risk on each one and syncs them to Salesforce.</div>
           <table><thead><tr><th>Customer</th><th>Location</th><th>When</th><th>Fin outcome</th><th>Signals</th></tr></thead><tbody id="drillRows"></tbody></table>
         </div>
       </div>
@@ -237,7 +237,7 @@ const TOPICS = [["Budget and billing", 43060, 81.2], ["Ad not showing", 33840, 7
   ["Ad performance", 21530, 69.8], ["Account access", 13840, 85.1], ["Business page edits", 7690, 80.4], ["Add a location", 6150, 86.0], ["Cancel a location", 4620, 61.7]];
 const shade = cx => { const t = Math.max(0, Math.min(1, (cx - 61) / 25)); const a = [58, 26, 102], b = [233, 222, 245], m = [142, 91, 200];
   const mix = (p, q, s) => p.map((x, k) => Math.round(x + (q[k] - x) * s)); return "rgb(" + (t < .5 ? mix(a, m, t * 2) : mix(m, b, (t - .5) * 2)).join(",") + ")"; };
-const tile = ([n, c, cx], flex) => `<div class="tile${cx > 80 ? " light" : ""}${n === "Cancel a location" ? " click" : ""}" id="${n === "Cancel a location" ? "tCancel" : ""}" style="flex:${flex} 1 0;background:${shade(cx)}"><b>${n}</b><small>${c.toLocaleString()} conversations ↗</small><small>${cx}% CX score</small></div>`;
+const tile = ([n, c, cx], flex) => `<div class="tile${cx > 80 ? " light" : ""}${n === "Add a location" ? " click" : ""}" id="${n === "Add a location" ? "tAdd" : ""}" style="flex:${flex} 1 0;background:${shade(cx)}"><b>${n}</b><small>${c.toLocaleString()} conversations ↗</small><small>${cx}% CX score</small></div>`;
 const col = ts => `<div style="flex:${ts.reduce((a, t) => a + t[1], 0)} 1 0;display:flex;flex-direction:column;gap:6px;min-width:0">${ts.map(t => tile(t, t[1])).join("")}</div>`;
 $("tree").innerHTML = `<div class="r" style="flex:60 1 0">${TOPICS.slice(0, 3).map(t => tile(t, t[1])).join("")}</div>
   <div class="r" style="flex:40 1 0">${TOPICS.slice(3, 5).map(t => tile(t, t[1])).join("")}${col(TOPICS.slice(5))}</div>`;
@@ -249,26 +249,26 @@ $("sparks").innerHTML = TOPICS.slice(0, 6).map(([n, c, cx]) => {
   return `<div class="spark"><span>${n}</span><svg viewBox="0 0 560 72" preserveAspectRatio="none">${bars}</svg></div>`;
 }).join("");
 const DRILL = [
-  ["Whitaker Hospitality Group", "Dave's Hot Chicken - Aurora", "Today, 9:11 PM", "Routed to team", '<span class="tag high">Churn risk: High</span> <span class="tag exp">New location: Castle Rock</span>', true],
-  ["Mountain View Car Wash", "Aurora (Havana St)", "Yesterday", "Routed to team", '<span class="tag high">Churn risk: High</span>'],
-  ["Front Range Burger Co.", "Loveland", "Oct 22", "Routed to team", '<span class="tag high">Churn risk: High</span>'],
-  ["Mile High Fitness Group", "Capitol Hill", "Oct 20", "Resolved by Fin", '<span class="tag med">Churn risk: Medium</span>'],
-  ["Rocky Mountain Pet Care", "Boulder (Pearl St)", "Oct 18", "Resolved by Fin", '<span class="tag exp">New location: Longmont</span>'],
+  ["Whitaker Hospitality Group", "4 new locations (January)", "Today, 9:11 PM", "Routed to team", '<span class="tag exp">Expansion: 4 new locations</span> <span class="tag med">Value concern</span>', true],
+  ["Rocky Mountain Pet Care", "Longmont (new)", "Oct 18", "Resolved by Fin", '<span class="tag exp">Expansion: 6th clinic</span>'],
+  ["Alpine Bagel Works", "Catering at 3 locations", "Oct 16", "Routed to team", '<span class="tag exp">Expansion: catering</span>'],
+  ["Tejon Street Tacos", "Briargate (new)", "Oct 12", "Resolved by Fin", '<span class="tag exp">Expansion: 5th location</span>'],
+  ["Mile High Fitness Group", "Capitol Hill", "Oct 9", "Routed to team", '<span class="tag med">Churn risk: Medium</span>'],
 ];
 $("drillRows").innerHTML = DRILL.map(([a, l, w, o, s, isNew]) => `<tr class="${isNew ? "new" : ""}"><td><b>${a}</b></td><td>${l}</td><td>${w}</td><td><span class="tag ${o.startsWith("Routed") ? "route" : "exp"}">${o}</span></td><td>${s}</td></tr>`).join("");
 
 const steps = [
   ["Alisha (VP Customer Success) opens Fin: Performance.", async () => show("v-perf")],
   ["Topics Explorer: what customers contact Yelp about.", async i => { await click($("navTopics"), i); show("v-topics"); }],
-  ["Alisha opens 'Cancel a location': the churn signals Fin tagged.", async i => {
-    await click($("tCancel"), i);
-    $("tCancel").classList.add("sel"); $("drill").classList.add("on");
+  ["Alisha opens 'Add a location': the growth signals Fin tagged.", async i => {
+    await click($("tAdd"), i);
+    $("tAdd").classList.add("sel"); $("drill").classList.add("on");
     if (!i) $("drill").scrollIntoView({ behavior: "smooth", block: "start" });
   }],
   ["Backstage: the Procedure Fin followed for Sam.", async i => { await click($("navProc"), i); show("v-proc"); }],
 ];
-Presenter.init(steps, () => { $("drill").classList.remove("on"); $("tCancel").classList.remove("sel"); show("v-perf"); });
-Presenter.onClick({ 1: ["navTopics"], 2: ["tCancel"], 3: ["navProc"] });
+Presenter.init(steps, () => { $("drill").classList.remove("on"); $("tAdd").classList.remove("sel"); show("v-perf"); });
+Presenter.onClick({ 1: ["navTopics"], 2: ["tAdd"], 3: ["navProc"] });
 const v = new URLSearchParams(location.search).get("view");
 if (v === "procedure") show("v-proc");
 </script>

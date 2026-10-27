@@ -135,7 +135,13 @@ global without sharing class YelpFinApi {
     @TestVisible
     static Map<String, Object> messengerToken() {
         Yelp_Fin_Api__mdt cfg = config();
-        if (cfg == null || String.isBlank(cfg.Messenger_Secret__c)) {
+        String secret = cfg == null ? null : cfg.Messenger_Secret__c;
+        if (String.isBlank(secret)) {
+            // Also accept the secret entered as the field's default value in Setup
+            String dv = Yelp_Fin_Api__mdt.Messenger_Secret__c.getDescribe().getDefaultValueFormula();
+            secret = dv == null ? null : dv.trim().removeStart('"').removeEnd('"').removeStart('\'').removeEnd('\'');
+        }
+        if (String.isBlank(secret)) {
             throw new ApiException(503, 'Messenger secret not set');
         }
         Contact c = demoContact(DEMO_EMAIL);
@@ -144,7 +150,7 @@ global without sharing class YelpFinApi {
         String payload = b64url(Blob.valueOf(JSON.serialize(new Map<String, Object>{
             'user_id' => c.Id, 'email' => c.Email, 'name' => c.FirstName + ' ' + c.LastName, 'exp' => exp
         })));
-        String sig = b64url(Crypto.generateMac('HmacSHA256', Blob.valueOf(header + '.' + payload), Blob.valueOf(cfg.Messenger_Secret__c)));
+        String sig = b64url(Crypto.generateMac('HmacSHA256', Blob.valueOf(header + '.' + payload), Blob.valueOf(secret)));
         return new Map<String, Object>{
             'token' => header + '.' + payload + '.' + sig, 'user_id' => c.Id, 'email' => c.Email,
             'name' => c.FirstName + ' ' + c.LastName, 'company' => c.Account.Name

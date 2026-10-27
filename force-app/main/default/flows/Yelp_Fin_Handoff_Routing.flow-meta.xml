@@ -26,6 +26,21 @@
         </connector>
     </start>
     <formulas>
+        <name>ExpansionClean</name>
+        <dataType>String</dataType>
+        <expression>IF(OR(ISBLANK({!Fin_Expansion_Signal}), LOWER({!Fin_Expansion_Signal}) = "none"), "", {!Fin_Expansion_Signal})</expression>
+    </formulas>
+    <formulas>
+        <name>SummaryOrDefault</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Summary}), "Fin handed this conversation off from the Fin Messenger. Contact reason: " &amp; BLANKVALUE({!Fin_Contact_Reason}, "not set") &amp; IF(ISBLANK({!ExpansionClean}), "", ". Expansion signal: " &amp; {!ExpansionClean}) &amp; ".", {!Summary})</expression>
+    </formulas>
+    <formulas>
+        <name>ChurnReasonOrDefault</name>
+        <dataType>String</dataType>
+        <expression>IF(AND(ISBLANK({!Fin_Churn_Reason}), NOT(ISBLANK({!Fin_Churn_Risk}))), "Flagged by Fin in the conversation", {!Fin_Churn_Reason})</expression>
+    </formulas>
+    <formulas>
         <name>ResolvedSubject</name>
         <dataType>String</dataType>
         <expression>"Fin resolved: " &amp; {!Fin_Contact_Reason} &amp; IF(ISBLANK({!Fin_Location}), "", " (" &amp; {!Fin_Location} &amp; ")")</expression>
@@ -143,7 +158,7 @@
         <inputAssignments>
             <field>Description</field>
             <value>
-                <elementReference>Summary</elementReference>
+                <elementReference>SummaryOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -197,7 +212,7 @@
         <inputAssignments>
             <field>Fin_Summary__c</field>
             <value>
-                <elementReference>Summary</elementReference>
+                <elementReference>SummaryOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -221,13 +236,13 @@
         <inputAssignments>
             <field>Churn_Risk_Reason__c</field>
             <value>
-                <elementReference>Fin_Churn_Reason</elementReference>
+                <elementReference>ChurnReasonOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Expansion_Signal__c</field>
             <value>
-                <elementReference>Fin_Expansion_Signal</elementReference>
+                <elementReference>ExpansionClean</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -280,7 +295,7 @@
         <inputAssignments>
             <field>Description</field>
             <value>
-                <elementReference>Summary</elementReference>
+                <elementReference>SummaryOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -334,7 +349,7 @@
         <inputAssignments>
             <field>Fin_Summary__c</field>
             <value>
-                <elementReference>Summary</elementReference>
+                <elementReference>SummaryOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -358,13 +373,13 @@
         <inputAssignments>
             <field>Churn_Risk_Reason__c</field>
             <value>
-                <elementReference>Fin_Churn_Reason</elementReference>
+                <elementReference>ChurnReasonOrDefault</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Expansion_Signal__c</field>
             <value>
-                <elementReference>Fin_Expansion_Signal</elementReference>
+                <elementReference>ExpansionClean</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

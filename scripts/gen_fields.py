@@ -52,8 +52,8 @@ FIELDS = {
         "Fin_Summary__c": lta("Fin Summary", "Summary Fin wrote at handoff."),
         "Fin_Transcript__c": lta("Fin Transcript", "Transcript of the Fin conversation.", 14),
         # Mapped from Fin attributes by Flow
-        "Fin_Contact_Reason__c": pick("Contact Reason", "Topic of the conversation, set by Fin.", REASONS),
-        "Churn_Risk__c": pick("Churn Risk", "Churn risk Fin detected in the conversation.", RISK),
+        "Fin_Contact_Reason__c": pick("Contact Reason", "Topic of the conversation, set by Fin.", REASONS, restricted=False),
+        "Churn_Risk__c": pick("Churn Risk", "Churn risk Fin detected in the conversation.", RISK, restricted=False),
         "Churn_Risk_Reason__c": txt("Churn Risk Reason", "Why Fin flagged churn risk."),
         "Expansion_Signal__c": txt("Expansion Signal", "Growth the customer mentioned, e.g. a new location."),
         "Fin_Sentiment__c": pick("Sentiment", "Customer sentiment, set by Fin.", SENTIMENT, restricted=False),
@@ -68,7 +68,7 @@ FIELDS = {
         "Part2_Demo__c": chk("Keep & Grow demo record", "Created by the Keep & Grow demo seed."),
     },
     "Account": {
-        "Churn_Risk__c": pick("Churn Risk", "Latest churn risk Fin flagged for this account.", RISK),
+        "Churn_Risk__c": pick("Churn Risk", "Latest churn risk Fin flagged for this account.", RISK, restricted=False),
         "Churn_Risk_Reason__c": txt("Churn Risk Reason", "Why Fin flagged churn risk."),
         "Expansion_Signal__c": txt("Expansion Signal", "Growth the customer mentioned to Fin."),
         "Fin_Sentiment__c": pick("Sentiment", "Sentiment in the latest Fin conversation.", SENTIMENT, restricted=False),

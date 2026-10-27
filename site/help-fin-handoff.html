@@ -109,7 +109,11 @@ async function drawLocs() {
     $("locs").innerHTML = rows.map(([n, s, c]) => `<div class="row"><span>${n}</span><span><span class="dot" style="${c ? `background:${c}` : ""}"></span>${s}</span></div>`).join("")
       + (paused.length ? "" : `<div class="row"><span>All 12 locations</span><span><span class="dot"></span>Running</span></div>`).replace(/^/, paused.length ? "" : "");
     if (!paused.length) $("locs").innerHTML = `<div class="row"><span>All ${locs.length} locations</span><span><span class="dot"></span>Running</span></div>`;
-  } catch (e) { /* keep last state */ }
+  } catch (e) {
+    // Only shown while testing (Fin's ?intercomTest link or ?debug): the browser couldn't reach Salesforce
+    if (/intercomTest|debug/.test(location.search) && !$("locs").innerHTML)
+      $("locs").innerHTML = `<div class="row"><span>Couldn't reach Salesforce. A content blocker may be blocking salesforce-sites.com.</span></div>`;
+  }
 }
 drawLocs(); setInterval(drawLocs, 5000);
 
@@ -129,6 +133,7 @@ drawLocs(); setInterval(drawLocs, 5000);
     else { settings.user_id = "sam-whitaker"; settings.email = DEMO.sam.email; settings.name = DEMO.sam.name; }
     if (!t.token) console.info("[fin] sign-in token unavailable, Messenger running unverified");
   } catch (e) {
+    console.warn("[fin] couldn't get Sam's sign-in token from Salesforce", e);
     settings.user_id = "sam-whitaker"; settings.email = DEMO.sam.email; settings.name = DEMO.sam.name;
   }
   window.Intercom("boot", settings);

@@ -335,8 +335,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>finCopilot</componentName>
-                <identifier>c_finCopilot</identifier>
+                <componentInstanceProperties><name>height</name><value>640px</value></componentInstanceProperties>
+                <componentInstanceProperties><name>width</name><value>100%</value></componentInstanceProperties>
+                <componentName>finai:copilotFrame</componentName>
+                <identifier>finai_copilotFrame</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -346,6 +348,12 @@
                 <componentInstanceProperties><name>flowName</name><value>Yelp_Fin_Resolve_Handoff</value></componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
                 <identifier>flowruntime_resolveFinHandoff</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>finCopilot</componentName>
+                <identifier>c_finCopilot</identifier>
             </componentInstance>
         </itemInstances>
         <name>rightsidebar</name>

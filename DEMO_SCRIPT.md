@@ -15,7 +15,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger and the Fin admin screens. They follow the Fin help center screenshots. Fin's answers are scripted.
 - **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
 - **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API and sends Fin's data as routing attributes. In production, Fin does this through its Salesforce connector ("Hand-off to Salesforce agent"), and Sam keeps chatting in the Fin Messenger either way. For resolved conversations, Fin's "Create Salesforce case on resolution" setting creates the case.
-- **Copilot:** the real Fin Copilot for Salesforce answers from your support content and past conversations (not data connectors or Guidance). The panel here is a demo build of that experience with scripted answers for the demo questions.
+- **Copilot:** the **real Fin Copilot** (Fin for Salesforce: Copilot package, connected to the Fin workspace) is at the top of the right column. It answers from the Yelp articles in Fin (`fin-content/`), and its sources open the articles. Below Support tools is the scripted demo panel, which uses live Salesforce numbers (locations, renewal, Fin summary). Use the real one for the program question; use the demo panel as a backup, or for answers that need account data. The real Copilot doesn't use data connectors or Guidance.
 
 ---
 
@@ -117,7 +117,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 2. **Walk the page, left to right:**
    - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
    - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it are the Engagement, Details, Knowledge and Related tabs.
-   - **Right:** **Fin Copilot** on top, **Support tools** below.
+   - **Right:** the real **Fin Copilot** on top, then **Support tools**, then the scripted Copilot demo panel as a backup.
 3. **Fin summarizes the issue. In Copilot, click Summarize.** You'll see:
    - the question: redirect existing spend to test new locations
    - the summary: 4 new locations in January, wants performance proof before investing more, value concern

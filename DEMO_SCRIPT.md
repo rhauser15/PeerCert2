@@ -32,7 +32,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Fin: Performance, Topics Explorer, Procedure](https://rhauser15.github.io/PeerCert2/fin.html)
 
 **Start here**
-- [Open the Service Console for Tech app](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF)
+- [Open the Yelp Support Console](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF)
 
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
@@ -40,7 +40,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU)
 
 **Section 3 · Tom's view**
-- [Whitaker Hospitality Group (account, Sales for Tech)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
+- [Whitaker Hospitality Group (account, Yelp Sales)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g80000171uelAAA)
 
@@ -55,10 +55,10 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 ## Before the demo (10 minutes)
 
 1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. Whitaker, its locations, Sam and the renewal keep the same record IDs, so links keep working. For a full reload, run `python3 scripts/seed.py`.
-2. **Salesforce (window 1):** sign in as Rob, open **Service Console for Tech** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
+2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
-5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Sales for Tech** app (for Tom's view in section 3).
+5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
 **Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
@@ -111,6 +111,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 ## 2 · Fin makes agents better (4 min) · Service Console (John, CSR)
 
+0. **Before the chat rings, show the Yelp Support Home** (Home tab in the Yelp Support Console). It has Alisha's Fin dashboard and the "Yelp - Fin Conversations" list. **[Salesforce]** It's the agent's home page, built in Lightning App Builder from standard dashboards and list views.
 1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
    - **[Salesforce]** **Omni-Channel** pushed the chat to an available specialist based on queue and capacity.
 2. **Walk the page, left to right:**
@@ -147,11 +148,11 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
    - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
 
-## 3 · Tom's view: the account and a new opportunity (4 min) · Slack and Sales for Tech
+## 3 · Tom's view: the account and a new opportunity (4 min) · Slack and Yelp Sales
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
-1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Sales for Tech.
+1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Yelp Sales.
    - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, it spends $119,760 a year, and Fin heard growth."
    - **[Salesforce]** A **record-triggered Flow** decides who needs to know. It alerts on multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or high churn risk. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post:
@@ -160,7 +161,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - account health: open cases, the renewal
      - spend by location
      - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
-2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Sales for Tech**. Click the account name to get to Whitaker Hospitality Group.
+2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card under the path and an "Ads Optimization Review session" Next Best Action. Click the account name to get to Whitaker Hospitality Group.
 3. **Left column, top: the account card.**
    - **Renewal Date:** Dec 31, 2026
    - **Likelihood to Renew:** 74.6, *Likely, watch value*. It was 79.5 before tonight's conversation.
@@ -175,6 +176,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Salesforce]** Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation. *(Demo note: this is the org's Einstein Discovery demo dashboard, set up with this scenario. Score and predictors are illustrative.)*
 5. **Right column: Next Best Action.** "Ads Optimization Review session". It suggests booking the review with Sam to set launch budgets, then reviewing the renewal. Click **View Renewal Opportunity** to open the renewal.
 6. **Details tab:**
+   - **Yelp Ads Performance** (top): annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
    - **Account Information:** Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
    - **Fin Signals:**
      - Churn Risk **Low**: "Value realization: wants proof new locations perform before investing more".
@@ -228,6 +230,68 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
 
 ---
 
+## Implementation guide: how Yelp would set up what you just saw
+
+Share this when Yelp asks "what would it take?" Each step lists who owns it and where the docs are. The Fin links are the Fin help center. Salesforce links go to Trailhead, or to a Salesforce Help search where a single article isn't stable.
+
+### 1 · Fin Messenger on the Yelp for Business help center (section 1)
+1. **Connect Fin to Salesforce** (Yelp Salesforce admin + Fin admin, under 1 hour): [How to connect Fin to Salesforce](https://fin.ai/help/en/articles/16847877-how-to-connect-fin-to-salesforce).
+2. **Sync account and contact data** so Fin knows who's signed in and what they own: [Sync Salesforce account data](https://fin.ai/help/en/articles/13976063-sync-salesforce-account-data).
+3. **Train Fin** on Yelp's help center and internal articles, and set tone and AI disclosure: [What is AI agent disclosure](https://fin.ai/help/en/articles/13976073-what-is-ai-agent-disclosure).
+4. **Build Procedures** for top tier-1 intents (ad not showing, budget caps, invoices), with data connectors to the Ads and Billing APIs:
+   - [Fin Procedures explained](https://fin.ai/help/en/articles/13976187-fin-procedures-explained)
+   - [Quick start: create a simple Procedure](https://fin.ai/help/en/articles/13976195-quick-start-create-a-simple-fin-procedure)
+   - [Create data connectors](https://fin.ai/help/en/articles/13975792-create-data-connectors-for-fin)
+5. **Set escalation rules**, for example cancellations and multi-location budget changes go to a person: [Escalation guidance and rules](https://fin.ai/help/en/articles/13976161-manage-fin-ai-agent-s-escalation-guidance-and-rules).
+6. **Test before launch**: [Preview and test Fin](https://fin.ai/help/en/articles/13975790-how-to-preview-and-test-fin).
+7. **Turn on Fin CSAT**: [Measure and report on Fin CSAT](https://fin.ai/help/en/articles/13975806-measure-and-report-on-fin-csat).
+
+### 2 · Handoff to a Salesforce agent (sections 1 and 2)
+1. **Messaging for In-App and Web:** create a channel and deployment in Salesforce and publish it ([Salesforce Help: Messaging for In-App and Web](https://help.salesforce.com/s/search-result?language=en_US#q=Messaging%20for%20In-App%20and%20Web%20setup&t=allResultsTab)).
+2. **Point Fin at it:** set up Fin's "Hand-off to Salesforce agent" step: [Fin Messenger: setting up with Salesforce](https://fin.ai/help/en/articles/13975912-fin-messenger-setting-up-with-salesforce).
+3. **Map Fin's data with Flow:** map Fin's attributes (summary, transcript, churn risk, expansion signal, sentiment) onto Case fields in an Omni-Channel routing Flow.
+   - [Map data using Salesforce Flows](https://fin.ai/help/en/articles/13976083-fin-messenger-map-data-using-salesforce-flows)
+   - [Salesforce Help: Omni-Channel Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Omni-Channel%20Flow%20route%20work&t=allResultsTab)
+4. **Log Fin-resolved conversations as cases** with "Create Salesforce case on resolution": [Fin for Salesforce cases: set up](https://fin.ai/help/en/articles/13975757-fin-for-salesforce-cases-set-up).
+5. **Omni-Channel queues and presence:** set these up for the Multi-Location team ([Salesforce Help: Omni-Channel setup](https://help.salesforce.com/s/search-result?language=en_US#q=Set%20up%20Omni-Channel%20queues%20presence%20statuses&t=allResultsTab)).
+
+### 3 · Fin Copilot in the Service Console (section 2)
+1. **Install Fin Copilot for Salesforce** and add it to the Messaging Session and Case pages in Lightning App Builder: [Deploy Copilot to Salesforce](https://fin.ai/help/en/articles/13976231-deploy-copilot-to-salesforce).
+2. **Add internal content** (retention policy, New Location Launch Program) so Copilot can cite it: [How to use Copilot](https://fin.ai/help/en/articles/13975891-how-to-use-copilot).
+3. **Support tools and Case resolved:** in the demo these are two small screen Flows on the page ([Trailhead: Lightning App Builder](https://trailhead.salesforce.com/content/learn/modules/lightning_app_builder)).
+
+### 4 · Write-back, opportunity and Slack alert (section 3)
+1. **Record-triggered Flows:**
+   - on case create: write Fin's signals to the account and open the expansion opportunity
+   - on case close: alert the AE, only for multi-location, $50K+ accounts with growth or churn risk
+
+   [Trailhead: Record-Triggered Flows](https://trailhead.salesforce.com/content/learn/modules/record-triggered-flows)
+2. **Slack:** connect the workspace in Setup → Slack, add Sales Cloud for Slack, and use the "Send Slack Message" Flow action ([Salesforce Help: Slack actions in Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Send%20Slack%20Message%20flow%20core%20action&t=allResultsTab)).
+3. **Account page:** add the Fin Signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
+
+### 5 · Einstein predictive scoring for renewal likelihood (section 3)
+1. **Pick the outcome:** renewed vs churned multi-location accounts over the last 2–3 years.
+2. **Build the dataset:**
+   - account and location spend
+   - leads and cost per lead
+   - case volume
+   - Fin signals: churn risk, sentiment, expansion signal, CSAT
+3. **Create the model:**
+   - **Einstein Discovery** (CRM Analytics) for a model with top predictors ([Trailhead: Einstein Discovery basics](https://trailhead.salesforce.com/content/learn/modules/einstein-discovery-basics))
+   - or **Einstein Prediction Builder** for a no-code score field on Account ([Salesforce Help: Einstein Prediction Builder](https://help.salesforce.com/s/search-result?language=en_US#q=Einstein%20Prediction%20Builder%20create%20prediction&t=allResultsTab))
+4. **Deploy:** put the score and top predictors on the account and opportunity pages (Einstein Discovery panel or a score field), and use it in Flow, for example to alert the AE when likelihood drops.
+5. **Demo note:** today's score and predictors are illustrative. A real model needs Yelp's history to train.
+
+### 6 · Reporting (section 4)
+1. **Fin reports:** [Monitor Fin's performance](https://fin.ai/help/en/articles/13976002-monitor-fin-s-performance-with-clarity-and-confidence) and [Topics Explorer](https://fin.ai/help/en/articles/13975984-use-the-topics-explorer-to-see-what-s-driving-volume).
+2. **Salesforce reports and dashboards** on the cases Fin syncs: [Trailhead: Reports & Dashboards](https://trailhead.salesforce.com/content/learn/modules/lex_implementation_reports_dashboards).
+3. **Pricing reference:** [Fin pricing: outcomes](https://fin.ai/help/en/articles/13975800-fin-pricing-outcomes).
+
+### 7 · Branding the org
+- Setup → Themes and Branding: Yelp colors and logo. In this org, the active theme is now "Yelp for Business", and the original Welo values are saved in `scripts/backup` ([Trailhead: Customize your UI](https://trailhead.salesforce.com/content/learn/modules/lex_customization)).
+
+---
+
 ## Setup notes
 
 - **Live chat:**
@@ -236,11 +300,11 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
     - Fin-resolved conversations: creates a closed case and doesn't route.
     - Handoffs: creates an open case and routes to the Messaging queue (*SDO_Service_Messaging*).
   - Summary and transcript are split into 255-character chunks and rejoined by the Flow.
-- **Messaging Session page** (*Messaging Session - Fin Handoff*, assigned in Service Console for Tech):
+- **Messaging Session page** (*Messaging Session - Fin Handoff*, assigned in Yelp Support Console):
   - Fin case card in the center
   - LWC `finCopilot` and screen Flow *Support Tools* on the right
   - screen Flow *Case Resolved* under the conversation
-- **Tom's view:** on Part 2 accounts, the Sales for Tech account page shows:
+- **Tom's view:** on Part 2 accounts, the Yelp Sales account page shows:
   - a Yelp account card (renewal date, likelihood to renew, spend) and a Cases list on the left
   - the *Yelp - Account Health (Keep and Grow)* Einstein dashboard and a Yelp Next Best Action on the right
   - extra Account Information fields
@@ -253,4 +317,9 @@ Use these if the question comes up: "Why Fin and not Agentforce?"
   - alerts the owner only for multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or High churn risk
   - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CC7K9PY06
 - **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
+- **Branding and Yelp views:**
+  - The active org theme (*Yelp for Business*) and the app names (Yelp Support Console, Yelp Sales) are changed.
+  - Home pages: *Yelp Support Home* and *Yelp Sales Home*.
+  - The *Yelp Ads Performance* card replaces the Welo dashboards on Part 2 accounts and opportunities.
+  - To restore Welo, redeploy `scripts/backup/LEXTHEMINGWelo.brandingSet-meta.xml.orig` as the branding set.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

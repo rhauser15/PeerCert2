@@ -80,6 +80,21 @@ report("Fin_Retention_Offers", "Fin Handoffs: Retention Offers Accepted", "CaseL
        [("SUBJECT", []), ("ACCOUNT.NAME", [])], FIN + [("Case.Retention_Offer__c", "notEqual", "")], "Case.Retention_Offer__c",
        desc="How agents resolved the cancel and performance cases Fin handed off.")
 
+# --- Tom's book (Yelp Sales home) ---
+P2O = [("Opportunity.Part2_Demo__c", "equals", "1"), ("CLOSED", "equals", "False")]
+report("Yelp_Renewals", "Yelp: Upcoming Renewals", "Opportunity",
+       [("AMOUNT", ["Sum"]), ("OPPORTUNITY_NAME", []), ("ACCOUNT_NAME", [])],
+       P2O + [("OPPORTUNITY_NAME", "contains", "Renewal")], "CLOSE_DATE", date_col="CLOSE_DATE", granularity="Month",
+       desc="Open renewals for multi-location customers, by close month.")
+report("Yelp_Expansion_From_Fin", "Yelp: Expansion From Fin Signals", "Opportunity",
+       [("AMOUNT", ["Sum"]), ("OPPORTUNITY_NAME", []), ("ACCOUNT_NAME", [])],
+       P2O + [("TYPE", "equals", "Add-On Business")], "STAGE_NAME", date_col="CLOSE_DATE",
+       desc="Expansion opportunities opened from expansion signals Fin heard in support conversations.")
+report("Yelp_Book_By_Spend", "Yelp: Customers by Annual Ad Spend", "AccountList",
+       [("Account.Annual_Ad_Spend__c", ["Sum"]), ("Account.Location_Count__c", ["Sum"])],
+       [("Account.Part2_Demo__c", "equals", "1"), ("Account.Annual_Ad_Spend__c", "greaterThan", "0")], "ACCOUNT.NAME", date_col=None,
+       desc="Multi-location customers by annual ad spend.")
+
 write(os.path.join(BASE, "reports", f"{FOLDER}.reportFolder-meta.xml"), """
 <ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <accessType>Public</accessType><name>Yelp Keep and Grow</name><publicFolderAccess>ReadWrite</publicFolderAccess>
@@ -157,6 +172,38 @@ write(os.path.join(BASE, "dashboards", f"{FOLDER}_Dashboards", "Keep_and_Grow_CS
     <runningUser>{RUNNING_USER}</runningUser>
     <textColor>#000000</textColor>
     <title>Customer Success: Fin Conversations</title>
+    <titleColor>#000000</titleColor>
+    <titleSize>12</titleSize>
+</Dashboard>""")
+SUM = "<chartSummary><aggregate>Sum</aggregate><axisBinding>y</axisBinding><column>{}</column></chartSummary>"
+book = "".join([
+    comp("Metric", "Yelp_Renewals", "Open renewals, multi-location customers", "Renewals in play", 0, 0, 4, 6, SUM.format("AMOUNT") + GREEN),
+    comp("Metric", "Yelp_Expansion_From_Fin", "Opened from Fin conversations", "Expansion pipeline from Fin", 4, 0, 4, 6, SUM.format("AMOUNT") + GREEN),
+    comp("Metric", "Fin_Flagged_Accounts", "Churn risk or growth flagged by Fin", "Accounts to act on", 8, 0, 4, 6, ROWS + GREEN),
+    comp("Column", "Yelp_Renewals", "Renewal amount by close month", "Renewals by month", 0, 6, 6, 8,
+         CHART + SUM.format("AMOUNT") + "<groupingColumn>CLOSE_DATE</groupingColumn><sortBy>RowLabelAscending</sortBy>"),
+    comp("Bar", "Yelp_Book_By_Spend", "Annual ad spend by customer", "Book by ad spend", 6, 6, 6, 8,
+         CHART + SUM.format("Account.Annual_Ad_Spend__c") + "<groupingColumn>ACCOUNT.NAME</groupingColumn><sortBy>RowValueDescending</sortBy>"),
+])
+write(os.path.join(BASE, "dashboards", f"{FOLDER}_Dashboards", "Yelp_Tom_Book.dashboard-meta.xml"), f"""
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#FFFFFF</backgroundStartColor>
+    <chartTheme>light</chartTheme>
+    <colorPalette>unity</colorPalette>
+    <dashboardChartTheme>light</dashboardChartTheme>
+    <dashboardColorPalette>unity</dashboardColorPalette>
+    <dashboardGridLayout>{book}
+        <numberOfColumns>12</numberOfColumns>
+        <rowHeight>36</rowHeight>
+    </dashboardGridLayout>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <description>Tom's book: renewals, expansion pipeline from Fin signals, and customers by ad spend.</description>
+    <isGridLayout>true</isGridLayout>
+    <runningUser>{RUNNING_USER}</runningUser>
+    <textColor>#000000</textColor>
+    <title>Yelp: Multi-Location Book of Business</title>
     <titleColor>#000000</titleColor>
     <titleSize>12</titleSize>
 </Dashboard>""")

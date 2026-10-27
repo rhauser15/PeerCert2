@@ -961,6 +961,14 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                
+                <componentName>yelpAccountMetrics</componentName>
+                <identifier>c_yelpAccountMetrics</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>dashboardId</name>
                     <value>NEW_Account_Dashboard_FY25</value>
@@ -1011,6 +1019,7 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard7</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1611,6 +1620,7 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab16</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-7278a0b4-45b7-463d-91d6-8f8c15ed7204</name>
@@ -2211,6 +2221,7 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

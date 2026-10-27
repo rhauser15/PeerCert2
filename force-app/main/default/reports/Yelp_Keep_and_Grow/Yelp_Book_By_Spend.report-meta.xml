@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    
+    <columns><aggregateTypes>Sum</aggregateTypes><field>Account.Annual_Ad_Spend__c</field></columns><columns><aggregateTypes>Sum</aggregateTypes><field>Account.Location_Count__c</field></columns>
+    <description>Multi-location customers by annual ad spend.</description>
+    <filter><criteriaItems><column>Account.Part2_Demo__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>1</value></criteriaItems><criteriaItems><column>Account.Annual_Ad_Spend__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>greaterThan</operator><value>0</value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>Day</dateGranularity><field>ACCOUNT.NAME</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>Yelp: Customers by Annual Ad Spend</name>
+    <params><name>units</name><value>h</value></params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    
+    
+</Report>

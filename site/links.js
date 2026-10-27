@@ -4,7 +4,7 @@ window.SF_LINKS = [
   "Start here",
   [
    [
-    "Open the Service Console for Tech app",
+    "Open the Yelp Support Console",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF"
    ]
   ]
@@ -30,7 +30,7 @@ window.SF_LINKS = [
   "Section 3 \u00b7 Tom's view",
   [
    [
-    "Whitaker Hospitality Group (account, Sales for Tech)",
+    "Whitaker Hospitality Group (account, Yelp Sales)",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view"
    ],
    [

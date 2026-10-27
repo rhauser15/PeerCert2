@@ -101,14 +101,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
-        <content>SDO_Service_Home_ServiceConsole</content>
+        <content>Yelp_Service_Home</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
         <pageOrSobjectType>standard-home</pageOrSobjectType>
     </actionOverrides>
     <brand>
-        <headerColor>#7C3BB9</headerColor>
+        <headerColor>#D32323</headerColor>
         <logo>SDO_Service_Console_App</logo>
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
@@ -120,7 +120,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>true</isOmniPinnedViewEnabled>
-    <label>Service Console for Tech</label>
+    <label>Yelp Support Console</label>
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>Tab</actionName>

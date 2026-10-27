@@ -48,7 +48,7 @@ def build():
             ("Fin: Performance, Topics Explorer, Procedure", f"{SITE}/fin.html"),
         ]),
         ("Start here", [
-            ("Open the Service Console for Tech app", f"{BASE}/lightning/app/{APP_ID}"),
+            ("Open the Yelp Support Console", f"{BASE}/lightning/app/{APP_ID}"),
         ]),
         ("Sections 1 and 2 · Handoff and Copilot", [
             ("Messaging Sessions", f"{BASE}/lightning/o/MessagingSession/list?filterName=Recent"),
@@ -56,7 +56,7 @@ def build():
             flow("Fin handoff routing Flow", "Yelp_Fin_Handoff_Routing"),
         ]),
         ("Section 3 · Tom's view", [
-            rec("Whitaker Hospitality Group (account, Sales for Tech)", "Account", acct, SALES_APP_ID),
+            rec("Whitaker Hospitality Group (account, Yelp Sales)", "Account", acct, SALES_APP_ID),
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
             flow("Fin write-back Flow (account, expansion opportunity, renewal brief)", "Yelp_Fin_Case_Writeback"),

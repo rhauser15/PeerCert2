@@ -49,13 +49,13 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard3</identifier>
-                <visibilityRule>
+                <visibilityRule><booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Verde - Renewal Opportunity</rightValue>
                     </criteria>
-                </visibilityRule>
+                <criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -94,13 +94,13 @@
                 </componentInstanceProperties>
                 <componentName>nbaDemo</componentName>
                 <identifier>c_nbaDemo2</identifier>
-                <visibilityRule>
+                <visibilityRule><booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Verde - Renewal Opportunity</rightValue>
                     </criteria>
-                </visibilityRule>
+                <criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -151,13 +151,13 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard4</identifier>
-                <visibilityRule>
+                <visibilityRule><booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Verde - Renewal Opportunity</rightValue>
                     </criteria>
-                </visibilityRule>
+                <criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-3jrbpg9vlfw</name>
@@ -413,13 +413,13 @@
                 </componentInstanceProperties>
                 <componentName>runtime_communities_nba:builderNbaWidget</componentName>
                 <identifier>runtime_communities_nba_builderNbaWidget</identifier>
-                <visibilityRule>
+                <visibilityRule><booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Tech_Sales_ExpertEngagement__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>false</rightValue>
                     </criteria>
-                </visibilityRule>
+                <criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -431,7 +431,7 @@
                 <componentName>Tech_Einstein_Predictions</componentName>
                 <identifier>c_Tech_Einstein_Predictions</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Tech_Prediction_Label__c}</leftValue>
                         <operator>NE</operator>
@@ -441,7 +441,7 @@
                         <operator>EQUAL</operator>
                         <rightValue>0</rightValue>
                     </criteria>
-                </visibilityRule>
+                <criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-b7d24b47-af31-486e-96c1-7dd312a6a733</name>
@@ -681,6 +681,14 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                
+                <componentName>yelpAccountMetrics</componentName>
+                <identifier>c_yelpAccountMetrics</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>dashboardId</name>
                     <value>Opportunity_Insights_XZQ1</value>
@@ -731,6 +739,7 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>subheader</name>
@@ -1129,6 +1138,46 @@
                 </componentInstanceProperties>
                 <componentName>nbaDemo</componentName>
                 <identifier>c_nbaDemo</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionDestination</name>
+                    <value>Ads Optimization Review requested with Sam Whitaker</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>actionType</name>
+                    <value>Show Toast Message</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Sam is opening 4 new locations in January and enrolled in the New Location Launch Program ($500 credit per location). Book an Ads Optimization Review to set launch budgets before the Dec 31 renewal.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>button1Label</name>
+                    <value>Book the review</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>button2Label</name>
+                    <value>Not now</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>delay</name>
+                    <value>2000</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>header</name>
+                    <value>Ads Optimization Review session</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Next Best Action</value>
+                </componentInstanceProperties>
+                <componentName>nbaDemo</componentName>
+                <identifier>c_nbaDemo_yelp</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

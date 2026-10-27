@@ -1,0 +1,53 @@
+<template>
+    <template lwc:if={ready}>
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure"><span class="burst">y</span></div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">Yelp Ads Performance</h2>
+                        <p class="sub">{data.accountName} · all locations</p>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="tiles">
+                    <template for:each={tiles} for:item="t">
+                        <div key={t.k} class="tile">
+                            <div class="lbl">{t.label}</div>
+                            <div class="val">{t.value}</div>
+                            <div class="sm">{t.sub}</div>
+                        </div>
+                    </template>
+                </div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered loc">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Monthly budget</th>
+                            <th class="bar-col">Spent this month</th>
+                            <th>Leads (30d)</th>
+                            <th>Cost per lead</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="r">
+                            <tr key={r.id}>
+                                <td><a href={r.url}>{r.name}</a></td>
+                                <td>{r.capLabel}</td>
+                                <td class="bar-col">
+                                    <div class="bar"><span style={r.barStyle}></span></div>
+                                    <span class="sm">{r.spentLabel} · {r.pct}</span>
+                                </td>
+                                <td>{r.leads}</td>
+                                <td><span class={r.cplClass}>{r.cplLabel}</span></td>
+                                <td><span class={r.statusClass}>{r.statusLabel}</span></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </template>
+</template>

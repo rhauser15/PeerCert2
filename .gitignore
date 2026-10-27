@@ -4,3 +4,7 @@ node_modules/
 .env
 .DS_Store
 *.log
+
+# Secrets for the Yelp Fin API (never commit)
+.fin-api.local
+force-app/main/default/customMetadata/Yelp_Fin_Api.Default.md-meta.xml

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Keep and Grow demo. Cases the real Fin AI Agent creates use the Fin for Salesforce package fields (finai__). Copy them onto the demo's Fin fields so reports, the dashboard and the write-back flows treat them the same way.</description>
+    <label>Yelp - Fin Case Sync</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+    <interviewLabel>Fin Case Sync {!$Flow.CurrentDateTime}</interviewLabel>
+    <processMetadataValues><name>BuilderType</name><value><stringValue>LightningFlowBuilder</stringValue></value></processMetadataValues>
+    <processMetadataValues><name>CanvasMode</name><value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value></processMetadataValues>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector><targetReference>Copy_Fin_Fields</targetReference></connector>
+        <filterLogic>and</filterLogic>
+        <filters><field>finai__FinInvolved__c</field><operator>EqualTo</operator><value><booleanValue>true</booleanValue></value></filters>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <assignments>
+        <name>Copy_Fin_Fields</name>
+        <label>Copy Fin fields</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <assignmentItems><assignToReference>$Record.FinInvolved__c</assignToReference><operator>Assign</operator><value><booleanValue>true</booleanValue></value></assignmentItems>
+        <assignmentItems><assignToReference>$Record.FinResolutionState__c</assignToReference><operator>Assign</operator><value><elementReference>ResolutionState</elementReference></value></assignmentItems>
+        <assignmentItems><assignToReference>$Record.Conversation_Date__c</assignToReference><operator>Assign</operator><value><elementReference>ConversationDate</elementReference></value></assignmentItems>
+    </assignments>
+    <formulas>
+        <name>ResolutionState</name>
+        <dataType>String</dataType>
+        <expression>CASE(TEXT({!$Record.finai__FinResolutionState__c}), "hard_resolution", "Hard Resolution", "soft_resolution", "Soft Resolution", "routed_to_team", "Routed to team", "abandoned_negative_feedback", "Abandoned", TEXT({!$Record.FinResolutionState__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>ConversationDate</name>
+        <dataType>Date</dataType>
+        <expression>BLANKVALUE({!$Record.Conversation_Date__c}, TODAY())</expression>
+    </formulas>
+</Flow>

@@ -51,6 +51,8 @@ def reset_live():
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
 delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat'];
+// Cases the real Fin AI Agent created for Sam (resolved conversations and handoffs)
+delete [SELECT Id FROM Case WHERE Contact.Email = '{D.SAM["email"]}' AND Part2_Demo__c = false AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Case WHERE Subject = 'Support EmbeddedMessaging Conversation' AND CreatedDate = LAST_N_DAYS:7];
 Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1];
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';

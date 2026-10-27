@@ -207,11 +207,25 @@ global without sharing class YelpFinApi {
         return l.Budget_Status__c;
     }
 
+    // Troubleshooting: record each call (never the key or token)
+    static void log(Integer status, Object body) {
+        try {
+            RestRequest req = RestContext.request;
+            String path = req.requestURI == null ? '' : req.requestURI.substringAfter('/yelp/');
+            if (path.startsWith('status') || path.startsWith('messenger-token')) return;
+            String detail = 'params=' + JSON.serialize(req.params);
+            if (req.requestBody != null && req.requestBody.size() > 0) detail += '\nbody=' + req.requestBody.toString().left(2000);
+            detail += '\nresponse=' + JSON.serialize(body).left(4000);
+            insert new Yelp_Fin_Api_Log__c(Endpoint__c = path.left(80), Method__c = req.httpMethod, Status__c = status, Detail__c = detail);
+        } catch (Exception e) { /* logging must never break the API */ }
+    }
+
     static String b64url(Blob b) {
         return EncodingUtil.base64Encode(b).replace('+', '-').replace('/', '_').replace('=', '');
     }
 
     static void respond(Integer status, Object body) {
+        log(status, body);
         RestResponse res = RestContext.response;
         res.statusCode = status;
         res.addHeader('Content-Type', 'application/json');

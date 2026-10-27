@@ -141,6 +141,11 @@ for name, (label, desc, typ, formula) in FORMULAS.items():
 """)
     perms.append(f"    <fieldPermissions><editable>false</editable><field>Account.{name}</field><readable>true</readable></fieldPermissions>")
 perms.append("    <fieldPermissions><editable>true</editable><field>MessagingSession.Fin_Case__c</field><readable>true</readable></fieldPermissions>")
+perms += [f"    <fieldPermissions><editable>true</editable><field>Yelp_Fin_Api_Log__c.{f}</field><readable>true</readable></fieldPermissions>"
+          for f in ("Endpoint__c", "Method__c", "Status__c", "Detail__c")]
+perms.append("    <objectPermissions><allowCreate>true</allowCreate><allowDelete>true</allowDelete><allowEdit>true</allowEdit>"
+             "<allowRead>true</allowRead><modifyAllRecords>true</modifyAllRecords><object>Yelp_Fin_Api_Log__c</object>"
+             "<viewAllRecords>true</viewAllRecords></objectPermissions>")
 
 os.makedirs(os.path.join(ROOT, "permissionsets"), exist_ok=True)
 with open(os.path.join(ROOT, "permissionsets", "Yelp_Keep_Grow.permissionset-meta.xml"), "w") as f:

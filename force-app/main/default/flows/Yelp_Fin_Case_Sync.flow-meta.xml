@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
     <description>Keep and Grow demo. Cases the real Fin AI Agent creates use the Fin for Salesforce package fields (finai__). Copy them onto the demo's Fin fields so reports, the dashboard and the write-back flows treat them the same way.</description>
@@ -6,14 +6,32 @@
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
     <interviewLabel>Fin Case Sync {!$Flow.CurrentDateTime}</interviewLabel>
-    <processMetadataValues><name>BuilderType</name><value><stringValue>LightningFlowBuilder</stringValue></value></processMetadataValues>
-    <processMetadataValues><name>CanvasMode</name><value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value></processMetadataValues>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
-        <connector><targetReference>Copy_Fin_Fields</targetReference></connector>
+        <connector>
+            <targetReference>Copy_Fin_Fields</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
-        <filters><field>finai__FinInvolved__c</field><operator>EqualTo</operator><value><booleanValue>true</booleanValue></value></filters>
+        <filters>
+            <field>finai__FinInvolved__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
@@ -23,10 +41,92 @@
         <label>Copy Fin fields</label>
         <locationX>176</locationX>
         <locationY>150</locationY>
-        <assignmentItems><assignToReference>$Record.FinInvolved__c</assignToReference><operator>Assign</operator><value><booleanValue>true</booleanValue></value></assignmentItems>
-        <assignmentItems><assignToReference>$Record.FinResolutionState__c</assignToReference><operator>Assign</operator><value><elementReference>ResolutionState</elementReference></value></assignmentItems>
-        <assignmentItems><assignToReference>$Record.Conversation_Date__c</assignToReference><operator>Assign</operator><value><elementReference>ConversationDate</elementReference></value></assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.FinInvolved__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.FinResolutionState__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ResolutionState</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Conversation_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ConversationDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Origin</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Chat</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Is_Resolved</targetReference>
+        </connector>
     </assignments>
+    <assignments>
+        <name>Close_Resolved</name>
+        <label>Close resolved case</label>
+        <locationX>50</locationX>
+        <locationY>390</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Fin_Contact_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ContactReason</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Is_Resolved</name>
+        <label>Did Fin resolve it?</label>
+        <locationX>176</locationX>
+        <locationY>270</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Resolved</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>ResolutionState</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Hard Resolution</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ResolutionState</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Soft Resolution</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Resolved</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <name>ContactReason</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK(TEXT({!$Record.Fin_Contact_Reason__c})), "Ad not showing", TEXT({!$Record.Fin_Contact_Reason__c}))</expression>
+    </formulas>
     <formulas>
         <name>ResolutionState</name>
         <dataType>String</dataType>

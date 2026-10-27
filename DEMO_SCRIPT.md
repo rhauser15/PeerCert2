@@ -61,6 +61,16 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
+### Live Fin option (real Fin workspace)
+- **Issue 1, live:** `help-fin.html?intercomTest=true&messenger_environment=limwmcawd3`. Use the same browser you're signed in to Fin with, and turn content blockers off for the site.
+  - Fin answers from your workspace and uses the **Get Yelp ad account**, **Raise a location's budget cap** and **Get latest invoice** data connectors (the Yelp Fin API Salesforce Site).
+  - Raising the cap **really changes Westminster in Salesforce**, and the page's "Your locations" panel flips to Running within about 5 seconds.
+  - Fin creates the resolved case in Salesforce; it arrives Closed, as Chat, with no Omni ring.
+  - Wording varies run to run.
+- **Issue 2, live (stage 2, not built yet):** `help-fin-handoff.html`. Until the Bring Your Own Channel handoff is set up, use the scripted `help.html` for issue 2.
+- **Troubleshooting:** every Fin data connector call is logged in Salesforce (Yelp Fin API Logs).
+- **Reset after a live run:** `python3 scripts/seed.py --live` puts Westminster back to paused and deletes the cases Fin created.
+
 **Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
 
 ---

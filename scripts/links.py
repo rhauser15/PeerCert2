@@ -13,6 +13,7 @@ ORG = os.environ.get("SF_ORG", "trailsignup-429cdf")
 BASE = "https://trailsignup-429cdfd78ec835.lightning.force.com"
 SITE = "https://rhauser15.github.io/PeerCert2"
 APP_ID = "06mg800000AlQvzAAF"  # Service Console for Tech (Tech_Service_Console)
+SALES_APP_ID = "06mg800000AlQvwAAF"  # Sales for Tech (Tom's view)
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 SCRIPT = os.path.join(ROOT, "DEMO_SCRIPT.md")
 LINKS_JS = os.path.join(ROOT, "site", "links.js")
@@ -26,9 +27,10 @@ def first(soql, tooling=False):
     return recs[0] if recs else None
 
 
-def rec(label, obj, soql):
+def rec(label, obj, soql, app=None):
     r = first(soql)
-    return (label, f"{BASE}/lightning/r/{obj}/{r['Id']}/view" if r else None)
+    path = f"/lightning/app/{app}/r/{obj}/{r['Id']}/view" if r and app else (f"/lightning/r/{obj}/{r['Id']}/view" if r else None)
+    return (label, BASE + path if path else None)
 
 
 def flow(label, name):
@@ -53,10 +55,10 @@ def build():
             rec("Sam Whitaker (contact)", "Contact", "SELECT Id FROM Contact WHERE Email = 'sam@whitakerhospitality.example.com' LIMIT 1"),
             flow("Fin handoff routing Flow", "Yelp_Fin_Handoff_Routing"),
         ]),
-        ("Section 3 · Write-back and alerts", [
-            rec("Whitaker Hospitality Group (account)", "Account", acct),
+        ("Section 3 · Tom's view", [
+            rec("Whitaker Hospitality Group (account, Sales for Tech)", "Account", acct, SALES_APP_ID),
             rec("Renewal opportunity", "Opportunity",
-                "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1"),
+                "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
             flow("Fin write-back Flow (account, expansion opportunity, renewal brief)", "Yelp_Fin_Case_Writeback"),
         ]),
         ("Section 4 · Alisha's view", [

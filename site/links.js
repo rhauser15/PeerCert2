@@ -27,15 +27,15 @@ window.SF_LINKS = [
   ]
  ],
  [
-  "Section 3 \u00b7 Write-back and alerts",
+  "Section 3 \u00b7 Tom's view",
   [
    [
-    "Whitaker Hospitality Group (account)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Account/001g8000016z20vAAA/view"
+    "Whitaker Hospitality Group (account, Sales for Tech)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view"
    ],
    [
     "Renewal opportunity",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Opportunity/006g800000AHMWEAA5/view"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view"
    ],
    [
     "Fin write-back Flow (account, expansion opportunity, renewal brief)",

@@ -12,6 +12,7 @@ import subprocess
 ORG = os.environ.get("SF_ORG", "trailsignup-429cdf")
 BASE = "https://trailsignup-429cdfd78ec835.lightning.force.com"
 SITE = "https://rhauser15.github.io/PeerCert2"
+FIN_TEST = "?intercomTest=true&messenger_environment=limwmcawd3"  # the Fin Messenger is live in test mode only
 APP_ID = "06mg800000AlQvzAAF"  # Service Console for Tech (Tech_Service_Console)
 SALES_APP_ID = "06mg800000AlQvwAAF"  # Sales for Tech (Tom's view)
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -47,6 +48,10 @@ def build():
             ("Yelp for Business help center with Fin Messenger (live handoff)", f"{SITE}/help.html"),
             ("Fin: Performance, Topics Explorer, Procedure", f"{SITE}/fin.html"),
         ]),
+        ("Live Fin (real workspace; same browser you're signed in to Fin with, blockers off)", [
+            ("Issue 1 live: Westminster, data connectors", f"{SITE}/help-fin.html{FIN_TEST}"),
+            ("Issue 2 live: handoff to John", f"{SITE}/help-fin-handoff.html{FIN_TEST}"),
+        ]),
         ("Start here", [
             ("Open the Yelp Support Console", f"{BASE}/lightning/app/{APP_ID}"),
         ]),
@@ -60,6 +65,7 @@ def build():
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
             flow("Fin write-back Flow (account, expansion opportunity, renewal brief)", "Yelp_Fin_Case_Writeback"),
+            ("Slack #sales-notifications (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06"),
         ]),
         ("Section 4 · Alisha's view", [
             rec("Customer Success: Fin Conversations dashboard", "Dashboard",

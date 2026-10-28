@@ -32,18 +32,23 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Yelp for Business help center with Fin Messenger (live handoff)](https://rhauser15.github.io/PeerCert2/help.html)
 - [Fin: Performance, Topics Explorer, Procedure](https://rhauser15.github.io/PeerCert2/fin.html)
 
+**Live Fin (real workspace; same browser you're signed in to Fin with, blockers off)**
+- [Issue 1 live: Westminster, data connectors](https://rhauser15.github.io/PeerCert2/help-fin.html?intercomTest=true&messenger_environment=limwmcawd3)
+- [Issue 2 live: handoff to John](https://rhauser15.github.io/PeerCert2/help-fin-handoff.html?intercomTest=true&messenger_environment=limwmcawd3)
+
 **Start here**
 - [Open the Yelp Support Console](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF)
 
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
 - [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u9b6XAAQ/view)
-- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU)
+- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017TZDzAAO)
 
 **Section 3 · Tom's view**
 - [Whitaker Hospitality Group (account, Yelp Sales)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g80000171uelAAA)
+- [Slack #sales-notifications (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06)
 
 **Section 4 · Alisha's view**
 - [Customer Success: Fin Conversations dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)

@@ -22,7 +22,7 @@ window.SF_LINKS = [
    ],
    [
     "Fin handoff routing Flow",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000016rUeQAAU"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017TZDzAAO"
    ]
   ]
  ],

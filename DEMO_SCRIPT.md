@@ -426,7 +426,7 @@ Fin supports two patterns. Yelp would pick one:
    - [Trailhead: Einstein Next Best Action](https://trailhead.salesforce.com/content/learn/modules/einstein_next_best_action)
 
 ### 5c · Einstein Opportunity Scoring (question 3: "why no opportunity score?")
-- **Why it isn't shown:** Opportunity Scoring trains on the org's own won and lost opportunities and scores open ones about once a day. The demo opportunities were created after the last scoring run, so they have no score yet. The Part 2 pages also hide the "Likely to buy" panel, so nothing shows empty.
+- **Why it isn't shown:** Opportunity Scoring trains on the org's own won and lost opportunities and scores open ones about once a day. This demo org has scores on its older sample opportunities, but none on the Keep and Grow ones: they were created after the last scoring run, or scoring isn't running in this demo org. The Part 2 pages also hide the "Likely to buy" panel, so nothing shows empty.
 - **Setup:** Setup → Quick Find **Einstein Opportunity Scoring** ([Setup](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)). Turn it on, then choose which opportunities to score (record types, or all) and which fields to exclude. It needs enough closed opportunities, roughly 200 won and 200 lost in the last 2 years, or it uses a global model.
 - **Fine-tuning:** exclude fields or record types that don't reflect Yelp's sales motion, segment the model (for example new business vs renewal), and add the score and top factors to list views and the Pipeline Inspection view.
 - **For Yelp:** a renewal-likelihood model (5) is a better fit for Keep and Grow than a generic opportunity score. Opportunity Scoring helps the new-business pipeline.

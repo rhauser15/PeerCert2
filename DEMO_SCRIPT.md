@@ -51,6 +51,34 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 <!-- links:end -->
 
+### Live run: pages in order (real Fin)
+
+| # | Page | Fin? | Link |
+|---|---|---|---|
+| 1 | Slides: set the scene | No | [slides.html](https://rhauser15.github.io/PeerCert2/slides.html) |
+| 1a | *Optional:* help center, live issue 1 (Westminster) | **Real Fin Messenger** + data connectors | [help-fin.html](https://rhauser15.github.io/PeerCert2/help-fin.html?intercomTest=true&messenger_environment=limwmcawd3) |
+| 2 | Help center, live issue 2 (Sam in the Messenger) | **Real Fin Messenger** | [help-fin-handoff.html](https://rhauser15.github.io/PeerCert2/help-fin-handoff.html?intercomTest=true&messenger_environment=limwmcawd3) |
+| 3 | Yelp Support Console (John takes the chat) | **Real Fin Copilot** (right column) | [Yelp Support Console](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF) |
+| 4 | Slack #sales-notifications (Tom's alert) | No (a Salesforce Flow posts it) | [#sales-notifications](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06) |
+| 5 | Whitaker account in Yelp Sales (Tom's view) | Fin's signals written back as fields | [Whitaker Hospitality Group](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view) |
+| 6 | Renewal opportunity | No | [Annual Renewal](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view) |
+| 7 | Alisha's dashboard: Customer Success, Fin Conversations | Reports on the cases Fin created | [Dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view) |
+| 8 | Fin reporting and Procedure | Fin admin screens (mockup) | [fin.html](https://rhauser15.github.io/PeerCert2/fin.html) |
+| 9 | Slides: close | No | same tab as 1 |
+
+**Which pages use Fin**
+- **Real Fin (Yelp demo workspace):**
+  - `help-fin.html`: issue 1. Fin's data connectors read and change Westminster in Salesforce.
+  - `help-fin-handoff.html`: issue 2. Fin hands off to the Service Console.
+  - **Fin Copilot** at the top right of the Messaging Session page.
+- **Mock Fin (scripted):**
+  - `help.html`: the scripted Messenger. It's the backup for both issues and still opens a real Salesforce chat.
+  - `fin.html`: the Fin admin screens.
+  - The scripted Copilot panel below Support tools.
+- **Salesforce only:** the slides, Slack, the account, the opportunity and the dashboard. They show what Fin produced (cases, signals, the alert), but none of them runs Fin.
+
+All of these are also on the [launcher](https://rhauser15.github.io/PeerCert2/).
+
 ---
 
 ## Before the demo (10 minutes)

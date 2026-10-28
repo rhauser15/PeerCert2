@@ -110,7 +110,7 @@
             <field>Subject</field>
             <operator>StartsWith</operator>
             <value>
-                <stringValue>Support EmbeddedMessaging</stringValue>
+                <stringValue>Support </stringValue>
             </value>
         </filters>
         <object>Case</object>

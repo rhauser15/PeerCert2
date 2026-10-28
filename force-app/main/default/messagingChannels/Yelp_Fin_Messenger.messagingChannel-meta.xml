@@ -14,6 +14,36 @@
     </automatedResponses>
     <customParameters>
         <actionParameterMappings>
+            <actionParameterName>Fin_Alt_Contact_Reason</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_Contact_Reason</externalParameterName>
+        <masterLabel>Fin Contact Reason (alt key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt_Contact_Reason</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Alt_Churn_Risk</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_Churn_Risk</externalParameterName>
+        <masterLabel>Fin Churn Risk (alt key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt_Churn_Risk</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Alt_Expansion_Signal</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_Expansion_Signal</externalParameterName>
+        <masterLabel>Fin Expansion Signal (alt key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt_Expansion_Signal</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
             <actionParameterName>Fin_Email</actionParameterName>
         </actionParameterMappings>
         <externalParameterName>user_email</externalParameterName>

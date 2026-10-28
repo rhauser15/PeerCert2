@@ -26,6 +26,21 @@
         </connector>
     </start>
     <formulas>
+        <name>Merged_Contact_Reason</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!Fin_Contact_Reason}, {!Fin_Alt_Contact_Reason})</expression>
+    </formulas>
+    <formulas>
+        <name>Merged_Churn_Risk</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!Fin_Churn_Risk}, {!Fin_Alt_Churn_Risk})</expression>
+    </formulas>
+    <formulas>
+        <name>Merged_Expansion_Signal</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!Fin_Expansion_Signal}, {!Fin_Alt_Expansion_Signal})</expression>
+    </formulas>
+    <formulas>
         <name>ExpansionClean</name>
         <dataType>String</dataType>
         <expression>IF(OR(ISBLANK({!Fin_Expansion_Signal}), LOWER({!Fin_Expansion_Signal}) = "none"), "", {!Fin_Expansion_Signal})</expression>
@@ -630,13 +645,13 @@
         <inputParameters>
             <name>contactReason</name>
             <value>
-                <elementReference>Fin_Contact_Reason</elementReference>
+                <elementReference>Merged_Contact_Reason</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
             <name>churnRisk</name>
             <value>
-                <elementReference>Fin_Churn_Risk</elementReference>
+                <elementReference>Merged_Churn_Risk</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -648,7 +663,7 @@
         <inputParameters>
             <name>expansionSignal</name>
             <value>
-                <elementReference>Fin_Expansion_Signal</elementReference>
+                <elementReference>Merged_Expansion_Signal</elementReference>
             </value>
         </inputParameters>
         <outputParameters>
@@ -722,6 +737,30 @@
         <nameSegment>routeWork</nameSegment>
         <offset>0</offset>
     </actionCalls>
+    <variables>
+        <description>Contact Reason if Fin sends the key with underscores (conversation_custom_data_Contact_Reason).</description>
+        <name>Fin_Alt_Contact_Reason</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Churn Risk if Fin sends the key with underscores (conversation_custom_data_Churn_Risk).</description>
+        <name>Fin_Alt_Churn_Risk</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Expansion Signal if Fin sends the key with underscores (conversation_custom_data_Expansion_Signal).</description>
+        <name>Fin_Alt_Expansion_Signal</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

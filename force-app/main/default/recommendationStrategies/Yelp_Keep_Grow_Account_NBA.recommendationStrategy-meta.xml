@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecommendationStrategy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contextRecordType>Account</contextRecordType>
+    <description>Keep and Grow demo: offer the Ads Optimization Review when Fin heard an expansion signal on the account. Accepting runs the Yelp - Book Ads Optimization Review flow.</description>
+    <filter>
+        <childNode>Load_Keep_and_Grow</childNode>
+        <description>Only when Fin heard growth (Expansion Signal written back to the account by the Fin case write-back Flow)</description>
+        <expression>NOT(ISBLANK($Record.Expansion_Signal__c))</expression>
+        <label>Fin heard growth</label>
+        <name>Fin_Heard_Growth</name>
+    </filter>
+    <label>Yelp Keep and Grow (Account)</label>
+    <map>
+        <childNode>Fin_Heard_Growth</childNode>
+        <label>Pass the record to the flow</label>
+        <name>Map_Record_Id</name>
+        <mapExpression>
+            <expression>$Record.Id</expression>
+            <name>recordId</name>
+            <type>Text</type>
+        </mapExpression>
+    </map>
+    <recommendationLoad>
+        <label>Load Keep and Grow recommendations</label>
+        <name>Load_Keep_and_Grow</name>
+        <condition>
+            <field>Category__c</field>
+            <operator>EQUALS</operator>
+            <value>
+                <type>TEXT</type>
+                <value>Yelp Keep and Grow</value>
+            </value>
+        </condition>
+        <conditionLogic>and</conditionLogic>
+        <object>Recommendation</object>
+        <sortField>
+            <name>Ranking__c</name>
+            <nullsFirst>false</nullsFirst>
+            <order>Asc</order>
+        </sortField>
+    </recommendationLoad>
+    <union>
+        <childNode>Map_Record_Id</childNode>
+        <label>Output</label>
+        <name>Output</name>
+    </union>
+</RecommendationStrategy>

@@ -12,6 +12,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **[Say]** suggested words
 
 **What's real and what's a mockup**
+- **Einstein, honestly:** *Next Best Action* is real (Recommendation, strategy and Flow). The *Likelihood to Renew* score and the *Account Health* predictors are a rule-based stand-in that moves with Fin's signals; a real model needs Yelp's history (implementation guide 5). There's no opportunity score on the demo opportunities (5c).
 - **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger and the Fin admin screens. They follow the Fin help center screenshots. Fin's answers are scripted.
 - **Live Fin pages (optional):** `help-fin.html` (issue 1) and `help-fin-handoff.html` (issue 2) put the **real Fin Messenger** from the Yelp demo Fin workspace on the same help center. Fin's answers are generated, its data connectors read and change Salesforce, and issue 2 hands off to the Service Console. See "Live Fin option" below.
 - **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
@@ -42,12 +43,17 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 **Sections 1 and 2 · Handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
 - [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u9b6XAAQ/view)
-- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017TZDzAAO)
+- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017rDbbAAE)
 
 **Section 3 · Tom's view**
 - [Whitaker Hospitality Group (account, Yelp Sales)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
-- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g80000171uelAAA)
+- [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017w0kfAAA)
+- [Next Best Action: Ads Optimization Review (Recommendation)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Recommendation/0prg8000000NP0vAAG/view)
+- [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017y8W1AAI)
+- [Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
+- [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
+- [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Slack #sales-notifications (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06)
 
 **Section 4 · Alisha's view**
@@ -260,12 +266,15 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **Left column, below it: Cases.** Both of tonight's cases, closed:
      - "Fin resolved: Ad not showing (Westminster)", with CSAT 5.
      - The handoff case, with Offer Accepted = New Location Launch Program.
-4. **Right column: Account Health (Einstein).** "Likely to Renew? 74.6%, ↓ 4.9% vs last change." The top predictors:
-   - Fin flagged low churn risk: **moderate negative**
-   - Location cost per lead is 1.4x average: **minor negative**
+4. **Right column: Account Health.** "Likely to Renew? 74.6%, ↓ 4.9% vs last change." The top predictors:
+   - Fin flagged low churn risk, with a value concern: **moderate negative**
+   - Aurora cost per lead is 2.2x average: **minor negative**
    - Expansion signal, new locations: **high impact**
-   - **[Salesforce]** Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation. *(Demo note: this is the org's Einstein Discovery demo dashboard, set up with this scenario. Score and predictors are illustrative.)*
-5. **Right column: Next Best Action.** "Ads Optimization Review session". It suggests booking the review with Sam to set launch budgets, then reviewing the renewal. Click **View Renewal Opportunity** to open the renewal.
+   - **[Salesforce]** This is where Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation.
+   - **If asked "is that a real model?":** "Not in this org. A real model trains on Yelp's renewal history. This card shows the same score as the account field, and it moves with Fin's signals. Here's how you'd build it" (open **Einstein Prediction Builder**, see the implementation guide, section 5).
+5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a task for Tom with Sam is booked three days out.
+   - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts. The same strategy shows it on the renewal opportunity.
+   - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
 6. **Details tab:**
    - **Yelp Ads Performance** (top): annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
    - **Account Information:** Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
@@ -393,7 +402,34 @@ Fin supports two patterns. Yelp would pick one:
    - **Einstein Discovery** (CRM Analytics) for a model with top predictors ([Trailhead: Einstein Discovery basics](https://trailhead.salesforce.com/content/learn/modules/einstein-discovery-basics))
    - or **Einstein Prediction Builder** for a no-code score field on Account ([Salesforce Help: Einstein Prediction Builder](https://help.salesforce.com/s/search-result?language=en_US#q=Einstein%20Prediction%20Builder%20create%20prediction&t=allResultsTab))
 4. **Deploy:** put the score and top predictors on the account and opportunity pages (Einstein Discovery panel or a score field), and use it in Flow, for example to alert the AE when likelihood drops.
-5. **Demo note:** today's score and predictors are illustrative. A real model needs Yelp's history to train.
+5. **Fine-tuning** (likely questions):
+   - *Which fields drive it?* Prediction Builder and Einstein Discovery list the top factors. Remove fields that leak the outcome, for example a "renewed" checkbox, and add Fin's signals as they accumulate.
+   - *How accurate is it?* Prediction Builder shows a quality score after training. Discovery shows model metrics and lets you compare versions.
+   - *How often does it update?* Scores refresh as records change, and the model retrains on a schedule you set.
+   - *What data do we need?* Roughly 400+ accounts with a known renewal outcome, and enough of both renewed and churned.
+6. **Where to show it:** [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home). Click **New Prediction**: Object Account, "Yes/No" field such as Renewed, then pick the example set and the fields to use. Walk through the wizard without saving.
+7. **What's in this demo:** *Likelihood to Renew* (`Renewal_Likelihood__c`) is a **formula**: 79.5 by default, 74.6 when Fin's sentiment is negative, 71.2 at Medium churn risk, 58.4 at High. The **Account Health** card (LWC `yelpAccountHealth`) shows the same score and builds its predictors from the account's Fin signals and location cost per lead. It's a stand-in for the model, and it stays consistent with the field.
+
+### 5b · Einstein Next Best Action (section 3) — real in this demo
+1. **Recommendation:** *Ads Optimization Review session*: description, Accept label "Book the review", Reject label "Not now", and the Flow it runs (`Yelp_Book_Ads_Optimization_Review`), with Category "Yelp Keep and Grow".
+2. **Strategy** (Setup → Next Best Action): *Yelp Keep and Grow (Account)* and *(Opportunity)*:
+   - **Load:** Recommendations with Category = Yelp Keep and Grow.
+   - **Filter:** `NOT(ISBLANK($Record.Expansion_Signal__c))`. On the opportunity it's `$Record.Account.Expansion_Signal__c`.
+   - **Map:** passes the record ID to the Flow.
+3. **Flow:** a screen Flow that books the review as a task for the account owner with the main contact, then confirms.
+4. **Page:** the standard **Einstein Next Best Action** component, with the strategy selected, on the Part 2 account and opportunity pages.
+5. **Fine-tuning:**
+   - add filters, for example renewal within 120 days, or no review in the last 30 days
+   - add more recommendations, for example the New Location Launch Program, or a pause offer when churn risk is High, and rank them
+   - track accept and reject rates in the Recommendation Reaction report
+   - later, add AI ranking with Einstein Recommendation Builder
+   - [Trailhead: Einstein Next Best Action](https://trailhead.salesforce.com/content/learn/modules/einstein_next_best_action)
+
+### 5c · Einstein Opportunity Scoring (question 3: "why no opportunity score?")
+- **Why it isn't shown:** Opportunity Scoring trains on the org's own won and lost opportunities and scores open ones about once a day. The demo opportunities were created after the last scoring run, so they have no score yet. The Part 2 pages also hide the "Likely to buy" panel, so nothing shows empty.
+- **Setup:** Setup → Quick Find **Einstein Opportunity Scoring** ([Setup](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)). Turn it on, then choose which opportunities to score (record types, or all) and which fields to exclude. It needs enough closed opportunities, roughly 200 won and 200 lost in the last 2 years, or it uses a global model.
+- **Fine-tuning:** exclude fields or record types that don't reflect Yelp's sales motion, segment the model (for example new business vs renewal), and add the score and top factors to list views and the Pipeline Inspection view.
+- **For Yelp:** a renewal-likelihood model (5) is a better fit for Keep and Grow than a generic opportunity score. Opportunity Scoring helps the new-business pipeline.
 
 ### 6 · Reporting (section 4)
 1. **Fin reports:** [Monitor Fin's performance](https://fin.ai/help/en/articles/13976002-monitor-fin-s-performance-with-clarity-and-confidence) and [Topics Explorer](https://fin.ai/help/en/articles/13975984-use-the-topics-explorer-to-see-what-s-driving-volume).

@@ -65,6 +65,12 @@ def build():
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
             flow("Fin write-back Flow (account, expansion opportunity, renewal brief)", "Yelp_Fin_Case_Writeback"),
+            rec("Next Best Action: Ads Optimization Review (Recommendation)", "Recommendation",
+                "SELECT Id FROM Recommendation WHERE Category__c = 'Yelp Keep and Grow' LIMIT 1"),
+            flow("Next Best Action: Book Ads Optimization Review Flow", "Yelp_Book_Ads_Optimization_Review"),
+            ("Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)", f"{BASE}/lightning/setup/SetupOneHome/home"),
+            ("Einstein Prediction Builder (Setup)", f"{BASE}/lightning/setup/EinsteinBuilder/home"),
+            ("Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Slack #sales-notifications (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06"),
         ]),
         ("Section 4 · Alisha's view", [

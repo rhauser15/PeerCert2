@@ -1,0 +1,13 @@
+.ein { --slds-c-icon-color-foreground-default: #0176d3; }
+.score { border: 1px solid #747474; padding: 12px 14px; margin-bottom: 12px; }
+.q { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.big { font-size: 30px; font-weight: 700; color: #181818; line-height: 1.2; }
+.chg { font-size: 13px; }
+.chg.down { color: #b50e03; }
+.chg.up { color: #2e844a; }
+.outlook { font-size: 12px; color: #5c5c5c; margin-top: 2px; }
+.pred { border-top: 1px solid #c6d3e1; padding-top: 10px; }
+.row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 3px 0; }
+.imp { font-weight: 700; white-space: nowrap; }
+.imp.neg { color: #b50e03; }
+.imp.pos { color: #2e844a; }

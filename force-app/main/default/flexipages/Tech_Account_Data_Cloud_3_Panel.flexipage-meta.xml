@@ -2454,52 +2454,8 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>dashboardId</name>
-                    <value>Yelp_Keep_Grow_Account_Health</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableNotifications</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableSubscriptions</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>280</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideOnError</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLinksInNewWindow</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLocation</name>
-                    <value>OPEN_IN_STUDIO</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showHeader</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showPostToSlack</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showSharing</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showTitle</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>wave:waveDashboard</componentName>
-                <identifier>wave_waveDashboard6_yelp</identifier>
+                <componentName>yelpAccountHealth</componentName>
+                <identifier>c_yelpAccountHealth</identifier>
                 <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
@@ -2549,43 +2505,51 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>actionDestination</name>
-                    <value>/lightning/r/Opportunity/006g800000AHMWEAA5/view</value>
+                    <name>hideWhenEmpty</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>actionType</name>
-                    <value>Go to URL</value>
+                    <name>launchOption</name>
+                    <value>launchModal</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Whitaker is opening 4 new locations in January and just enrolled in the New Location Launch Program. Book an Ads Optimization Review with Sam to set launch budgets, then review the renewal (Dec 31).</value>
+                    <name>maxDisplayPropositions</name>
+                    <value>1</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>button1Label</name>
-                    <value>View Renewal Opportunity</value>
+                    <name>recommendationSource</name>
+                    <value>strategyBuilder</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>button2Label</name>
-                    <value>Not now</value>
+                    <name>shouldLaunchActionOnReject</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>delay</name>
-                    <value>500</value>
+                    <name>showDescription</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>header</name>
-                    <value>Ads Optimization Review session</value>
+                    <name>showImage</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>imgSrc</name>
-                    <value>https://i.imgur.com/AJ3t0oo.png</value>
+                    <name>showRejectAction</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>title</name>
+                    <name>showTitle</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>strategyName</name>
+                    <value>Yelp_Keep_Grow_Account_NBA</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>widgetTitle</name>
                     <value>Next Best Action</value>
                 </componentInstanceProperties>
-                <componentName>nbaDemo</componentName>
-                <identifier>c_nbaDemo_yelp</identifier>
+                <componentName>runtime_communities_nba:builderNbaWidget</componentName>
+                <identifier>yelp_keep_grow_nba</identifier>
                 <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>true</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>

@@ -49,7 +49,14 @@ def reset_live():
     print("Clearing the live demo run...")
     apex(f"""
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
+delete [SELECT Id FROM Task WHERE Subject LIKE 'Ads Optimization Review with%' AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
+// The Next Best Action the account owner sees once Fin hears growth (strategies Yelp_Keep_Grow_*_NBA)
+if ([SELECT COUNT() FROM Recommendation WHERE Category__c = 'Yelp Keep and Grow'] == 0) {{
+    insert new Recommendation(Name = 'Ads Optimization Review session', Category__c = 'Yelp Keep and Grow', Ranking__c = 1,
+        ActionReference = 'Yelp_Book_Ads_Optimization_Review', AcceptanceLabel = 'Book the review', RejectionLabel = 'Not now',
+        Description = 'Fin heard growth in a recent support conversation. Book a free Ads Optimization Review to set launch budgets for the new locations and show value before the renewal.');
+}}
 delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat'];
 // Cases the real Fin AI Agent created for Sam (resolved conversations and handoffs)
 delete [SELECT Id FROM Case WHERE Contact.Email = '{D.SAM["email"]}' AND Part2_Demo__c = false AND CreatedDate = LAST_N_DAYS:7];

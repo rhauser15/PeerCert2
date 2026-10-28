@@ -1,0 +1,29 @@
+<template>
+    <template lwc:if={data}>
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure"><lightning-icon icon-name="utility:einstein" size="small" class="ein"></lightning-icon></div>
+                    <div class="slds-media__body"><h2 class="slds-card__header-title">Account Health</h2></div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="score">
+                    <div class="q">Likely to Renew?</div>
+                    <div class="big">{scoreLabel}</div>
+                    <div class={changeClass}>{changeLabel}</div>
+                    <div class="outlook" lwc:if={data.outlook}>{data.outlook}</div>
+                </div>
+                <div class="pred">
+                    <div class="q">Top predictors</div>
+                    <template for:each={data.predictors} for:item="p">
+                        <div key={p.label} class="row">
+                            <span>{p.label}</span>
+                            <span class={p.cls}>{p.impact}</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </article>
+    </template>
+</template>

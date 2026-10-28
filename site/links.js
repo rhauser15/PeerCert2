@@ -22,7 +22,7 @@ window.SF_LINKS = [
    ],
    [
     "Fin handoff routing Flow",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017TZDzAAO"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017rDbbAAE"
    ]
   ]
  ],
@@ -39,7 +39,27 @@ window.SF_LINKS = [
    ],
    [
     "Fin write-back Flow (account, expansion opportunity, renewal brief)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g80000171uelAAA"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017w0kfAAA"
+   ],
+   [
+    "Next Best Action: Ads Optimization Review (Recommendation)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Recommendation/0prg8000000NP0vAAG/view"
+   ],
+   [
+    "Next Best Action: Book Ads Optimization Review Flow",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017y8W1AAI"
+   ],
+   [
+    "Next Best Action strategies (Setup \u2192 Quick Find: Next Best Action \u2192 Yelp Keep and Grow)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home"
+   ],
+   [
+    "Einstein Prediction Builder (Setup)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home"
+   ],
+   [
+    "Einstein Opportunity Scoring (Setup \u2192 Quick Find: Einstein Opportunity Scoring)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home"
    ]
   ]
  ],

@@ -75,7 +75,7 @@ public without sharing class YelpFinSignals {
         return current;
     }
 
-    static String token() {
+    public static String token() {
         List<Yelp_Fin_Api__mdt> rows = [SELECT Fin_Access_Token__c FROM Yelp_Fin_Api__mdt WHERE DeveloperName = 'Default' LIMIT 1];
         String t = rows.isEmpty() ? null : rows[0].Fin_Access_Token__c;
         if (String.isBlank(t)) {
@@ -87,7 +87,7 @@ public without sharing class YelpFinSignals {
     }
 
     // Troubleshooting: record what Fin returned (never the token)
-    static void log(Id sessionId, String detail) {
+    public static void log(Id sessionId, String detail) {
         try {
             insert new Yelp_Fin_Api_Log__c(Endpoint__c = 'fin-signals', Method__c = 'GET', Status__c = 200,
                 Detail__c = ('session=' + sessionId + '\n' + detail).left(32000));

@@ -84,6 +84,28 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 All of these are also on the [launcher](https://rhauser15.github.io/PeerCert2/).
 
+### Live handoff: exact prompts (issue 2, help-fin-handoff.html)
+
+In the Messenger, click **Send us a message** to start a new conversation. Type or paste each line as written.
+
+| # | Where | Who | Type exactly |
+|---|---|---|---|
+| 1 | Fin Messenger | Sam | `I'm planning to open 4 new locations in January. Can I temporarily redirect a portion of my existing spend to the new locations? I want to see performance before investing more. New locations don't always perform as expected.` |
+| 1b | Fin Messenger | Sam | *Only if Fin answers instead of handing off:* `I'd like to talk to a person` |
+| 2 | Omni-Channel | John | **Accept** the chat. |
+| 3 | Fin Copilot | John | **Summarize** (button), or `Summarize this conversation` |
+| 4 | Fin Copilot | John | `What options can I offer Sam?` |
+| 5 | Fin Copilot | John | `Draft a reply to Sam`, then **Add to composer → Send** |
+| 6 | Fin Messenger | Sam | `That sounds great. Yes, please enroll me.` |
+| 7 | Support tools | John | Action **Enroll in New Location Launch Program**, Location blank → **Confirm** |
+| 8 | Fin Copilot | John | `Draft a confirmation`, then **Add to composer → Send** |
+| 9 | Fin Messenger | Sam | `That's everything. Thanks, John!` |
+| 10 | Console | John | **End Chat**, then **Case resolved** |
+
+**What Fin should set** (shown on the case, center of the page): Contact Reason = Add a location, Churn Risk = Low, Sentiment = Slightly Negative, Expansion Signal = New locations. Wording in Fin's replies varies run to run.
+
+**If the real Copilot words things differently,** ask it `What is the New Location Launch Program?` to bring up the $500 per new location program, or use the scripted Copilot panel below Support tools.
+
 ---
 
 ## Before the demo (10 minutes)

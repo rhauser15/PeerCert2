@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fin_Messenger_User_Id__c</fullName>
+    <description>User ID the live Fin Messenger signs this contact in with. The demo reset changes it so the Messenger starts with no past conversations.</description>
+    <externalId>false</externalId>
+    <label>Fin Messenger User ID</label>
+    <length>80</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

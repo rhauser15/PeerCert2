@@ -145,14 +145,16 @@ global without sharing class YelpFinApi {
             throw new ApiException(503, 'Messenger secret not set');
         }
         Contact c = demoContact(DEMO_EMAIL);
+        // The demo reset sets a new user ID, so the Messenger opens with no past conversations
+        String userId = String.isBlank(c.Fin_Messenger_User_Id__c) ? String.valueOf(c.Id) : c.Fin_Messenger_User_Id__c;
         Long exp = Datetime.now().addHours(4).getTime() / 1000;
         String header = b64url(Blob.valueOf('{"alg":"HS256","typ":"JWT"}'));
         String payload = b64url(Blob.valueOf(JSON.serialize(new Map<String, Object>{
-            'user_id' => c.Id, 'email' => c.Email, 'name' => c.FirstName + ' ' + c.LastName, 'exp' => exp
+            'user_id' => userId, 'email' => c.Email, 'name' => c.FirstName + ' ' + c.LastName, 'exp' => exp
         })));
         String sig = b64url(Crypto.generateMac('HmacSHA256', Blob.valueOf(header + '.' + payload), Blob.valueOf(secret)));
         return new Map<String, Object>{
-            'token' => header + '.' + payload + '.' + sig, 'user_id' => c.Id, 'email' => c.Email,
+            'token' => header + '.' + payload + '.' + sig, 'user_id' => userId, 'email' => c.Email,
             'name' => c.FirstName + ' ' + c.LastName, 'company' => c.Account.Name
         };
     }
@@ -179,7 +181,7 @@ global without sharing class YelpFinApi {
             throw new ApiException(400, 'email is required');
         }
         List<Contact> cs = [
-            SELECT Id, FirstName, LastName, Email, AccountId, Account.Name FROM Contact
+            SELECT Id, FirstName, LastName, Email, AccountId, Account.Name, Fin_Messenger_User_Id__c FROM Contact
             WHERE Email = :email.trim() AND Account.Part2_Demo__c = true LIMIT 1
         ];
         if (cs.isEmpty()) {

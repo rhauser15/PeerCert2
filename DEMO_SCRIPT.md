@@ -105,7 +105,7 @@ All of these are also on the [launcher](https://rhauser15.github.io/PeerCert2/).
   - Setup checklist: `fin-content/SETUP-handoff.md`.
 - **Troubleshooting:** every Fin data connector call is logged in Salesforce (Yelp Fin API Logs).
 - **Reset after a live run:** `python3 scripts/seed.py --live` puts Westminster back to paused, deletes the cases Fin created, and keeps leftover test chats from ringing in Omni-Channel.
-- **Fin-side reset:** none needed. Starting a **new conversation** in the Messenger is enough. Old Fin conversations stay in the Fin inbox, which is fine.
+- **Fin-side reset:** the reset gives Sam a new Messenger identity (Contact field *Fin Messenger User ID*), so the live pages open with no past conversations. Fin keeps the old conversations in its inbox under the earlier identity, but Sam never sees them.
 
 **Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
 

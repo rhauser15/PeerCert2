@@ -86,9 +86,10 @@ Procedures are matched by AI. An escalation **rule** is checked every turn, so i
 
 **Escalation guidance** (paste as a new guidance item)
 ```
-Escalate to the team, without asking follow-up questions, when the customer is opening or planning new locations, or asks to move, redirect or shift spend between locations. These are budget decisions a Multi-Location specialist must handle. Before escalating, tell the customer a specialist will help and that you've passed along a summary.
+Escalate to the team, without asking follow-up questions, only when the customer says they are opening or planning NEW locations, or asks to move or redirect spend from existing locations to new ones. These are budget decisions a Multi-Location specialist must handle. Before escalating, tell the customer a specialist will help and that you've passed along a summary.
+Do NOT escalate questions about an ad that isn't showing, a paused location, raising or changing one existing location's budget cap, or invoices. Handle those yourself with the "Ad not showing" Procedure and the data connectors.
 ```
-**Escalation rule** (if your workspace shows Rules): **When** `Expansion Signal` **is** `New locations` → **Escalate**. Optionally add a second condition with OR: `Contact Reason` **is** `Add a location`.
+**Escalation rule** (if your workspace shows Rules): **When** `Expansion Signal` **is** `New locations` → **Escalate**. Use only this one condition. Don't add Contact Reason or other budget conditions, because those also match issue 1.
 
 Save and set live. Test mode uses the latest settings.
 

@@ -13,6 +13,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 **What's real and what's a mockup**
 - **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger and the Fin admin screens. They follow the Fin help center screenshots. Fin's answers are scripted.
+- **Live Fin pages (optional):** `help-fin.html` (issue 1) and `help-fin-handoff.html` (issue 2) put the **real Fin Messenger** from the Yelp demo Fin workspace on the same help center. Fin's answers are generated, its data connectors read and change Salesforce, and issue 2 hands off to the Service Console. See "Live Fin option" below.
 - **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
 - **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API and sends Fin's data as routing attributes. In production, Fin does this through its Salesforce connector ("Hand-off to Salesforce agent"), and Sam keeps chatting in the Fin Messenger either way. For resolved conversations, Fin's "Create Salesforce case on resolution" setting creates the case.
 - **Copilot:** the **real Fin Copilot** (Fin for Salesforce: Copilot package, connected to the Fin workspace) is at the top of the right column. It answers from the Yelp articles in Fin (`fin-content/`), and its sources open the articles. Below Support tools is the scripted demo panel, which uses live Salesforce numbers (locations, renewal, Fin summary). Use the real one for the program question; use the demo panel as a backup, or for answers that need account data. The real Copilot doesn't use data connectors or Guidance.
@@ -55,7 +56,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 ## Before the demo (10 minutes)
 
 1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. Whitaker, its locations, Sam and the renewal keep the same record IDs, so links keep working. For a full reload, run `python3 scripts/seed.py`.
-2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. If an old test chat rings, accept it and end it.
+2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. The reset stops old test chats from ringing. If one still rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
@@ -67,9 +68,16 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
   - Raising the cap **really changes Westminster in Salesforce**, and the page's "Your locations" panel flips to Running within about 5 seconds.
   - Fin creates the resolved case in Salesforce; it arrives Closed, as Chat, with no Omni ring.
   - Wording varies run to run.
-- **Issue 2, live (stage 2, not built yet):** `help-fin-handoff.html`. Until the Bring Your Own Channel handoff is set up, use the scripted `help.html` for issue 2.
+- **Issue 2, live:** `help-fin-handoff.html?intercomTest=true&messenger_environment=limwmcawd3`. Same browser and blocker rules.
+  - Start a **new conversation** and send the 4-new-locations message from step 9. If Fin answers instead of handing off, send "I'd like to talk to a person".
+  - Fin sets its four attributes (Contact Reason, Churn Risk, Sentiment, Expansion Signal) and runs **Hand off to Salesforce agent**. The chat rings in Omni-Channel on the **Yelp - Fin Messenger** channel.
+  - John's replies from the Service Console appear in Sam's Fin Messenger, and Sam's replies appear in the console. It's one conversation, and Sam never leaves Fin.
+  - From there, section 2 runs as written: Copilot, Support tools, End Chat, Case resolved, then Tom's Slack alert.
+  - If the handoff doesn't ring within about 30 seconds, go to Fin → the conversation → the "Handed off to Salesforce" event. Then use the scripted `help.html` for issue 2 so the demo keeps moving.
+  - Setup checklist: `fin-content/SETUP-handoff.md`.
 - **Troubleshooting:** every Fin data connector call is logged in Salesforce (Yelp Fin API Logs).
-- **Reset after a live run:** `python3 scripts/seed.py --live` puts Westminster back to paused and deletes the cases Fin created.
+- **Reset after a live run:** `python3 scripts/seed.py --live` puts Westminster back to paused, deletes the cases Fin created, and keeps leftover test chats from ringing in Omni-Channel.
+- **Fin-side reset:** none needed. Starting a **new conversation** in the Messenger is enough. Old Fin conversations stay in the Fin inbox, which is fine.
 
 **Keys on every mockup:** → or the clicker advances, ← goes back, R restarts, H shows notes, B toggles the browser bar. `?step=N` jumps to a step. Clicking the real control (launcher, quick reply, rating, back arrow, "Send us a message") also advances. While the cursor is in the Messenger's text box, only the clicker's PageDown/PageUp advance, so you can type freely.
 
@@ -257,6 +265,18 @@ Share this when Yelp asks "what would it take?" Each step lists who owns it and 
 7. **Turn on Fin CSAT**: [Measure and report on Fin CSAT](https://fin.ai/help/en/articles/13975806-measure-and-report-on-fin-csat).
 
 ### 2 · Handoff to a Salesforce agent (sections 1 and 2)
+Fin supports two patterns. Yelp would pick one:
+- **Sam stays in the Fin Messenger (what the live demo uses):** Fin's "Hand off to Salesforce agent" over a Bring Your Own Channel (BYOC) Messaging channel. The agent works in the Service Console, and the customer never switches widgets. Steps A–E below.
+- **Salesforce widget takes over:** Fin hands off to an Embedded Messaging (Messaging for In-App and Web) deployment. That's what the scripted page simulates. Steps 1–5 below.
+
+**BYOC path (live demo)**
+- **A · Install Fin for Salesforce: Messaging** (Yelp Salesforce admin). It adds the Conversation Channel Definition and the External Client App. In the definition, set the External Client App to *Fin for Salesforce*. Give the integration user access to the Fin message event: [Fin Messenger: setting up with Salesforce](https://fin.ai/help/en/articles/13975912-fin-messenger-setting-up-with-salesforce).
+- **B · Event Relay to AWS EventBridge:** Salesforce publishes agent messages to Fin through the Event Relay the package creates. Start it and confirm it shows Run ([Salesforce Help: Event Relay](https://help.salesforce.com/s/search-result?language=en_US#q=Event%20Relay%20Amazon%20EventBridge&t=allResultsTab)).
+- **C · Messaging channel (type Custom/BYOC):** point it at the Omni-Channel routing Flow and a fallback queue. Add custom parameters for the Fin attributes so the Flow can read them. Fin sends `user_email` and `conversation_custom_data_<Attribute Name>`.
+- **D · Fin attributes and Procedure:** define Contact Reason, Churn Risk, Sentiment and Expansion Signal as list attributes with value descriptions, which teach Fin when to pick each value. A Procedure decides when to hand off ([Fin Procedures explained](https://fin.ai/help/en/articles/13976187-fin-procedures-explained), [Escalation guidance and rules](https://fin.ai/help/en/articles/13976161-manage-fin-ai-agent-s-escalation-guidance-and-rules)).
+- **E · Workflow:** in the Fin Messenger workflow, add **Hand off to Salesforce agent** under "If escalated to a team", then set it live.
+
+**Embedded Messaging path**
 1. **Messaging for In-App and Web:** create a channel and deployment in Salesforce and publish it ([Salesforce Help: Messaging for In-App and Web](https://help.salesforce.com/s/search-result?language=en_US#q=Messaging%20for%20In-App%20and%20Web%20setup&t=allResultsTab)).
 2. **Point Fin at it:** set up Fin's "Hand-off to Salesforce agent" step: [Fin Messenger: setting up with Salesforce](https://fin.ai/help/en/articles/13975912-fin-messenger-setting-up-with-salesforce).
 3. **Map Fin's data with Flow:** map Fin's attributes (summary, transcript, churn risk, expansion signal, sentiment) onto Case fields in an Omni-Channel routing Flow.
@@ -264,6 +284,16 @@ Share this when Yelp asks "what would it take?" Each step lists who owns it and 
    - [Salesforce Help: Omni-Channel Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Omni-Channel%20Flow%20route%20work&t=allResultsTab)
 4. **Log Fin-resolved conversations as cases** with "Create Salesforce case on resolution": [Fin for Salesforce cases: set up](https://fin.ai/help/en/articles/13975757-fin-for-salesforce-cases-set-up).
 5. **Omni-Channel queues and presence:** set these up for the Multi-Location team ([Salesforce Help: Omni-Channel setup](https://help.salesforce.com/s/search-result?language=en_US#q=Set%20up%20Omni-Channel%20queues%20presence%20statuses&t=allResultsTab)).
+
+### 2b · Data connectors that act in Yelp's systems (section 1, live issue 1)
+- **What the demo does:** a Salesforce Site exposes a small Apex REST API (`YelpFinApi`) with three endpoints:
+  - account and locations: read
+  - raise a location's budget cap: write
+  - latest invoice
+
+  Fin's data connectors call it with a shared key header. In production, these would be Yelp's Ads and Billing APIs, or the same pattern on Salesforce if that's the system of record.
+- **Signed-in customers:** the help page asks Salesforce for a signed Messenger JWT (HS256, using Fin's Messenger secret), so Fin knows it's Sam. Connectors that use customer data require that verification ([Data connectors](https://fin.ai/help/en/articles/13975792-create-data-connectors-for-fin)).
+- **Guardrails:** the write connector is manual-trigger only, used by the "Ad not showing" Procedure after Sam confirms the amount. Every call is logged in Salesforce (*Yelp Fin API Logs*).
 
 ### 3 · Fin Copilot in the Service Console (section 2)
 1. **Install Fin Copilot for Salesforce** and add it to the Messaging Session and Case pages in Lightning App Builder: [Deploy Copilot to Salesforce](https://fin.ai/help/en/articles/13976231-deploy-copilot-to-salesforce).
@@ -332,4 +362,13 @@ Share this when Yelp asks "what would it take?" Each step lists who owns it and 
   - Home pages: *Yelp Support Home* and *Yelp Sales Home*.
   - The *Yelp Ads Performance* card replaces the Welo dashboards on Part 2 accounts and opportunities.
   - To restore Welo, redeploy `scripts/backup/LEXTHEMINGWelo.brandingSet-meta.xml.orig` as the branding set.
+- **Live Fin (real workspace `rh93xujb`, US):**
+  - *Yelp Fin API* Site (`/yelpfin`), with Apex `YelpFinApi`. The data connector key and the Messenger secret live in Custom Metadata *Yelp Fin API → Default*. Neither is in git; see `.fin-api.local` and `fin-content/SETUP-live-fin.md`.
+  - Flow *Yelp - Fin Case Sync* runs before save on cases Fin creates. It maps Fin's resolution state, sets Origin = Chat, and closes resolved cases, so they don't route to Omni.
+  - Messaging channel *Yelp - Fin Messenger* (BYOC):
+    - routing Flow: *Yelp - Fin Handoff Routing*
+    - fallback queue: *SDO_Service_Messaging*
+    - custom parameters map Fin's attributes into the Flow
+    - Event Relay: *Fin_Relay_US_East_1*
+  - Setup checklists: `fin-content/SETUP-live-fin.md` (issue 1) and `fin-content/SETUP-handoff.md` (issue 2).
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

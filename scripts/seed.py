@@ -54,6 +54,13 @@ delete [SELECT Id FROM Case WHERE Part2_Demo__c = true AND Origin = 'Chat'];
 // Cases the real Fin AI Agent created for Sam (resolved conversations and handoffs)
 delete [SELECT Id FROM Case WHERE Contact.Email = '{D.SAM["email"]}' AND Part2_Demo__c = false AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Case WHERE Subject = 'Support EmbeddedMessaging Conversation' AND CreatedDate = LAST_N_DAYS:7];
+delete [SELECT Id FROM Case WHERE Subject LIKE 'Fin handoff:%' AND Part2_Demo__c = false AND CreatedDate = LAST_N_DAYS:7];
+// Leftover test chats still waiting in Omni would ring before the next demo chat
+List<Id> waiting = new List<Id>();
+for (MessagingSession m : [SELECT Id FROM MessagingSession WHERE Status IN ('Waiting', 'New')]) waiting.add(m.Id);
+List<PendingServiceRouting> psrs = [SELECT Id FROM PendingServiceRouting WHERE WorkItemId IN :waiting AND IsReadyForRouting = true];
+for (PendingServiceRouting p : psrs) p.IsReadyForRouting = false;
+update psrs;
 Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1];
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));

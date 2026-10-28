@@ -81,6 +81,19 @@ Use the procedure's handoff option at step 4 (for example **@handoff** / **Hand 
 
 ---
 
+## Part 2b · Escalation guidance and rule (Fin → Train → Guidance → Escalation): makes the handoff reliable
+Procedures are matched by AI. An escalation **rule** is checked every turn, so it's the closest thing to a guaranteed handoff.
+
+**Escalation guidance** (paste as a new guidance item)
+```
+Escalate to the team, without asking follow-up questions, when the customer is opening or planning new locations, or asks to move, redirect or shift spend between locations. These are budget decisions a Multi-Location specialist must handle. Before escalating, tell the customer a specialist will help and that you've passed along a summary.
+```
+**Escalation rule** (if your workspace shows Rules): **When** `Expansion Signal` **is** `New locations` → **Escalate**. Optionally add a second condition with OR: `Contact Reason` **is** `Add a location`.
+
+Save and set live. Test mode uses the latest settings.
+
+---
+
 ## Part 3 · Messenger workflow handoff (Fin → Deploy → Fin Messenger → your workflow)
 1. Click **Edit** (or open the draft).
 2. On the **Let Fin answer** step, find the branch **If escalated to a team** (also used when the Procedure hands off).

@@ -106,7 +106,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | # | Where | Who | Type exactly |
 |---|---|---|---|
 | 1 | Fin Messenger | Sam | `I'm planning to open 4 new locations in January. Can I temporarily redirect a portion of my existing spend to the new locations? I want to see performance before investing more. New locations don't always perform as expected.` |
-| 1b | Fin Messenger | Sam | *Only if Fin answers instead of handing off:* `I'd like to talk to a person` |
+| 1b | Fin Messenger | Sam | *If Fin answers or asks a question instead of handing off:* `I'd rather talk to a specialist about this.` Fin always hands off when the customer asks for a person. |
 | 2 | Omni-Channel | John | **Accept** the chat. |
 | 3 | Fin Copilot | John | **Summarize** (button), or `Summarize this conversation` |
 | 4 | Fin Copilot | John | `What options can I offer Sam?` |

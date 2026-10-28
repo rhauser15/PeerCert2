@@ -133,6 +133,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
 ### Live Fin option (real Fin workspace)
+- **Day of the demo:** in Fin, check the Salesforce connection (Settings → Integrations → Salesforce) and reconnect it if it shows as disconnected. It has dropped overnight in this demo setup. Then check Settings → Fin Messenger → Configure for Salesforce: all badges should be green.
 - **Issue 1, live:** `help-fin.html?intercomTest=true&messenger_environment=limwmcawd3`. Use the same browser you're signed in to Fin with, and turn content blockers off for the site.
   - Fin answers from your workspace and uses the **Get Yelp ad account**, **Raise a location's budget cap** and **Get latest invoice** data connectors (the Yelp Fin API Salesforce Site).
   - Raising the cap **really changes Westminster in Salesforce**, and the page's "Your locations" panel flips to Running within about 5 seconds.

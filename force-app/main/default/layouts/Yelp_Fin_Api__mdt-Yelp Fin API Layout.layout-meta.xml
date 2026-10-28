@@ -22,6 +22,10 @@
                 <behavior>Edit</behavior>
                 <field>Api_Key__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fin_Access_Token__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

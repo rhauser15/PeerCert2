@@ -95,6 +95,15 @@ Save and set live. Test mode uses the latest settings.
 
 ---
 
+## Part 2c · Fin access token for the handoff signals (one time)
+Fin's handoff brings Sam's email into Salesforce, but not the conversation attributes. The routing Flow reads them from Fin's API instead (Apex `YelpFinSignals`), using the Fin conversation ID on the chat.
+1. In Fin: **Settings → Integrations → Developer Hub → New app**. Name it `Salesforce handoff signals`, pick this workspace, and create it.
+2. Open the app's **Authentication** page and copy the **Access token**.
+3. In Salesforce: **Setup → Custom Metadata Types → Yelp Fin API → Manage Records → Default → Edit**, paste the token into **Fin Access Token**, and save. If only the field's default value can be edited, paste it there; that works too.
+4. After the next handoff, *Yelp Fin API Logs* shows a `fin-signals` row with the attributes Fin returned, or the error.
+
+---
+
 ## Part 3 · Messenger workflow handoff (Fin → Deploy → Fin Messenger → your workflow)
 1. Click **Edit** (or open the draft).
 2. On the **Let Fin answer** step, find the branch **If escalated to a team** (also used when the Procedure hands off).

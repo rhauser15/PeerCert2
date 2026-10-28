@@ -22,7 +22,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Contact</targetReference>
+            <targetReference>Get_Fin_Signals</targetReference>
         </connector>
     </start>
     <formulas>
@@ -606,6 +606,69 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <actionCalls>
+        <description>Live Fin handoffs: reads Fin's conversation attributes from the Fin API when they didn't arrive as routing parameters. First, because it makes a callout.</description>
+        <name>Get_Fin_Signals</name>
+        <label>Get Fin conversation attributes</label>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <actionName>YelpFinSignals</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Get_Contact</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>sessionId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>contactReason</name>
+            <value>
+                <elementReference>Fin_Contact_Reason</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>churnRisk</name>
+            <value>
+                <elementReference>Fin_Churn_Risk</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sentiment</name>
+            <value>
+                <elementReference>Fin_Sentiment</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>expansionSignal</name>
+            <value>
+                <elementReference>Fin_Expansion_Signal</elementReference>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>Fin_Contact_Reason</assignToReference>
+            <name>contactReason</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>Fin_Churn_Risk</assignToReference>
+            <name>churnRisk</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>Fin_Sentiment</assignToReference>
+            <name>sentiment</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>Fin_Expansion_Signal</assignToReference>
+            <name>expansionSignal</name>
+        </outputParameters>
+        <storeOutputAutomatically>false</storeOutputAutomatically>
+    </actionCalls>
     <actionCalls>
         <name>Route_to_Queue</name>
         <label>Route to Queue</label>

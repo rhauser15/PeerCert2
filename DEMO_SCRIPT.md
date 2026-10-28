@@ -258,7 +258,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - spend by location
    - **[Say]** "Tom gets the pattern, not a ticket: Sam is spending more and growing, but he needs proof the new locations will work before the renewal." 
      - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
-2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card under the path and an "Ads Optimization Review session" Next Best Action. Click the account name to get to Whitaker Hospitality Group.
+2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card (all 12 locations) at the bottom of the Details tab. Click the account name to get to Whitaker Hospitality Group.
 3. **Left column, top: the account card.**
    - **Renewal Date:** Dec 31, 2026
    - **Likelihood to Renew:** 74.6, *Likely, watch value*. It was 79.5 before tonight's conversation.
@@ -276,15 +276,15 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts. The same strategy shows it on the renewal opportunity.
    - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
 6. **Details tab:**
-   - **Yelp Ads Performance** (top): annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
-   - **Account Information:** Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
+   - **Account Information** (top): Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
    - **Fin Signals:**
      - Churn Risk **Low**: "Value realization: wants proof new locations perform before investing more".
      - Expansion Signal **4 new locations, opening January**.
      - Sentiment **Slightly Negative**.
      - Last Fin Conversation, locations, budget, spend, leads and cost per lead.
    - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
-7. **Related → Opportunities:**
+   - **Yelp Ads Performance:** annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
+7. **Sales tab → Opportunities:**
    - **Annual Renewal:** $119,760, closes Dec 31.
    - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…".
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
@@ -459,7 +459,12 @@ Fin supports two patterns. Yelp would pick one:
   - extra Account Information fields
   - no "Likely to buy" panel
 
-  Part 2 opportunities hide the MEDDIC methodology card, which errors in this org. Other accounts and opportunities see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
+  Simplified for Part 2 (`scripts/simplify_pages.py`, Part 2 records only):
+  - **Account:** Details order is Account Information, Fin Signals, Yelp Ads Performance. Field Service Details, Prediction and Additional Information are hidden, and so are the Partners, Success, Service and Account Plan tabs. The Sales tab shows Opportunities only.
+  - **Opportunity:** the sales methodology panel (it errors here: no OppSalesMethodology object), the Opportunity Information, Marketing Information and Einstein Predictions sections, and the Predicted Win Rate, Predicted Upsell, Commission, MEDDIC and Coach tabs are hidden. Yelp Ads Performance is at the bottom of Details.
+  - **Yelp Sales app:** no Forecasts or Exec Home tabs.
+  - **Left account card:** reads its fields from the *Tech - Account* page layout, so the Yelp renewal fields are on that layout (section "Yelp Renewal (Keep and Grow)").
+  Other accounts and opportunities see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created. It updates the account and creates the expansion opportunity.
 - **Alert:** Flow *Yelp - Fin Case Resolved Alert* runs when that case is closed (Case resolved button):
   - creates the brief task

@@ -237,8 +237,6 @@
     <tabs>standard-Campaign</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
-    <tabs>standard-Forecasting3</tabs>
-    <tabs>Exec_Home</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>SDO_Sales_App_UtilityBar</utilityBar>
 </CustomApplication>

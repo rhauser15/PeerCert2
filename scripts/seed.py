@@ -63,11 +63,6 @@ for (MessagingSession m : [SELECT Id FROM MessagingSession WHERE Status IN ('Wai
 List<PendingServiceRouting> psrs = [SELECT Id FROM PendingServiceRouting WHERE WorkItemId IN :waiting AND IsReadyForRouting = true];
 for (PendingServiceRouting p : psrs) p.IsReadyForRouting = false;
 update psrs;
-// New Fin Messenger identity for Sam: the live pages open with no past Fin conversations
-for (Contact c : [SELECT Id FROM Contact WHERE Email = '{D.SAM["email"]}' AND Account.Part2_Demo__c = true]) {{
-    c.Fin_Messenger_User_Id__c = 'sam-whitaker-' + Datetime.now().format('yyyyMMddHHmmss');
-    update c;
-}}
 Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c = true LIMIT 1];
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));

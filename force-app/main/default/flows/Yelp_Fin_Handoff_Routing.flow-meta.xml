@@ -28,17 +28,17 @@
     <formulas>
         <name>Merged_Contact_Reason</name>
         <dataType>String</dataType>
-        <expression>BLANKVALUE({!Fin_Contact_Reason}, {!Fin_Alt_Contact_Reason})</expression>
+        <expression>BLANKVALUE({!Fin_Contact_Reason}, BLANKVALUE({!Fin_Alt_Contact_Reason}, {!Fin_Alt2_Contact_Reason}))</expression>
     </formulas>
     <formulas>
         <name>Merged_Churn_Risk</name>
         <dataType>String</dataType>
-        <expression>BLANKVALUE({!Fin_Churn_Risk}, {!Fin_Alt_Churn_Risk})</expression>
+        <expression>BLANKVALUE({!Fin_Churn_Risk}, BLANKVALUE({!Fin_Alt_Churn_Risk}, {!Fin_Alt2_Churn_Risk}))</expression>
     </formulas>
     <formulas>
         <name>Merged_Expansion_Signal</name>
         <dataType>String</dataType>
-        <expression>BLANKVALUE({!Fin_Expansion_Signal}, {!Fin_Alt_Expansion_Signal})</expression>
+        <expression>BLANKVALUE({!Fin_Expansion_Signal}, BLANKVALUE({!Fin_Alt_Expansion_Signal}, {!Fin_Alt2_Expansion_Signal}))</expression>
     </formulas>
     <formulas>
         <name>ExpansionClean</name>
@@ -737,6 +737,30 @@
         <nameSegment>routeWork</nameSegment>
         <offset>0</offset>
     </actionCalls>
+    <variables>
+        <description>Contact Reason if the Fin attribute is named ContactReason (no spaces).</description>
+        <name>Fin_Alt2_Contact_Reason</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Churn Risk if the Fin attribute is named ChurnRisk (no spaces).</description>
+        <name>Fin_Alt2_Churn_Risk</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Expansion Signal if the Fin attribute is named ExpansionSignal (no spaces).</description>
+        <name>Fin_Alt2_Expansion_Signal</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <description>Contact Reason if Fin sends the key with underscores (conversation_custom_data_Contact_Reason).</description>
         <name>Fin_Alt_Contact_Reason</name>

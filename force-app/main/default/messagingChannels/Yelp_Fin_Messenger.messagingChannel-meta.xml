@@ -14,6 +14,36 @@
     </automatedResponses>
     <customParameters>
         <actionParameterMappings>
+            <actionParameterName>Fin_Alt2_Contact_Reason</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_ContactReason</externalParameterName>
+        <masterLabel>Fin Contact Reason (no-space key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt2_Contact_Reason</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Alt2_Churn_Risk</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_ChurnRisk</externalParameterName>
+        <masterLabel>Fin Churn Risk (no-space key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt2_Churn_Risk</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
+            <actionParameterName>Fin_Alt2_Expansion_Signal</actionParameterName>
+        </actionParameterMappings>
+        <externalParameterName>conversation_custom_data_ExpansionSignal</externalParameterName>
+        <masterLabel>Fin Expansion Signal (no-space key)</masterLabel>
+        <maxLength>255</maxLength>
+        <name>Fin_Alt2_Expansion_Signal</name>
+        <parameterDataType>String</parameterDataType>
+    </customParameters>
+    <customParameters>
+        <actionParameterMappings>
             <actionParameterName>Fin_Alt_Contact_Reason</actionParameterName>
         </actionParameterMappings>
         <externalParameterName>conversation_custom_data_Contact_Reason</externalParameterName>

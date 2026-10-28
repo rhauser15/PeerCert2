@@ -84,6 +84,21 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 
 All of these are also on the [launcher](https://rhauser15.github.io/PeerCert2/).
 
+### Live issue 1: exact prompts (help-fin.html)
+
+Open the Messenger, bottom right. Type or paste each line as written.
+
+| # | Who | Type exactly | What should happen |
+|---|---|---|---|
+| 1 | Sam | `Why isn't my Westminster ad showing?` | Fin reads the account (data connector): Westminster hit its $1,200 monthly cap and is paused, and the other locations are running. It offers to raise the cap, suggesting $1,500, with $1,400 or staying paused as alternatives. |
+| 2 | Sam | `Raise it to $1,500` | Fin raises the cap (Procedure + data connector). Westminster turns **Active at $1,500** in Salesforce. The page's "Your locations" panel switches to Running within about 5 seconds. |
+| 2b | Sam | *Only if Fin asks to confirm:* `Yes, please` | |
+| 3 | Sam | `Also, why was my last invoice higher than usual?` | Fin reads the invoice: up $530. That's $400 from Westminster's cap change on Sep 1 and $130 from the Powers Page Upgrade. |
+| 4 | Sam | `Nope, that's everything. Thanks, that fixed it!` | Fin signs off, then the CSAT survey appears. |
+| 5 | Sam | Click **Amazing** | Fin closes the conversation and creates a case in Salesforce: Closed, Hard Resolution, no Omni ring. |
+
+**Show it landed:** Westminster on the Whitaker account in Yelp Sales (cap $1,500, Active), Sam's new Fin case, and *Yelp Fin API Logs* for the connector calls. Then click the back arrow and **Send us a message** for issue 2 below. The handoff page is optional; issue 2 works in the same Messenger.
+
 ### Live handoff: exact prompts (issue 2, help-fin-handoff.html)
 
 In the Messenger, click **Send us a message** to start a new conversation. Type or paste each line as written.

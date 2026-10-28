@@ -136,6 +136,11 @@ drawLocs(); setInterval(drawLocs, 5000);
     console.warn("[fin] couldn't get Sam's sign-in token from Salesforce", e);
     settings.user_id = "sam-whitaker"; settings.email = DEMO.sam.email; settings.name = DEMO.sam.name;
   }
+  // After a demo reset Sam has a new Messenger identity. Clear the previous identity's Messenger session first,
+  // or the Messenger refuses to boot for the new one.
+  const who = settings.intercom_user_jwt ? settings.intercom_user_jwt.split(".")[1] && JSON.parse(atob(settings.intercom_user_jwt.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))).user_id : settings.user_id;
+  if (localStorage.getItem("yelpFinUser") !== who) window.Intercom("shutdown");
+  localStorage.setItem("yelpFinUser", who);
   window.Intercom("boot", settings);
 })();
 

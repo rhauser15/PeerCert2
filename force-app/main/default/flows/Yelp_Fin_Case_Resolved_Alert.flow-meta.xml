@@ -268,7 +268,7 @@
         <locationY>1200</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Brief</targetReference>
+            <targetReference>Summarize_Support</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -402,18 +402,11 @@
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>Fin flagged {!$Record.Account.Name} in a conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName} today.
 
-Health
-- Churn risk: {!$Record.Churn_Risk__c} ({!$Record.Churn_Risk_Reason__c})
-- Expansion signal: {!$Record.Expansion_Signal__c}
-- Sentiment: {!$Record.Fin_Sentiment__c}
-- Open cases: {!OpenCases}
-
-How support resolved it
-- Offer accepted: {!$Record.Retention_Offer__c}
-- {!$Record.Resolution_Notes__c}
-
-Renewal
+Einstein account health
+- Likelihood to renew: {!$Record.Account.Renewal_Likelihood__c} / 100 ({!$Record.Account.Renewal_Outlook__c})
 - {!Get_Renewal.Name}: ${!Get_Renewal.Amount}, closes {!Get_Renewal.CloseDate}
+
+{!SupportSummary}
 
 Spend by location{!SpendByLocation}
 
@@ -429,26 +422,26 @@ Fin summary
         <text>*Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
 &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Open the renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|Account&gt;
 
-_Why you're getting this: you own this multi-location account (${!$Record.Account.Annual_Ad_Spend__c} annual ad spend), Fin flagged growth or churn risk in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}, and support just resolved the case._
+_Why you're getting this: you own this multi-location account (${!$Record.Account.Annual_Ad_Spend__c} annual ad spend), and Fin flagged growth or churn risk in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}._
 
-*What Fin heard*
-- Expansion signal: *{!$Record.Expansion_Signal__c}*
-- Churn risk: *{!$Record.Churn_Risk__c}* ({!$Record.Churn_Risk_Reason__c})
-- Sentiment: {!$Record.Fin_Sentiment__c}
-
-*How support resolved it* (case {!$Record.CaseNumber})
-- Offer accepted: *{!$Record.Retention_Offer__c}*
-- {!$Record.Resolution_Notes__c}
-
-*Account health*
-- Open cases: {!OpenCases}
+*Einstein account health*
+- Likelihood to renew: *{!$Record.Account.Renewal_Likelihood__c}* / 100 ({!$Record.Account.Renewal_Outlook__c})
 - {!Get_Renewal.Name}: ${!Get_Renewal.Amount}, closes {!Get_Renewal.CloseDate}
+
+{!SupportSummary}
 
 *Spend by location*{!SpendByLocation}
 
 *Suggested next step*
 {!NextStep}</text>
     </textTemplates>
+    <variables>
+        <name>SupportSummary</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>SpendByLocation</name>
         <dataType>String</dataType>
@@ -471,6 +464,30 @@ _Why you're getting this: you own this multi-location account (${!$Record.Accoun
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
+    <actionCalls>
+        <description>Recent support on the account (last 90 days), positive signals and what to watch.</description>
+        <name>Summarize_Support</name>
+        <label>Summarize recent support</label>
+        <locationX>600</locationX>
+        <locationY>1320</locationY>
+        <actionName>YelpSupportSummary</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Create_Brief</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>caseId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>SupportSummary</assignToReference>
+            <name>summary</name>
+        </outputParameters>
+        <storeOutputAutomatically>false</storeOutputAutomatically>
+    </actionCalls>
     <actionCalls>
         <name>Post_to_Slack</name>
         <label>Post renewal brief to #sales-notifications</label>

@@ -245,10 +245,12 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, it spends $119,760 a year, and Fin heard growth."
    - **[Salesforce]** A **record-triggered Flow** decides who needs to know. It alerts on multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or high churn risk. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post:
-     - what Fin heard: expansion signal 4 new locations, churn risk Low (value realization), sentiment Slightly Negative
-     - **how support resolved it:** offer accepted, New Location Launch Program
-     - account health: open cases, the renewal
+     - **Einstein account health:** likelihood to renew 74.6 / 100, *Likely, watch value*, and the renewal ($119,760, closes Dec 31)
+     - **recent support (last 90 days),** not just tonight's case: how many conversations, how many Fin resolved, the top topics
+     - **positive signals:** Westminster's cap raised from $1,200 to $1,500 through Fin, and the new locations
+     - **watch:** Sam isn't sure the new locations will pay off and wants to see performance before investing more
      - spend by location
+   - **[Say]** "Tom gets the pattern, not a ticket: Sam is spending more and growing, but he needs proof the new locations will work before the renewal." 
      - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card under the path and an "Ads Optimization Review session" Next Best Action. Click the account name to get to Whitaker Hospitality Group.
 3. **Left column, top: the account card.**

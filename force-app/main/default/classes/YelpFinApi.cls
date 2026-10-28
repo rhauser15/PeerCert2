@@ -6,6 +6,8 @@
  *   GET  /yelp/invoice?email=...                        latest invoice and what changed (data connector)
  *   GET  /yelp/messenger-token                          signed Messenger JWT for the demo customer (help page)
  *   GET  /yelp/status                                   location ad status for the demo customer (help page panel)
+ *   POST /yelp/signals  {"email","conversation_id","contact_reason","churn_risk","sentiment","expansion_signal"}
+ *                       Fin's conversation attributes for a live handoff (data connector); fills the handoff case
  *
  * Data connector calls must send the X-Yelp-Fin-Key header (Yelp_Fin_Api__mdt.Default.Api_Key__c).
  * Only Keep and Grow demo accounts (Part2_Demo__c) are visible or editable.
@@ -47,6 +49,10 @@ global without sharing class YelpFinApi {
         try {
             requireKey(req);
             Map<String, Object> body = (Map<String, Object>) JSON.deserializeUntyped(req.requestBody.toString());
+            if (req.requestURI.substringAfter('/yelp/').startsWith('signals')) {
+                respond(200, signals(body));
+                return;
+            }
             respond(200, raiseCap((String) body.get('email'), (String) body.get('location'), body.get('monthly_cap')));
         } catch (ApiException e) {
             respond(e.status, new Map<String, Object>{ 'error' => e.getMessage() });
@@ -104,6 +110,27 @@ global without sharing class YelpFinApi {
             'location' => loc.Name, 'previous_monthly_cap' => previous, 'new_monthly_cap' => cap,
             'ad_status' => statusText(loc), 'ads_resume' => loc.Budget_Status__c == 'Active' ? 'within 15 minutes' : null
         };
+    }
+
+    // Live handoff: Fin doesn't send its custom attributes with the chat, so a data connector posts them here.
+    // The call is logged (Yelp_Fin_Api_Log__c, endpoint "signals"); the routing Flow reads that log when the chat
+    // arrives later, and if the handoff case already exists, it's filled in now.
+    @TestVisible
+    static Map<String, Object> signals(Map<String, Object> body) {
+        Contact c = demoContact((String) body.get('email'));
+        Case cs = YelpFinSignals.openHandoffCase(c.Id, str(body.get('conversation_id')));
+        if (cs != null) {
+            YelpFinSignals.apply(cs, str(body.get('contact_reason')), str(body.get('churn_risk')), str(body.get('sentiment')), str(body.get('expansion_signal')));
+            update cs;
+        }
+        return new Map<String, Object>{ 'received' => true, 'case' => cs == null ? null : cs.CaseNumber,
+            'note' => cs == null ? 'Saved; applied when the chat reaches Salesforce' : 'Applied to the handoff case' };
+    }
+
+    static String str(Object o) {
+        String s = o == null ? null : String.valueOf(o).trim();
+        // Unfilled template placeholders count as blank
+        return String.isBlank(s) || s.startsWith('{{') ? null : s;
     }
 
     @TestVisible

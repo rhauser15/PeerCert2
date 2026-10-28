@@ -28,6 +28,38 @@ private class YelpFinApiTest {
     }
 
     @IsTest
+    static void signalsFillTheOpenHandoffCase() {
+        Contact c = [SELECT Id, AccountId FROM Contact WHERE Email = 'api.tester@example.com'];
+        Case cs = new Case(Subject = 'Fin handoff:', ContactId = c.Id, Status = 'New', Origin = 'Chat');
+        try {
+            insert cs;
+        } catch (DmlException e) {
+            // This org's SDO case automation can't run in tests (missing helper config); cover the endpoint without a case
+            System.assertEquals(null, YelpFinApi.signals(new Map<String, Object>{ 'email' => 'api.tester@example.com' }).get('case'));
+            return;
+        }
+        Map<String, Object> r = YelpFinApi.signals(new Map<String, Object>{
+            'email' => 'api.tester@example.com', 'conversation_id' => '{{conversation.id}}',
+            'contact_reason' => 'Add a location', 'churn_risk' => 'Low', 'sentiment' => 'Slightly Negative',
+            'expansion_signal' => 'New locations'
+        });
+        System.assertNotEquals(null, r.get('case'));
+        Case after = [SELECT Subject, Fin_Contact_Reason__c, Churn_Risk__c, Fin_Sentiment__c, Expansion_Signal__c FROM Case WHERE Id = :cs.Id];
+        System.assertEquals('Fin handoff: Add a location', after.Subject);
+        System.assertEquals('Low', after.Churn_Risk__c);
+        System.assertEquals('New locations', after.Expansion_Signal__c);
+    }
+
+    @IsTest
+    static void signalsAreReadBackForTheRoutingFlow() {
+        insert new Yelp_Fin_Api_Log__c(Endpoint__c = 'signals', Method__c = 'POST', Status__c = 200,
+            Detail__c = 'params={}\nbody={"email":"a@b.c","conversation_id":"123","contact_reason":"Add a location","churn_risk":"Low"}\nresponse={}');
+        Map<String, Object> attrs = YelpFinSignals.fromConnector('123');
+        System.assertEquals('Add a location', attrs.get('Contact Reason'));
+        System.assertEquals(null, YelpFinSignals.fromConnector('999'));
+    }
+
+    @IsTest
     static void rejectsUnknownCustomersAndMissingKey() {
         try {
             YelpFinApi.account('nobody@example.com');

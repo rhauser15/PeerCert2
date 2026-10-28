@@ -95,6 +95,29 @@ Save and set live. Test mode uses the latest settings.
 
 ---
 
+## Part 2d · Data connector D: "Log handoff signals" (gets Fin's attributes onto the case)
+Fin's "Hand off to Salesforce agent" doesn't send custom attributes with the chat, so Fin posts them to Salesforce with a data connector. Order doesn't matter: if the chat hasn't reached Salesforce yet, the routing Flow picks them up; if the case already exists, it's filled in right away and Tom's write-back runs.
+
+- **Name:** `Log handoff signals`
+- **Description:**
+```
+Saves this conversation's Contact Reason, Churn Risk, Sentiment and Expansion Signal to Salesforce so the Multi-Location specialist sees them. Always use it right before handing the conversation off to the team.
+```
+- **Method/URL:** `POST https://trailsignup-429cdfd78ec835.my.salesforce-sites.com/yelpfin/services/apexrest/yelp/signals`
+- **Headers:** `X-Yelp-Fin-Key: (key from .fin-api.local)`, `Content-Type: application/json`
+- **Body:** insert each `{{…}}` with the attribute picker (People: Email; Conversation: ID, ContactReason, ChurnRisk, Sentiment, ExpansionSignal):
+```
+{"email": "{{email}}", "conversation_id": "{{conversation id}}", "contact_reason": "{{ContactReason}}", "churn_risk": "{{ChurnRisk}}", "sentiment": "{{Sentiment}}", "expansion_signal": "{{ExpansionSignal}}"}
+```
+  If the picker doesn't offer conversation attributes, add **data inputs** instead (text: `contact_reason`, `churn_risk`, `sentiment`, `expansion_signal`, each described as "the value of the <name> attribute in this conversation") and insert those. `conversation_id` is optional.
+- **Fin tab:** enabled. **Security:** customer authentication on. Set live.
+- **Make Fin call it before the handoff**, using whichever your workspace offers:
+  - Workflow path C: add a data connector or action step for **Log handoff signals** before **Hand-off to Salesforce agent**, or
+  - add to the escalation guidance: `Before escalating, use the Log handoff signals data connector.`
+- **Check:** *Yelp Fin API Logs* shows a `signals` row for each call. Also fix the Sentiment value typo in Fin: `Slighly Negative` → `Slightly Negative`.
+
+---
+
 ## Part 2c · Fin access token for the handoff signals (one time)
 Fin's handoff brings Sam's email into Salesforce, but not the conversation attributes. The routing Flow reads them from Fin's API instead (Apex `YelpFinSignals`), using the Fin conversation ID on the chat.
 1. In Fin: **Settings → Integrations → Developer Hub → New app**. Name it `Salesforce handoff signals`, pick this workspace, and create it.

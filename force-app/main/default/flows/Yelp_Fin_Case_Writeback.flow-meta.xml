@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
-    <description>Keep and Grow demo. When Fin hands a conversation to the team, write Fin's churn risk, expansion signal and sentiment back to the Account and open an Expansion opportunity if Fin heard one. (The account owner is alerted when the case is resolved: Yelp - Fin Case Resolved Alert.)</description>
+    <description>Runs when a handoff case is created with Fin's signals, or when they arrive later (live Fin: the Log handoff signals data connector). Keep and Grow demo. When Fin hands a conversation to the team, write Fin's churn risk, expansion signal and sentiment back to the Account and open an Expansion opportunity if Fin heard one. (The account owner is alerted when the case is resolved: Yelp - Fin Case Resolved Alert.)</description>
     <label>Yelp - Fin Case Write-back</label>
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
@@ -53,8 +53,16 @@
                 <stringValue>Routed to team</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Fin_Contact_Reason__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <object>Case</object>
-        <recordTriggerType>Create</recordTriggerType>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <recordUpdates>

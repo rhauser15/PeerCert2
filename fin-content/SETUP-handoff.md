@@ -107,8 +107,9 @@ Saves this conversation's Contact Reason, Churn Risk, Sentiment and Expansion Si
 - **Headers:** `X-Yelp-Fin-Key: (key from .fin-api.local)`, `Content-Type: application/json`
 - **Body:** insert each `{{…}}` with the attribute picker (People: Email; Conversation: ID, ContactReason, ChurnRisk, Sentiment, ExpansionSignal):
 ```
-{"email": "{{email}}", "conversation_id": "{{conversation id}}", "contact_reason": "{{ContactReason}}", "churn_risk": "{{ChurnRisk}}", "sentiment": "{{Sentiment}}", "expansion_signal": "{{ExpansionSignal}}"}
+{"email": "{{email}}", "conversation_id": "{{conversation id}}", "contact_reason": "{{ContactReason}}", "churn_risk": "{{ChurnRisk}}", "sentiment": "{{Sentiment}}", "expansion_signal": "{{ExpansionSignal}}", "title": "{{AI Title}}"}
 ```
+  `title` (Fin's AI Title) becomes the case subject, for example "Spend Redirection Question". Without it, the subject is "Fin handoff: <contact reason>".
   If the picker doesn't offer conversation attributes, add **data inputs** instead (text: `contact_reason`, `churn_risk`, `sentiment`, `expansion_signal`, each described as "the value of the <name> attribute in this conversation") and insert those. `conversation_id` is optional.
 - **Fin tab:** enabled. **Security:** customer authentication on. Set live.
 - **Make Fin call it before the handoff**, using whichever your workspace offers:

@@ -21,6 +21,8 @@ public without sharing class YelpFinSignals {
         public String sentiment;
         @InvocableVariable(label='Expansion Signal')
         public String expansionSignal;
+        @InvocableVariable(label='Title (Fin AI Title)')
+        public String title;
     }
 
     @InvocableMethod(label='Get Fin conversation attributes' description='Reads Fin conversation attributes from the Fin API for a handoff from the Fin Messenger.' callout=true)
@@ -50,6 +52,7 @@ public without sharing class YelpFinSignals {
         s.churnRisk = pick(s.churnRisk, attrs, 'Churn Risk');
         s.sentiment = pick(s.sentiment, attrs, 'Sentiment');
         s.expansionSignal = pick(s.expansionSignal, attrs, 'Expansion Signal');
+        s.title = pick(s.title, attrs, 'Title');
         log(s.sessionId, 'attributes=' + JSON.serialize(attrs));
     }
 
@@ -67,7 +70,7 @@ public without sharing class YelpFinSignals {
             if (String.isNotBlank(conv) && conv != conversationId) continue;
             return new Map<String, Object>{
                 'Contact Reason' => b.get('contact_reason'), 'Churn Risk' => b.get('churn_risk'),
-                'Sentiment' => b.get('sentiment'), 'Expansion Signal' => b.get('expansion_signal')
+                'Sentiment' => b.get('sentiment'), 'Expansion Signal' => b.get('expansion_signal'), 'Title' => b.get('title')
             };
         }
         return null;
@@ -89,11 +92,14 @@ public without sharing class YelpFinSignals {
         return cs.isEmpty() ? null : cs[0];
     }
 
-    public static void apply(Case c, String contactReason, String churnRisk, String sentiment, String expansionSignal) {
+    public static void apply(Case c, String contactReason, String churnRisk, String sentiment, String expansionSignal, String title) {
+        // Subject: Fin's AI Title if there is one, otherwise the contact reason (only replaces the routing Flow's placeholder)
+        Boolean placeholder = c.Subject == null || c.Subject.startsWith('Fin handoff');
         if (String.isNotBlank(contactReason)) {
             c.Fin_Contact_Reason__c = contactReason;
-            if (c.Subject == null || c.Subject.trim() == 'Fin handoff:') c.Subject = 'Fin handoff: ' + contactReason;
+            if (placeholder) c.Subject = 'Fin handoff: ' + contactReason;
         }
+        if (String.isNotBlank(title) && placeholder) c.Subject = title.left(255);
         if (String.isNotBlank(churnRisk)) c.Churn_Risk__c = churnRisk;
         if (String.isNotBlank(sentiment)) c.Fin_Sentiment__c = sentiment;
         if (String.isNotBlank(expansionSignal) && expansionSignal.toLowerCase() != 'none') c.Expansion_Signal__c = expansionSignal;

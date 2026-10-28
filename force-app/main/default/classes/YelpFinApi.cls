@@ -6,7 +6,7 @@
  *   GET  /yelp/invoice?email=...                        latest invoice and what changed (data connector)
  *   GET  /yelp/messenger-token                          signed Messenger JWT for the demo customer (help page)
  *   GET  /yelp/status                                   location ad status for the demo customer (help page panel)
- *   POST /yelp/signals  {"email","conversation_id","contact_reason","churn_risk","sentiment","expansion_signal"}
+ *   POST /yelp/signals  {"email","conversation_id","contact_reason","churn_risk","sentiment","expansion_signal","title"}
  *                       Fin's conversation attributes for a live handoff (data connector); fills the handoff case
  *
  * Data connector calls must send the X-Yelp-Fin-Key header (Yelp_Fin_Api__mdt.Default.Api_Key__c).
@@ -120,7 +120,7 @@ global without sharing class YelpFinApi {
         Contact c = demoContact((String) body.get('email'));
         Case cs = YelpFinSignals.openHandoffCase(c.Id, str(body.get('conversation_id')));
         if (cs != null) {
-            YelpFinSignals.apply(cs, str(body.get('contact_reason')), str(body.get('churn_risk')), str(body.get('sentiment')), str(body.get('expansion_signal')));
+            YelpFinSignals.apply(cs, str(body.get('contact_reason')), str(body.get('churn_risk')), str(body.get('sentiment')), str(body.get('expansion_signal')), str(body.get('title')));
             update cs;
         }
         return new Map<String, Object>{ 'received' => true, 'case' => cs == null ? null : cs.CaseNumber,

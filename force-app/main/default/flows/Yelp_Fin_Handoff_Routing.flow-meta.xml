@@ -79,7 +79,7 @@
     <formulas>
         <name>CaseSubject</name>
         <dataType>String</dataType>
-        <expression>"Fin handoff: " &amp; {!Fin_Contact_Reason} &amp; IF(ISBLANK({!Fin_Location}), "", " (" &amp; {!Fin_Location} &amp; ")")</expression>
+        <expression>IF(ISBLANK({!Fin_Title}), "Fin handoff: " &amp; {!Fin_Contact_Reason} &amp; IF(ISBLANK({!Fin_Location}), "", " (" &amp; {!Fin_Location} &amp; ")"), LEFT({!Fin_Title}, 255))</expression>
     </formulas>
     <formulas>
         <name>Today</name>
@@ -671,6 +671,10 @@
             <name>contactReason</name>
         </outputParameters>
         <outputParameters>
+            <assignToReference>Fin_Title</assignToReference>
+            <name>title</name>
+        </outputParameters>
+        <outputParameters>
             <assignToReference>Fin_Churn_Risk</assignToReference>
             <name>churnRisk</name>
         </outputParameters>
@@ -737,6 +741,14 @@
         <nameSegment>routeWork</nameSegment>
         <offset>0</offset>
     </actionCalls>
+    <variables>
+        <description>Fin's AI Title for the conversation (from the Log handoff signals data connector); used as the case subject.</description>
+        <name>Fin_Title</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <description>Contact Reason if the Fin attribute is named ContactReason (no spaces).</description>
         <name>Fin_Alt2_Contact_Reason</name>

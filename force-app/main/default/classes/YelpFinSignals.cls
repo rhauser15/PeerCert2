@@ -23,6 +23,8 @@ public without sharing class YelpFinSignals {
         public String expansionSignal;
         @InvocableVariable(label='Title (Fin AI Title)')
         public String title;
+        @InvocableVariable(label='Customer email')
+        public String email;
     }
 
     @InvocableMethod(label='Get Fin conversation attributes' description='Reads Fin conversation attributes from the Fin API for a handoff from the Fin Messenger.' callout=true)
@@ -39,7 +41,7 @@ public without sharing class YelpFinSignals {
 
     static void fillOne(Signals s) {
         if (String.isNotBlank(s.contactReason) && String.isNotBlank(s.churnRisk) && String.isNotBlank(s.sentiment)
-            && String.isNotBlank(s.expansionSignal)) return;
+            && String.isNotBlank(s.expansionSignal) && String.isNotBlank(s.email)) return;
         List<MessagingSession> ms = [SELECT MessagingEndUser.MessagingPlatformKey FROM MessagingSession WHERE Id = :s.sessionId];
         String key = ms.isEmpty() ? null : ms[0].MessagingEndUser.MessagingPlatformKey;
         if (key == null || !key.startsWith('Fin/')) return;
@@ -53,6 +55,7 @@ public without sharing class YelpFinSignals {
         s.sentiment = pick(s.sentiment, attrs, 'Sentiment');
         s.expansionSignal = pick(s.expansionSignal, attrs, 'Expansion Signal');
         s.title = pick(s.title, attrs, 'Title');
+        s.email = pick(s.email, attrs, 'Email');
         log(s.sessionId, 'attributes=' + JSON.serialize(attrs));
     }
 
@@ -70,7 +73,7 @@ public without sharing class YelpFinSignals {
             if (String.isNotBlank(conv) && conv != conversationId) continue;
             return new Map<String, Object>{
                 'Contact Reason' => b.get('contact_reason'), 'Churn Risk' => b.get('churn_risk'),
-                'Sentiment' => b.get('sentiment'), 'Expansion Signal' => b.get('expansion_signal'), 'Title' => b.get('title')
+                'Sentiment' => b.get('sentiment'), 'Expansion Signal' => b.get('expansion_signal'), 'Title' => b.get('title'), 'Email' => b.get('email')
             };
         }
         return null;

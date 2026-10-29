@@ -323,7 +323,7 @@
         <allowPause>false</allowPause>
         <fields>
             <name>DoneText</name>
-            <fieldText>&lt;p&gt;&lt;b style="font-size:14px"&gt;Support tools&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Done:&lt;/b&gt; {!DoneDetail}&lt;/p&gt;&lt;p&gt;Recorded on case {!Get_Case.CaseNumber}. Mark the case resolved when the conversation is done.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b style="font-size:14px"&gt;Support tools&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Done:&lt;/b&gt; {!DoneDetail}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>false</showFooter>
@@ -476,7 +476,7 @@
         <name>DoneDetail</name>
         <dataType>String</dataType>
         <expression>CASE({!Action},
-"New Location Launch Program", {!Get_Case.Account.Name} &amp; " is enrolled in the New Location Launch Program: $500 in ad credit for each new location in its first 60 days.",
+"New Location Launch Program", "Account has been enrolled in New Location Launch Program",
 "$1,000 retention credit", "$1,000 retention credit applied across all of " &amp; {!Get_Case.Account.Name} &amp; "'s locations.",
 IF(OR(ISBLANK({!Location}), {!Location} = "ENTIRE_ACCOUNT"), "All of " &amp; {!Get_Case.Account.Name} &amp; "'s locations are paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."))</expression>
     </formulas>

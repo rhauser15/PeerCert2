@@ -269,7 +269,7 @@ The new expansion opportunity is created during the demo, so there's no link for
    - **Location:** *Entire account (all locations)* (the default), or one location.
    - **Action:** *Enroll account in New Location Launch Program ($500 per new location)* is selected. The other options are *Pause ad spending for 90 days, no fee* (one location or the entire account) and *Apply $1,000 retention offer across all locations*.
    - Check the notes and click **Confirm**.
-   - You'll see "Done: Whitaker Hospitality Group is enrolled in the New Location Launch Program…"
+   - You'll see "Done: Account has been enrolled in New Location Launch Program"
    - **[Salesforce]** A **screen Flow** records the program on the case. Agents act without leaving the conversation or switching systems.
 8. **In Copilot, type:** `Draft a confirmation that the customer is enrolled in the New Location Launch Program` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. Your account is enrolled in the New Location Launch Program… Your account manager will reach out to plan launch budgets together."
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"

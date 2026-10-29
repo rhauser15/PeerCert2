@@ -130,6 +130,13 @@
                 <elementReference>Fin_Email</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>Email</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -637,6 +644,12 @@
         </faultConnector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
+            <name>email</name>
+            <value>
+                <elementReference>Fin_Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
             <name>sessionId</name>
             <value>
                 <elementReference>recordId</elementReference>
@@ -673,6 +686,10 @@
         <outputParameters>
             <assignToReference>Fin_Title</assignToReference>
             <name>title</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>Fin_Email</assignToReference>
+            <name>email</name>
         </outputParameters>
         <outputParameters>
             <assignToReference>Fin_Churn_Risk</assignToReference>

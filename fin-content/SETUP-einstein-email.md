@@ -36,8 +36,6 @@ Keep it under 150 words, plain and friendly. No placeholders or brackets. Don't 
 5. In the preview pane, pick **Sam Whitaker** as the recipient and click **Preview** to check the draft. Then **Save** and **Activate**.
 6. In the email composer, click **Einstein**, pick the template and click **Draft**.
 
-The signature comes from the sender automatically, so the prompt doesn't need the sender's name.
-
 ## Option B: no template (works now)
 In the email composer, click **Einstein** (Draft with Einstein), choose the purpose closest to *Request a meeting* / *Follow up*, and paste this into the instructions:
 

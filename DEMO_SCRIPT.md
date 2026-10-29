@@ -123,7 +123,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 7 | Support tools | John | Location **Entire account (all locations)**, Action **Enroll account in New Location Launch Program** → **Confirm** |
 | 8 | Fin Copilot | John | `Draft a confirmation that the customer is enrolled in the New Location Launch Program`, then **Add to composer → Send** |
 | 9 | Fin Messenger | Sam | `That's everything. Thanks, John!` |
-| 10 | Console | John | **End Chat**, then **Case resolved** (header, top right) |
+| 10 | Console | John | **End Chat**, then **Case resolved** (under the conversation) |
 
 **What Fin should set** (shown on the case, center of the page): Contact Reason = Add a location, Churn Risk = Low, Sentiment = Slightly Negative, Expansion Signal = New locations. Wording in Fin's replies varies run to run.
 
@@ -243,10 +243,9 @@ The new expansion opportunity is created during the demo, so there's no link for
 1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
    - **[Salesforce]** **Omni-Channel** pushed the chat to an available specialist based on queue and capacity.
 2. **Walk the page, left to right:**
-   - **Left:** the live conversation, starting with Sam's question.
+   - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
    - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it: **Support tools**, then the Engagement, Details, Knowledge and Related tabs. Everything for the demo fits without scrolling.
    - **Right:** the real **Fin Copilot**.
-   - **Header:** **Case resolved** is the only action, top right.
 3. **Fin summarizes the issue. In Copilot, type** `Summarize this conversation` **and press Enter.** (Don't use the Summarize button: it copies the summary to the clipboard instead of showing it.) You'll see:
    - the question: redirect existing spend to test new locations
    - the summary: 4 new locations in January, wants performance proof before investing more, value concern
@@ -274,7 +273,7 @@ The new expansion opportunity is created during the demo, so there's no link for
 8. **In Copilot, type:** `Draft a confirmation that the customer is enrolled in the New Location Launch Program` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. Your account is enrolled in the New Location Launch Program… Your account manager will reach out to plan launch budgets together."
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
 10. **In the console, click End Chat** above the conversation. The Messenger shows "The conversation has ended".
-11. **Click Case resolved** (the button at the top right of the page header). The case closes and you see "Case … resolved. AE Slack notification triggered."
+11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
    - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
 ## 3 · Tom, the sales rep: Slack, the account, the opportunity and Sales Engagement (6 min) · Slack and Yelp Sales
@@ -505,7 +504,8 @@ Fin supports two patterns. Yelp would pick one:
 - **Messaging Session page** (*Messaging Session - Fin Handoff*, assigned in Yelp Support Console):
   - center: Fin case card, then screen Flow *Support Tools*
   - right: the real Fin Copilot (`finai:copilotFrame`)
-  - header: one action, **Case resolved** (quick action `MessagingSession.Yelp_Case_Resolved`, screen Flow *Yelp - Fin Case Resolved*); Delete, Edit and Send Survey are gone (Dynamic Actions)
+  - left: screen Flow *Case Resolved* under the conversation
+  - header: no actions (Dynamic Actions with none selected, so Delete, Edit and Send Survey are hidden)
 - **Tom's view:** on Part 2 accounts, the Yelp Sales account page shows:
   - a Yelp account card (renewal date, likelihood to renew, spend) and a Cases list on the left
   - the *Yelp - Account Health (Keep and Grow)* Einstein dashboard and a Yelp Next Best Action on the right

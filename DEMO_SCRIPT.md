@@ -142,6 +142,24 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
+### Tabs to pre-open (in this order)
+
+| # | Persona | Tab | Link |
+|---|---|---|---|
+| 1 | Scene | Slides | https://rhauser15.github.io/PeerCert2/slides.html |
+| 2 | Sam | Help center, live Fin, issue 1 | https://rhauser15.github.io/PeerCert2/help-fin.html?intercomTest=true&messenger_environment=limwmcawd3 |
+| 3 | Sam → John | Help center, live Fin, issue 2 (handoff) | https://rhauser15.github.io/PeerCert2/help-fin-handoff.html?intercomTest=true&messenger_environment=limwmcawd3 |
+| 4 | John | Yelp Support Console (Omni-Channel: Available) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF |
+| 5 | Tom | Slack #sales-account-health | https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5 |
+| 6 | Tom | Whitaker Hospitality Group (Yelp Sales) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view |
+| 7 | Tom | Annual Renewal opportunity (Yelp Sales) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view |
+| 8 | Tom | Sales Engagement (Work Queue, Cadences) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF |
+| 9 | Alisha (optional) | Customer Success dashboard | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view |
+| 10 | Alisha (optional) | Fin reporting and Procedure (mockup) | https://rhauser15.github.io/PeerCert2/fin.html |
+| — | Backup | Scripted help center (if live Fin misbehaves) | https://rhauser15.github.io/PeerCert2/help.html |
+
+The new expansion opportunity is created during the demo, so there's no link for it in advance; Tom opens it from the Slack post or the account. Record IDs survive `seed.py --live`, so these links stay valid.
+
 **One time:** build the Sales Engagement cadence *Yelp - New location launch follow-up* (about 10 minutes, `fin-content/SETUP-sales-engagement.md`).
 
 ### Live Fin option (real Fin workspace)

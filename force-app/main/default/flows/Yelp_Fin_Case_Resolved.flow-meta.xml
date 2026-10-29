@@ -136,6 +136,22 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Failed</name>
+        <label>Could not resolve</label>
+        <locationX>314</locationX>
+        <locationY>730</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>FailedText</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Case {!Get_Case.CaseNumber} wasn't closed.&lt;/b&gt; {!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Already</name>
         <label>Already resolved</label>
         <locationX>314</locationX>
@@ -155,7 +171,7 @@
         <name>Close_Case</name>
         <label>Close the case</label>
         <faultConnector>
-            <targetReference>Done</targetReference>
+            <targetReference>Failed</targetReference>
         </faultConnector>
         <locationX>50</locationX>
         <locationY>610</locationY>

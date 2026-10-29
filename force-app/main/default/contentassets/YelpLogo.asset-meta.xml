@@ -13,5 +13,9 @@
             <number>1</number>
             <pathOnClient>YelpLogo.png</pathOnClient>
         </version>
+        <version>
+            <number>2</number>
+            <pathOnClient>YelpLogo.png</pathOnClient>
+        </version>
     </versions>
 </ContentAsset>

@@ -4,5 +4,10 @@
     <label>Offer Accepted</label>
     <description>Program or retention offer the customer accepted (set from Support Tools).</description>
     <inlineHelpText>Program or retention offer the customer accepted (set from Support Tools).</inlineHelpText>
-    <type>Picklist</type><valueSet><restricted>false</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>New Location Launch Program</fullName><default>false</default><label>New Location Launch Program</label></value><value><fullName>Budget shift</fullName><default>false</default><label>Budget shift</label></value><value><fullName>90-day pause</fullName><default>false</default><label>90-day pause</label></value><value><fullName>Performance credit</fullName><default>false</default><label>Performance credit</label></value><value><fullName>Free ads review</fullName><default>false</default><label>Free ads review</label></value><value><fullName>None - location cancelled</fullName><default>false</default><label>None - location cancelled</label></value></valueSetDefinition></valueSet>
+    <type>Picklist</type><valueSet><restricted>false</restricted><valueSetDefinition><sorted>false</sorted><value>
+                    <fullName>$1,000 retention credit</fullName>
+                    <default>false</default>
+                    <label>$1,000 retention credit</label>
+                </value>
+                <value><fullName>New Location Launch Program</fullName><default>false</default><label>New Location Launch Program</label></value><value><fullName>Budget shift</fullName><default>false</default><label>Budget shift</label></value><value><fullName>90-day pause</fullName><default>false</default><label>90-day pause</label></value><value><fullName>Performance credit</fullName><default>false</default><label>Performance credit</label></value><value><fullName>Free ads review</fullName><default>false</default><label>Free ads review</label></value><value><fullName>None - location cancelled</fullName><default>false</default><label>None - location cancelled</label></value></valueSetDefinition></valueSet>
 </CustomField>

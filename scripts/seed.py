@@ -74,6 +74,10 @@ Account a = [SELECT Id FROM Account WHERE Name = '{D.COMPANY}' AND Part2_Demo__c
 a.Churn_Risk__c = 'Low'; a.Churn_Risk_Reason__c = null; a.Expansion_Signal__c = null; a.Fin_Sentiment__c = 'Positive';
 a.Last_Fin_Conversation__c = DateTime.newInstance(Date.today().addDays(-19), Time.newInstance(14, 5, 0, 0));
 update a;
+// Support tools pauses (one location or the entire account)
+List<Account> paused = [SELECT Id FROM Account WHERE ParentId = :a.Id AND Budget_Status__c = 'Paused - Customer Request'];
+for (Account p : paused) {{ p.Budget_Status__c = 'Active'; p.Paused_Until__c = null; }}
+update paused;
 Account aurora = [SELECT Id FROM Account WHERE ParentId = :a.Id AND Name LIKE '%Aurora' LIMIT 1];
 aurora.Monthly_Budget_Cap__c = 900; aurora.Budget_Spent_MTD__c = 610; aurora.Budget_Status__c = 'Active';
 aurora.Paused_Until__c = null;

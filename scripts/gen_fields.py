@@ -60,7 +60,7 @@ FIELDS = {
         "Fin_Location__c": txt("Location", "Location the conversation was about."),
         "Fin_Actions_Taken__c": txt("Fin Actions Taken", "What Fin did for the customer before handoff, e.g. a Procedure it ran."),
         "Retention_Offer__c": pick("Offer Accepted", "Program or retention offer the customer accepted (set from Support Tools).",
-                                   ["New Location Launch Program", "Budget shift", "90-day pause", "Performance credit",
+                                   ["New Location Launch Program", "$1,000 retention credit", "Budget shift", "90-day pause", "Performance credit",
                                     "Free ads review", "None - location cancelled"], restricted=False),
         "Resolution_Notes__c": lta("Resolution Notes", "How the agent resolved the case.", 4),
         "Fin_CSAT__c": num("CSAT", "Conversation rating, 1 to 5.", 1, 0),

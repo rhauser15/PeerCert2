@@ -8,7 +8,8 @@ const SOURCES = {
     policy: { type: 'Internal article', title: 'Multi-Location Retention Policy (10+ locations)' },
     credit: { type: 'Internal article', title: 'Ad performance credits: eligibility and limits' },
     review: { type: 'Internal article', title: 'Booking a free Ads Optimization review' },
-    pause: { type: 'Public article', title: 'Pause ads for one location' },
+    pause: { type: 'Internal article', title: 'Multi-Location Retention Policy (10+ locations)' },
+    playbook: { type: 'Internal article', title: 'Options for multi-location customers opening new locations or redirecting spend' },
     convo: { type: 'Conversation', title: 'Front Range Burger Co. · Cancel a location' },
     renewal: { type: 'Salesforce', title: 'Opportunity: Annual Renewal' },
     program: { type: 'Internal article', title: 'New Location Launch Program (10+ locations)' },
@@ -167,13 +168,14 @@ export default class FinCopilot extends LightningElement {
             : '';
         return {
             html:
-                `<p>${f.first} is opening <b>${n} new locations</b> in January and wants to see how they perform before investing more. With <b>${f.count} active locations</b>, ${f.account} qualifies for two options:</p><ul>` +
-                `<li><b>New: New Location Launch Program.</b> Existing customers with 10+ locations get <b>$500 in ad credit per new location</b> in its first 60 days. For ${n} locations that's <b>${money(500 * n)}</b> to test performance before adding budget. ${cite(1)}</li>` +
-                `<li><b>Temporary budget shift.</b> Up to 20% of an existing location's monthly budget can move to a new location for 90 days, then it switches back automatically. ${cite(2)}</li>` +
-                `</ul><p><b>Suggested touchpoint (for ${f.owner}, the account manager):</b> an Ads Optimization Review session to set launch budgets for the new locations. ${cite(3)}</p>` +
+                `<p>${f.first} is opening <b>${n} new locations</b> in January and wants to see how they perform before investing more. With <b>${f.count} active locations</b>, ${f.account} has three options in Support tools:</p><ul>` +
+                `<li><b>Recommended: New Location Launch Program.</b> 10+ location customers get <b>$500 in ad credit per new location</b> in its first 60 days. For ${n} locations that's <b>${money(500 * n)}</b> to test performance before adding budget. ${cite(1)}</li>` +
+                `<li><b>Pause ad spending for 90 days, no fee.</b> One location or the entire account. Ads restart automatically. ${cite(2)}</li>` +
+                `<li><b>$1,000 retention offer</b> across all locations, if the concern is value. ${cite(2)}</li>` +
+                `</ul><p><b>Account manager:</b> ${f.owner} is alerted automatically when you resolve the case (multi-location, $50K+ spend, expansion signal) and will offer an Ads Optimization Review. You don't need to book it. ${cite(3)}</p>` +
                 renewal,
             text: '',
-            sources: ['program', 'shift', 'review', 'renewal'],
+            sources: ['playbook', 'pause', 'review', 'renewal'],
             composer: false
         };
     }
@@ -186,13 +188,13 @@ export default class FinCopilot extends LightningElement {
             `Hi ${f.first}, congratulations on the ${n} new locations! Because you have ${f.count} active locations, you qualify for our New Location Launch Program: ` +
             `$500 in ad credit for each new location in its first 60 days, so ${money(500 * n)} across all ${n}. It's a way to see how they perform before you invest more.`;
         const p2 =
-            `If you'd like, we can also temporarily move up to 20% of an existing location's budget to the new ones for 90 days, and it switches back automatically. ` +
-            `Here's how the program works: credits are applied when each new location's page goes live, and you can track their leads side by side in Yelp for Business.`;
-        const p3 = 'Want me to enroll you?';
+            `Credits are applied automatically when each new location's page goes live, and you can track their leads side by side in Yelp for Business. ` +
+            `Your account manager will also reach out to plan launch budgets with you.`;
+        const p3 = 'Want me to enroll your account?';
         return {
             html: `<p>${p1} ${cite(1)}</p><p>${p2} ${cite(2)}</p><p>${p3}</p>`,
             text: [p1, p2, p3].join(' '),
-            sources: ['program', 'shift'],
+            sources: ['playbook', 'program'],
             composer: true
         };
     }
@@ -202,8 +204,8 @@ export default class FinCopilot extends LightningElement {
         const n = this.newCount();
         const cite = (k) => `<span class="cite">${k}</span>`;
         const text =
-            `Done, ${f.first}. You're enrolled in the New Location Launch Program. Each of your ${n} new locations gets $500 in ad credit for its first 60 days once its page is live. ` +
-            `Anything else I can help with today?`;
+            `Done, ${f.first}. Your account is enrolled in the New Location Launch Program. Each of your ${n} new locations gets $500 in ad credit for its first 60 days once its page is live. ` +
+            `Your account manager will reach out to plan launch budgets together. Anything else I can help with today?`;
         return { html: `<p>${text} ${cite(1)}</p>`, text, sources: ['program'], composer: true };
     }
 

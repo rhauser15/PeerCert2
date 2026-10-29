@@ -121,34 +121,34 @@
     </recordLookups>
     <choices>
         <name>c_program</name>
-        <choiceText>Enroll in New Location Launch Program ($500 credit per new location)</choiceText>
+        <choiceText>Enroll account in New Location Launch Program ($500 per new location)</choiceText>
         <dataType>String</dataType>
         <value>
             <stringValue>New Location Launch Program</stringValue>
         </value>
     </choices>
     <choices>
-        <name>c_shift</name>
-        <choiceText>Temporary budget shift to new locations (up to 20%, 90 days)</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Budget shift</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>c_review</name>
-        <choiceText>Free Ads Optimization review</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Free ads review</stringValue>
-        </value>
-    </choices>
-    <choices>
         <name>c_pause</name>
-        <choiceText>Pause ads for 90 days, no fee</choiceText>
+        <choiceText>Pause ad spending for 90 days, no fee</choiceText>
         <dataType>String</dataType>
         <value>
             <stringValue>90-day pause</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>c_retention</name>
+        <choiceText>Apply $1,000 retention offer across all locations</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>$1,000 retention credit</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>c_entire</name>
+        <choiceText>Entire account (all locations)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ENTIRE_ACCOUNT</stringValue>
         </value>
     </choices>
     <decisions>
@@ -184,6 +184,38 @@
         </rules>
     </decisions>
     <decisions>
+        <name>One_Location</name>
+        <label>One location or the entire account?</label>
+        <locationX>50</locationX>
+        <locationY>730</locationY>
+        <defaultConnector>
+            <targetReference>Which_Action</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Entire account</defaultConnectorLabel>
+        <rules>
+            <name>Single</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Location</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>ENTIRE_ACCOUNT</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Location</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Selected</targetReference>
+            </connector>
+            <label>One location</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Which_Action</name>
         <label>Which action?</label>
         <locationX>50</locationX>
@@ -191,7 +223,7 @@
         <defaultConnector>
             <targetReference>Record_On_Case</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Credit or review</defaultConnectorLabel>
+        <defaultConnectorLabel>Program or retention credit</defaultConnectorLabel>
         <rules>
             <name>Pause</name>
             <conditionLogic>and</conditionLogic>
@@ -204,15 +236,30 @@
             </conditions>
             <conditions>
                 <leftValueReference>Location</leftValueReference>
-                <operator>IsBlank</operator>
+                <operator>NotEqualTo</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
+                    <stringValue>ENTIRE_ACCOUNT</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Pause_Location</targetReference>
             </connector>
-            <label>Pause</label>
+            <label>Pause one location</label>
+        </rules>
+        <rules>
+            <name>Pause_All</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Action</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>90-day pause</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pause_All_Locations</targetReference>
+            </connector>
+            <label>Pause all locations</label>
         </rules>
     </decisions>
     <screens>
@@ -224,7 +271,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Selected</targetReference>
+            <targetReference>One_Location</targetReference>
         </connector>
         <fields>
             <name>Header</name>
@@ -233,21 +280,19 @@
         </fields>
         <fields>
             <name>Location</name>
+            <choiceReferences>c_entire</choiceReferences>
             <choiceReferences>LocationChoices</choiceReferences>
             <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Get_Location.Id</elementReference>
-            </defaultValue>
-            <fieldText>Location (for a budget shift or pause)</fieldText>
+            <defaultSelectedChoiceReference>c_entire</defaultSelectedChoiceReference>
+            <fieldText>Location</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>false</isRequired>
         </fields>
         <fields>
             <name>Action</name>
             <choiceReferences>c_program</choiceReferences>
-            <choiceReferences>c_shift</choiceReferences>
-            <choiceReferences>c_review</choiceReferences>
             <choiceReferences>c_pause</choiceReferences>
+            <choiceReferences>c_retention</choiceReferences>
             <dataType>String</dataType>
             <defaultSelectedChoiceReference>c_program</defaultSelectedChoiceReference>
             <fieldText>Action</fieldText>
@@ -334,6 +379,39 @@
         <object>Account</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Pause_All_Locations</name>
+        <label>Pause all of the account's locations</label>
+        <faultConnector>
+            <targetReference>Done</targetReference>
+        </faultConnector>
+        <locationX>314</locationX>
+        <locationY>970</locationY>
+        <connector>
+            <targetReference>Record_On_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Budget_Status__c</field>
+            <value>
+                <stringValue>Paused - Customer Request</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Paused_Until__c</field>
+            <value>
+                <elementReference>PauseUntil</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Record_On_Case</name>
         <label>Record the action on the case</label>
         <faultConnector>
@@ -399,9 +477,8 @@
         <dataType>String</dataType>
         <expression>CASE({!Action},
 "New Location Launch Program", {!Get_Case.Account.Name} &amp; " is enrolled in the New Location Launch Program: $500 in ad credit for each new location in its first 60 days.",
-"Budget shift", "Temporary budget shift set up: up to 20% of " &amp; IF(ISBLANK({!Get_Selected.Name}), "existing locations", {!Get_Selected.Name}) &amp; " budget moves to the new locations for 90 days.",
-"Free ads review", "Free Ads Optimization review requested.",
-IF(ISBLANK({!Get_Selected.Name}), "Pick a location to pause.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."))</expression>
+"$1,000 retention credit", "$1,000 retention credit applied across all of " &amp; {!Get_Case.Account.Name} &amp; "'s locations.",
+IF(OR(ISBLANK({!Location}), {!Location} = "ENTIRE_ACCOUNT"), "All of " &amp; {!Get_Case.Account.Name} &amp; "'s locations are paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."))</expression>
     </formulas>
     <formulas>
         <name>NoCaseMessage</name>

@@ -2,7 +2,9 @@
 
 The email Tom sends from the renewal opportunity (**Activity → Email → Einstein / Draft with Einstein**). Sam Whitaker is the recipient.
 
-## Option A: a saved prompt template (one time, about 5 minutes)
+## Option A: a saved prompt template (not available in this org)
+This org's Prompt Builder has no *Sales Email* type, so use option B for the demo. In an org with Einstein Sales Emails prompt templates:
+
 Pasting merge fields as text cuts the prompt off, so paste the plain text below, then add four fields with **Insert Resource**.
 1. Setup → **Prompt Builder** → **New Prompt Template**.
 2. **Type:** *Sales Email*. **Name:** `Yelp - Ads Optimization Review invite`. **Recipient:** Contact. (If *Sales Email* isn't in the list, use option B.)
@@ -36,7 +38,7 @@ Keep it under 150 words, plain and friendly. No placeholders or brackets. Don't 
 5. In the preview pane, pick **Sam Whitaker** as the recipient and click **Preview** to check the draft. Then **Save** and **Activate**.
 6. In the email composer, click **Einstein**, pick the template and click **Draft**.
 
-## Option B: no template (works now)
+## Option B: no template (use this one)
 In the email composer, click **Einstein** (Draft with Einstein), choose the purpose closest to *Request a meeting* / *Follow up*, and paste this into the instructions:
 
 ```

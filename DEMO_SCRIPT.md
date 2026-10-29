@@ -157,7 +157,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 
 The new expansion opportunity is created during the demo, so there's no link for it in advance; Tom opens it from the Slack post or the account. Record IDs survive `seed.py --live`, so these links stay valid.
 
-**One time (optional):** save the Einstein email prompt *Yelp - Ads Optimization Review invite* in Prompt Builder (about 5 minutes, `fin-content/SETUP-einstein-email.md`). Without it, paste the option B instructions into Draft with Einstein.
+**Einstein email:** keep the instructions from `fin-content/SETUP-einstein-email.md` (option B) handy to paste into Draft with Einstein. This org has no Sales Email prompt template type.
 
 **Before the demo:** open the account tab (6) once so Next Best Action is already loaded.
 
@@ -327,7 +327,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
    - **Click "Annual Renewal"** ($119,760, closes Dec 31). The rest of Tom's work happens here.
 8. **Renewal opportunity, right column: Activity.** The *Ads Optimization Review with Sam Whitaker* task Next Best Action just booked is under Upcoming.
-   - Click **Email**, To: Sam Whitaker. Click **Einstein** (Draft with Einstein) and pick *Yelp - Ads Optimization Review invite* (or paste the instructions from `fin-content/SETUP-einstein-email.md`, option B). **Draft.**
+   - Click **Email**, To: Sam Whitaker. Click **Einstein** (Draft with Einstein) and paste the instructions from `fin-content/SETUP-einstein-email.md` (option B). **Draft.**
    - Einstein writes the invite from the record: congratulations on the 4 new locations and the launch program, then the review: **align on budget** across the 12 locations, **launch budgets for the new locations**, and **right-size next year's spend commitment** before the December 31 renewal. Edit a line if you like, then **Send**.
    - **[Say]** "Tom didn't write this from scratch or copy anything into another tool. Einstein drafted it from what Fin and support put on the record, and it's logged on the renewal."
    - **[Salesforce]** **Einstein Sales Emails** (generative AI, grounded on the contact and account). The sent email is on the renewal's activity timeline. If they ask about sequences (their Outreach question), see the implementation guide, section 4b: **Sales Engagement** cadences do the same thing at scale.

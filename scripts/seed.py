@@ -52,7 +52,7 @@ delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name L
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Ads Optimization Review with%' AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
 // Tom's email to Sam from the renewal opportunity (template: Yelp - Ads Optimization Review invite)
-delete [SELECT Id FROM Task WHERE Subject LIKE '%plan budgets for your new locations%' AND CreatedDate = LAST_N_DAYS:7];
+delete [SELECT Id FROM Task WHERE Subject LIKE '%Ads Optimization touchpoint%' AND CreatedDate = LAST_N_DAYS:7];
 try {{ delete [SELECT Id FROM EmailMessage WHERE RelatedToId IN (SELECT Id FROM Opportunity WHERE Account.Name = '{D.COMPANY}')
                AND CreatedDate = LAST_N_DAYS:7]; }}
 catch (Exception e) {{ System.debug('email reset: ' + e.getMessage()); }}

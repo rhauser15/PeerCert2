@@ -5,7 +5,7 @@
     <encodingKey>UTF-8</encodingKey>
     <name>Yelp - Ads Optimization Review invite</name>
     <style>none</style>
-    <subject>{!Contact.FirstName}, let's plan budgets for your new locations and 2027</subject>
+    <subject>Ads Optimization touchpoint: new locations and 2027 plan</subject>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

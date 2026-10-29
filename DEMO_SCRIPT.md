@@ -116,7 +116,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 1 | Fin Messenger | Sam | `I'm planning to open 4 new locations in January. Can I temporarily redirect a portion of my existing spend to the new locations? I want to see performance before investing more. New locations don't always perform as expected.` |
 | 1b | Fin Messenger | Sam | *If Fin answers or asks a question instead of handing off:* `I'd rather talk to a specialist about this.` Fin always hands off when the customer asks for a person. |
 | 2 | Omni-Channel | John | **Accept** the chat. |
-| 3 | Fin Copilot | John | **Summarize** (button), or `Summarize this conversation` |
+| 3 | Fin Copilot | John | `Summarize this conversation` (type it; the **Summarize** button copies the summary to the clipboard instead of showing it) |
 | 4 | Fin Copilot | John | `What options can I offer a 12-location customer opening 4 new locations who wants to redirect spend?` |
 | 5 | Fin Copilot | John | `Draft a reply offering the New Location Launch Program for 4 new locations`, then **Add to composer → Send** |
 | 6 | Fin Messenger | Sam | `That sounds great. Yes, please enroll me.` |
@@ -220,7 +220,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
    - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it: **Support tools**, then the Engagement, Details, Knowledge and Related tabs. Everything for the demo fits without scrolling.
    - **Right:** the real **Fin Copilot**.
    - **Header:** **Case resolved** is the only action, top right.
-3. **Fin summarizes the issue. In Copilot, click Summarize.** You'll see:
+3. **Fin summarizes the issue. In Copilot, type** `Summarize this conversation` **and press Enter.** (Don't use the Summarize button: it copies the summary to the clipboard instead of showing it.) You'll see:
    - the question: redirect existing spend to test new locations
    - the summary: 4 new locations in January, wants performance proof before investing more, value concern
    - the signals Fin set

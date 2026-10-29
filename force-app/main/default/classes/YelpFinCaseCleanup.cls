@@ -30,7 +30,12 @@ public without sharing class YelpFinCaseCleanup implements Queueable {
     }
 
     static void enqueue(Set<Id> ids) {
-        if (!ids.isEmpty() && Limits.getQueueableJobs() < Limits.getLimitQueueableJobs()) System.enqueueJob(new YelpFinCaseCleanup(ids));
+        // Never block the chat or the case if the cleanup can't be queued here
+        try {
+            if (!ids.isEmpty() && Limits.getQueueableJobs() < Limits.getLimitQueueableJobs()) System.enqueueJob(new YelpFinCaseCleanup(ids));
+        } catch (Exception e) {
+            System.debug(LoggingLevel.WARN, 'Fin case cleanup not queued: ' + e.getMessage());
+        }
     }
 
     public void execute(QueueableContext ctx) {

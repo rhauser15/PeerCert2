@@ -54,12 +54,8 @@ window.SF_LINKS = [
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home"
    ],
    [
-    "Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinPromptStudio/home"
-   ],
-   [
-    "Email with Einstein Flow (draft, edit, send)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UpRNAA0"
+    "Email templates: Yelp Keep and Grow folder (Yelp - Ads Optimization Review invite)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home"
    ],
    [
     "Einstein Prediction Builder (Setup)",

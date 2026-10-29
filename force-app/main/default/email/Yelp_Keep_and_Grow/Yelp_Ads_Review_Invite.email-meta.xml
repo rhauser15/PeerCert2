@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Keep and Grow demo: Tom's invite from the renewal opportunity (Activity → Email → Insert template). Align on budget, launch the new locations, right-size next year's spend commitment before the renewal.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Yelp - Ads Optimization Review invite</name>
+    <style>none</style>
+    <subject>{!Contact.FirstName}, let's plan budgets for your new locations and 2027</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

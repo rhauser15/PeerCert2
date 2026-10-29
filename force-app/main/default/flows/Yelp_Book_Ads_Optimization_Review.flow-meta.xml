@@ -16,12 +16,12 @@
     <formulas>
         <name>ReviewDate</name>
         <dataType>Date</dataType>
-        <expression>TODAY() + 3</expression>
+        <expression>TODAY()</expression>
     </formulas>
     <formulas>
         <name>TaskSubject</name>
         <dataType>String</dataType>
-        <expression>"Ads Optimization Review with " &amp; BLANKVALUE({!Get_Contact.Name}, {!Get_Account.Name})</expression>
+        <expression>"Email " &amp; BLANKVALUE({!Get_Contact.FirstName}, {!Get_Account.Name}) &amp; ": Ads Optimization touchpoint"</expression>
     </formulas>
     <interviewLabel>Book Ads Optimization Review {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Yelp - Book Ads Optimization Review</label>
@@ -55,7 +55,7 @@
         <inputAssignments>
             <field>Description</field>
             <value>
-                <stringValue>Free Ads Optimization Review (Next Best Action). Set launch budgets for the new locations, review cost per lead by location, and confirm the value the customer is seeing before the renewal.</stringValue>
+                <stringValue>Next Best Action: invite the customer to a free Ads Optimization Review. From the renewal opportunity, Activity → Email → insert the template "Yelp - Ads Optimization Review invite" and send. The review aligns on budget, sets launch budgets for the new locations and right-sizes next year's spend commitment before the renewal.</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -204,7 +204,7 @@
         <allowPause>false</allowPause>
         <fields>
             <name>BookedText</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is booked for {!ReviewDate}.&lt;/p&gt;&lt;p&gt;It's on your task list and on {!Get_Renewal.Name}, so the review covers launch budgets for the new locations and the value {!Get_Contact.FirstName} is seeing before the renewal.&lt;/p&gt;&lt;p&gt;Next: open the renewal opportunity and invite {!Get_Contact.FirstName} from &lt;b&gt;Activity → Email&lt;/b&gt; with Einstein.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is on your task list for today, on {!Get_Renewal.Name}.&lt;/p&gt;&lt;p&gt;Next: open the renewal opportunity and send {!Get_Contact.FirstName} the &lt;b&gt;Yelp - Ads Optimization Review invite&lt;/b&gt; from &lt;b&gt;Activity → Email&lt;/b&gt;.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

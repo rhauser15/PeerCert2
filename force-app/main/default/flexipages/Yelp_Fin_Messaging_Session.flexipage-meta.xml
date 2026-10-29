@@ -322,15 +322,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties><name>flowArguments</name><value>[{&quot;label&quot;:&quot;recordId&quot;,&quot;dataType&quot;:&quot;String&quot;,&quot;supportsRecordId&quot;:true,&quot;value&quot;:&quot;{!Record.Id}&quot;}]</value></componentInstanceProperties>
-                <componentInstanceProperties><name>flowLayout</name><value>oneColumn</value></componentInstanceProperties>
-                <componentInstanceProperties><name>flowName</name><value>Yelp_Fin_Resolve_Handoff</value></componentInstanceProperties>
-                <componentName>flowruntime:interview</componentName>
-                <identifier>flowruntime_resolveFinHandoff</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-fb64bf9d-7062-47d3-9015-aeecf51e86a6</value>
@@ -339,13 +330,22 @@
                 <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties><name>flowArguments</name><value>[{&quot;label&quot;:&quot;recordId&quot;,&quot;dataType&quot;:&quot;String&quot;,&quot;supportsRecordId&quot;:true,&quot;value&quot;:&quot;{!Record.Id}&quot;}]</value></componentInstanceProperties>
+                <componentInstanceProperties><name>flowLayout</name><value>oneColumn</value></componentInstanceProperties>
+                <componentInstanceProperties><name>flowName</name><value>Yelp_Fin_Resolve_Handoff</value></componentInstanceProperties>
+                <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_resolveFinHandoff</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties><name>height</name><value>1100px</value></componentInstanceProperties>
+                <componentInstanceProperties><name>height</name><value>640px</value></componentInstanceProperties>
                 <componentInstanceProperties><name>width</name><value>100%</value></componentInstanceProperties>
                 <componentName>finai:copilotFrame</componentName>
                 <identifier>finai_copilotFrame</identifier>

@@ -475,10 +475,10 @@
     <formulas>
         <name>DoneDetail</name>
         <dataType>String</dataType>
-        <expression>CASE({!Action},
-"New Location Launch Program", "Account has been enrolled in New Location Launch Program",
-"$1,000 retention credit", "$1,000 retention credit applied across all of " &amp; {!Get_Case.Account.Name} &amp; "'s locations.",
-IF(OR(ISBLANK({!Location}), {!Location} = "ENTIRE_ACCOUNT"), "All of " &amp; {!Get_Case.Account.Name} &amp; "'s locations are paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."))</expression>
+        <expression>IF({!Action} = "90-day pause",
+  IF(OR(ISBLANK({!Get_Selected.Name}), {!Location} = "ENTIRE_ACCOUNT"), "All of " &amp; {!Get_Case.Account.Name} &amp; "'s locations are paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee.", {!Get_Selected.Name} &amp; " is paused until " &amp; TEXT(TODAY() + 90) &amp; ", no fee."),
+IF({!Action} = "$1,000 retention credit", "$1,000 retention credit applied across all of " &amp; {!Get_Case.Account.Name} &amp; "'s locations.",
+"Account has been enrolled in New Location Launch Program"))</expression>
     </formulas>
     <formulas>
         <name>NoCaseMessage</name>

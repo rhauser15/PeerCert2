@@ -241,7 +241,7 @@ The new expansion opportunity is created during the demo, so there's no link for
    - **[Salesforce]** **Omni-Channel** pushed the chat to an available specialist based on queue and capacity.
 2. **Walk the page, left to right:**
    - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
-   - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it: **Support tools**, then the Engagement, Details, Knowledge and Related tabs. Everything for the demo fits without scrolling.
+   - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it: the Engagement, Details, Knowledge and Related tabs, then **Support tools** at the bottom.
    - **Right:** the real **Fin Copilot**.
 3. **Fin summarizes the issue. In Copilot, type** `Summarize this conversation` **and press Enter.** (Don't use the Summarize button: it copies the summary to the clipboard instead of showing it.) You'll see:
    - the question: redirect existing spend to test new locations
@@ -261,7 +261,7 @@ The new expansion opportunity is created during the demo, so there's no link for
 
 **Resolve it**
 
-7. **In Support tools (center, under the Fin case):**
+7. **In Support tools (center, at the bottom):**
    - **Location:** *Entire account (all locations)* (the default), or one location.
    - **Action:** *Enroll account in New Location Launch Program ($500 per new location)* is selected. The other options are *Pause ad spending for 90 days, no fee* (one location or the entire account) and *Apply $1,000 retention offer across all locations*.
    - Check the notes and click **Confirm**.
@@ -279,7 +279,7 @@ The new expansion opportunity is created during the demo, so there's no link for
 
 **Where to find Tom's pieces** (all in Yelp Sales, on Whitaker Hospitality Group, after the handoff case exists):
 - **Next Best Action:** account page → right column → **Insights** tab (the first tab), below **Account Health**. It only appears once Fin's expansion signal is on the account. That happens when John's handoff case is created, so after a reset it's hidden until the handoff runs. To check it without a handoff, set **Expansion Signal** on Whitaker to "New locations" (and clear it again, or run the reset).
-- **The review and the email:** the renewal opportunity (*Whitaker Hospitality Group - Annual Renewal*) → right column → **Activity**. It has the review task **Book the review** created, and Tom emails Sam from **Email** with the template *Yelp - Ads Optimization Review invite*.
+- **The review and the email:** the renewal opportunity (*Whitaker Hospitality Group - Annual Renewal*) → right column → **Activity**. It has the task **Book the review** created (*Email Sam: Ads Optimization touchpoint*), and Tom emails Sam from **Email** with the template *Yelp - Ads Optimization Review invite*.
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
@@ -307,7 +307,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - Expansion signal, new locations: **high impact**
    - **[Salesforce]** This is where Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation.
    - **If asked "is that a real model?":** "Not in this org. A real model trains on Yelp's renewal history. This card shows the same score as the account field, and it moves with Fin's signals. Here's how you'd build it" (open **Einstein Prediction Builder**, see the implementation guide, section 5).
-5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a review with Sam is booked three days out, on your task list and on the renewal opportunity.
+5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: it creates Tom's task for today, *Email Sam: Ads Optimization touchpoint*, on the renewal opportunity.
    - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts.
    - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
    - It can take a few seconds to load. Open the account tab before the demo so it's already loaded (see *Tabs to pre-open*).
@@ -324,9 +324,9 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. The description reads "Fin heard this in a conversation with Sam Whitaker…".
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
    - **Click "Annual Renewal"** ($119,760, closes Dec 31). The rest of Tom's work happens here.
-8. **Renewal opportunity, right column: Activity.** The *Ads Optimization Review with Sam Whitaker* task Next Best Action just booked is under Upcoming.
+8. **Renewal opportunity, right column: Activity.** The task Next Best Action just created, *Email Sam: Ads Optimization touchpoint*, is under Upcoming & Overdue.
    - Click **Email**, To: **Sam Whitaker**. In the composer toolbar, click the **template** icon → **Insert a template** → *Yelp - Ads Optimization Review invite*.
-   - It fills in from the record: subject "Ads Optimization touchpoint: new locations and 2027 plan", then the launch program, and the review to **align on budget** across his 12 locations, **set launch budgets for the new locations**, and **right-size his spend commitment for next year** before the 12/31/2026 renewal. Edit a line if you like, then **Send**.
+   - It fills in from the record: subject "Ads Optimization touchpoint: new locations and 2027 plan", then the launch program, and the review to **align on budget** across his 12 locations, **set launch budgets for the new locations**, and **right-size his spend commitment for next year** before the 12/31/2026 renewal. Edit a line if you like, then **Send**. Then check off the task.
    - **[Say]** "Tom didn't copy anything into another tool. The template pulls Sam's locations and renewal straight from the record Fin and support just updated, and the email is logged on the renewal."
    - **[Salesforce]** A Lightning **email template** with merge fields, sent from the activity composer. **If asked about AI:** Einstein Sales Emails can draft the same email from the record (not licensed in this org). **If asked about sequences** (their Outreach question): see the implementation guide, section 4b. **Sales Engagement** cadences send templates like this one on a schedule.
 9. **Activity on the account:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.

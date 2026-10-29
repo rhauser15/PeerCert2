@@ -15,7 +15,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **Einstein, honestly:** *Next Best Action* is real (Recommendation, strategy and Flow). The *Likelihood to Renew* score and the *Account Health* predictors are a rule-based stand-in that moves with Fin's signals; a real model needs Yelp's history (implementation guide 5). There's no opportunity score on the demo opportunities (5c).
 - **Mockups (GitHub Pages):** the Yelp for Business help center, the Fin Messenger and the Fin admin screens. They follow the Fin help center screenshots. Fin's answers are scripted.
 - **Live Fin pages (optional):** `help-fin.html` (issue 1) and `help-fin-handoff.html` (issue 2) put the **real Fin Messenger** from the Yelp demo Fin workspace on the same help center. Fin's answers are generated, its data connectors read and change Salesforce, and issue 2 hands off to the Service Console. See "Live Fin option" below.
-- **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
+- **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-account-health, and Alisha's dashboard.
 - **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API and sends Fin's data as routing attributes. In production, Fin does this through its Salesforce connector ("Hand-off to Salesforce agent"), and Sam keeps chatting in the Fin Messenger either way. For resolved conversations, Fin's "Create Salesforce case on resolution" setting creates the case.
 - **Copilot:** the **real Fin Copilot** (Fin for Salesforce: Copilot package, connected to the Fin workspace) is at the top of the right column. It answers from the internal Yelp articles in Fin (`fin-content/`; enable only the Copilot playbook, New Location Launch Program and Multi-Location Retention Policy for Copilot), and its sources open the articles. It doesn't use data connectors, and may not see the Salesforce chat, so the prompts below are self-contained.
 
@@ -57,7 +57,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Email templates: Yelp Keep and Grow folder](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home)
 - [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
 - [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
-- [Slack #sales-notifications (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06)
+- [Slack #sales-account-health (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5)
 
 **Section 4 · Alisha's view**
 - [Customer Success dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
@@ -73,7 +73,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 | 1a | *Optional:* help center, live issue 1 (Westminster) | **Real Fin Messenger** + data connectors | [help-fin.html](https://rhauser15.github.io/PeerCert2/help-fin.html?intercomTest=true&messenger_environment=limwmcawd3) |
 | 2 | Help center, live issue 2 (Sam in the Messenger) | **Real Fin Messenger** | [help-fin-handoff.html](https://rhauser15.github.io/PeerCert2/help-fin-handoff.html?intercomTest=true&messenger_environment=limwmcawd3) |
 | 3 | Yelp Support Console (John takes the chat) | **Real Fin Copilot** (right column) | [Yelp Support Console](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF) |
-| 4 | Slack #sales-notifications (Tom's alert) | No (a Salesforce Flow posts it) | [#sales-notifications](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06) |
+| 4 | Slack #sales-account-health (Tom's alert) | No (a Salesforce Flow posts it) | [#sales-account-health](https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5) |
 | 5 | Whitaker account in Yelp Sales (Tom's view) | Fin's signals written back as fields | [Whitaker Hospitality Group](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view) |
 | 6 | Renewal opportunity | No | [Annual Renewal](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view) |
 | 7 | Alisha's dashboard: Customer Success, Fin Conversations | Reports on the cases Fin created | [Dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view) |
@@ -138,7 +138,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. Whitaker, its locations, Sam and the renewal keep the same record IDs, so links keep working. For a full reload, run `python3 scripts/seed.py`.
 2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Available**. The reset stops old test chats from ringing. If one still rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
-4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
+4. **Slack (window 3, optional):** open #sales-account-health in slack-demo-46882.
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
 
@@ -255,7 +255,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
-1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved. It **@-mentions Tom** (Jennifer Hynes's Slack user in slack-demo-46882), so it shows up in his Activity: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Yelp Sales.
+1. **Switch to Slack, #sales-account-health.** The post arrived a few seconds after John clicked Case resolved. It **@-mentions Tom** (Jennifer Hynes's Slack user in slack-demo-46882), so it shows up in his Activity: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Yelp Sales.
    - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, it spends $119,760 a year, and Fin heard growth."
    - **[Salesforce]** A **record-triggered Flow** decides who needs to know. It alerts on multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or high churn risk. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post:
@@ -492,7 +492,7 @@ Fin supports two patterns. Yelp would pick one:
 - **Alert:** Flow *Yelp - Fin Case Resolved Alert* runs when that case is closed (Case resolved button):
   - creates the brief task
   - alerts the owner only for multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or High churn risk
-  - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CC7K9PY06
+  - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CCHSXG9D5
 - **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
 - **Branding and Yelp views:**
   - The active org theme (*Yelp for Business*) and the app names (Yelp Support Console, Yelp Sales) are changed.

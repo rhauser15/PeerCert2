@@ -74,7 +74,7 @@ def build():
             ("Email templates: Yelp Keep and Grow folder", f"{BASE}/lightning/o/EmailTemplate/home"),
             ("Einstein Prediction Builder (Setup)", f"{BASE}/lightning/setup/EinsteinBuilder/home"),
             ("Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)", f"{BASE}/lightning/setup/SetupOneHome/home"),
-            ("Slack #sales-notifications (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06"),
+            ("Slack #sales-account-health (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5"),
         ]),
         ("Section 4 · Alisha's view", [
             rec("Customer Success dashboard", "Dashboard",

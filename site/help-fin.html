@@ -104,7 +104,7 @@ async function drawLocs() {
     const d = await r.json();
     const locs = d.locations || [];
     const paused = locs.filter(l => !l.running), running = locs.filter(l => l.running);
-    const rows = paused.map(l => [shortName(l.location), "Paused: budget cap reached", "#b86e00"])
+    const rows = paused.map(l => [shortName(l.location), "Paused", "#b86e00"])
       .concat([[`${running.length} other locations`, "Running", ""]]);
     $("locs").innerHTML = rows.map(([n, s, c]) => `<div class="row"><span>${n}</span><span><span class="dot" style="${c ? `background:${c}` : ""}"></span>${s}</span></div>`).join("")
       + (paused.length ? "" : `<div class="row"><span>All 12 locations</span><span><span class="dot"></span>Running</span></div>`).replace(/^/, paused.length ? "" : "");

@@ -184,7 +184,7 @@ const $ = id => document.getElementById(id), sleep = ms => new Promise(r => setT
 const THINK = 1500;
 
 // Locations panel (matches the Salesforce seed)
-const LOCS = [["Dave's Hot Chicken - Westminster", "Paused: budget cap reached", "#b86e00"], ["Dave's Hot Chicken (6 more)", "Running", ""],
+const LOCS = [["Dave's Hot Chicken - Westminster", "Paused", "#b86e00"], ["Dave's Hot Chicken (6 more)", "Running", ""],
   ["Jersey Mike's Subs (4)", "Running", ""], ["Smoothie King - Lakewood (Belmar)", "Running", ""]];
 const drawLocs = fixed => $("locs").innerHTML = LOCS.map(([n, s, c], k) => {
   if (k === 0 && fixed) [s, c] = ["Running", ""];

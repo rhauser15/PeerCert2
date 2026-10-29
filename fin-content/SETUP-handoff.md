@@ -139,7 +139,7 @@ Fin's handoff brings Sam's email into Salesforce, but not the conversation attri
 
 ## Part 4 · Salesforce, before each test
 1. **Yelp Support Console → Omni-Channel** (bottom bar): end any leftover test chat in your inbox (open it → **End Chat**).
-2. Set status to **Messaging - Available**.
+2. Set status to **Available**.
 3. Reset the demo data if you've run the demo since: `python3 scripts/seed.py --live`.
 
 ---

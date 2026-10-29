@@ -115,15 +115,17 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 1b | Fin Messenger | Sam | *If Fin answers or asks a question instead of handing off:* `I'd rather talk to a specialist about this.` Fin always hands off when the customer asks for a person. |
 | 2 | Omni-Channel | John | **Accept** the chat. |
 | 3 | Fin Copilot | John | **Summarize** (button), or `Summarize this conversation` |
-| 4 | Fin Copilot | John | `What options can I offer Sam?` |
-| 5 | Fin Copilot | John | `Draft a reply to Sam`, then **Add to composer → Send** |
+| 4 | Fin Copilot | John | `What options can I offer a 12-location customer opening 4 new locations who wants to redirect spend?` |
+| 5 | Fin Copilot | John | `Draft a reply offering the New Location Launch Program for 4 new locations`, then **Add to composer → Send** |
 | 6 | Fin Messenger | Sam | `That sounds great. Yes, please enroll me.` |
 | 7 | Support tools | John | Action **Enroll in New Location Launch Program**, Location blank → **Confirm** |
-| 8 | Fin Copilot | John | `Draft a confirmation`, then **Add to composer → Send** |
+| 8 | Fin Copilot | John | `Draft a confirmation that the customer is enrolled in the New Location Launch Program`, then **Add to composer → Send** |
 | 9 | Fin Messenger | Sam | `That's everything. Thanks, John!` |
 | 10 | Console | John | **End Chat**, then **Case resolved** |
 
 **What Fin should set** (shown on the case, center of the page): Contact Reason = Add a location, Churn Risk = Low, Sentiment = Slightly Negative, Expansion Signal = New locations. Wording in Fin's replies varies run to run.
+
+**Why the long prompts:** the real Copilot answers from the internal articles in Fin, and it may not see the Salesforce chat itself. Self-contained questions match the *Options for multi-location customers…* article (`fin-content/copilot-playbook-new-locations.md`) reliably.
 
 **If the real Copilot words things differently,** ask it `What is the New Location Launch Program?` to bring up the $500 per new location program, or use the scripted Copilot panel below Support tools.
 
@@ -132,7 +134,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 ## Before the demo (10 minutes)
 
 1. **Reset the last run:** `python3 scripts/seed.py --live`. It deletes the live cases, the expansion opportunity and the brief, and puts Westminster back to paused at its $1,200 cap. Whitaker, its locations, Sam and the renewal keep the same record IDs, so links keep working. For a full reload, run `python3 scripts/seed.py`.
-2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Messaging - Available**. The reset stops old test chats from ringing. If one still rings, accept it and end it.
+2. **Salesforce (window 1):** sign in as Rob, open **Yelp Support Console** (Start here link). Open the Omni-Channel utility (bottom bar) and set status to **Available**. The reset stops old test chats from ringing. If one still rings, accept it and end it.
 3. **Help center (window 2):** open https://rhauser15.github.io/PeerCert2/help.html. Press **B** for the browser bar with a realistic URL. Press **H** if you want the presenter notes strip (hidden by default).
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).

@@ -6,6 +6,7 @@ Internal articles are for agents and Copilot only; public ones can also be used 
 
 | File | Type | Copilot | Fin AI Agent |
 |---|---|---|---|
+| **copilot-playbook-new-locations.md** (add first) | Internal | Yes | No |
 | new-location-launch-program.md | Internal | Yes | No |
 | move-budget-between-locations.md | Public | Yes | Yes |
 | ads-optimization-review.md | Internal | Yes | No |
@@ -13,6 +14,9 @@ Internal articles are for agents and Copilot only; public ones can also be used 
 | monthly-budget-caps.md | Public | Yes | Yes |
 
 Demo questions these answer (Copilot, in the Service Console):
+- "What options can I offer a 12-location customer opening 4 new locations who wants to redirect spend?"
+- "Draft a reply offering the New Location Launch Program for 4 new locations"
+- "Draft a confirmation that the customer is enrolled in the New Location Launch Program"
 - "What options can I offer a customer opening new locations?"
 - "Does a 12-location account qualify for launch credits?"
 - "Can a customer move budget from an existing location to a new one?"

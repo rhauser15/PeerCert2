@@ -22,12 +22,12 @@ window.SF_LINKS = [
    ],
    [
     "Fin handoff routing Flow",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017rDbbAAE"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018RByMAAW"
    ]
   ]
  ],
  [
-  "Section 3 \u00b7 Tom: account, opportunity, Next Best Action, Sales Engagement",
+  "Section 3 \u00b7 Tom: account, Next Best Action, renewal opportunity, Einstein email",
   [
    [
     "Whitaker Hospitality Group (account, Yelp Sales)",
@@ -47,23 +47,15 @@ window.SF_LINKS = [
    ],
    [
     "Next Best Action: Book Ads Optimization Review Flow",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018Pkc1AAC"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UcU9AAK"
    ],
    [
     "Next Best Action strategies (Setup \u2192 Quick Find: Next Best Action \u2192 Yelp Keep and Grow)",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home"
    ],
    [
-    "Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list"
-   ],
-   [
-    "Sales Engagement app: Cadences tab and Work Queue (App Launcher \u2192 Sales Engagement)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF"
-   ],
-   [
-    "Email templates: Yelp Keep and Grow folder",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home"
+    "Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinPromptStudio/home"
    ],
    [
     "Einstein Prediction Builder (Setup)",

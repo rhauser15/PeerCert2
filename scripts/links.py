@@ -60,7 +60,7 @@ def build():
             rec("Sam Whitaker (contact)", "Contact", "SELECT Id FROM Contact WHERE Email = 'sam@whitakerhospitality.example.com' LIMIT 1"),
             flow("Fin handoff routing Flow", "Yelp_Fin_Handoff_Routing"),
         ]),
-        ("Section 3 · Tom: account, opportunity, Next Best Action, Sales Engagement", [
+        ("Section 3 · Tom: account, Next Best Action, renewal opportunity, Einstein email", [
             rec("Whitaker Hospitality Group (account, Yelp Sales)", "Account", acct, SALES_APP_ID),
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
@@ -69,9 +69,7 @@ def build():
                 "SELECT Id FROM Recommendation WHERE Category__c = 'Yelp Keep and Grow' LIMIT 1"),
             flow("Next Best Action: Book Ads Optimization Review Flow", "Yelp_Book_Ads_Optimization_Review"),
             ("Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)", f"{BASE}/lightning/setup/SetupOneHome/home"),
-            ("Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)", f"{BASE}/lightning/o/ActionCadence/list"),
-            ("Sales Engagement app: Cadences tab and Work Queue (App Launcher → Sales Engagement)", f"{BASE}/lightning/app/06mg800000AlQwoAAF"),
-            ("Email templates: Yelp Keep and Grow folder", f"{BASE}/lightning/o/EmailTemplate/home"),
+            ("Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)", f"{BASE}/lightning/setup/EinsteinPromptStudio/home"),
             ("Einstein Prediction Builder (Setup)", f"{BASE}/lightning/setup/EinsteinBuilder/home"),
             ("Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Slack #sales-account-health (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5"),

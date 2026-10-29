@@ -51,7 +51,11 @@ def reset_live():
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Ads Optimization Review with%' AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
-// Take Sam out of the Sales Engagement follow-up cadence (added when the Next Best Action is accepted)
+// Tom's Einstein email to Sam from the renewal opportunity (Activity → Email)
+try {{ delete [SELECT Id FROM EmailMessage WHERE RelatedToId IN (SELECT Id FROM Opportunity WHERE Account.Name = '{D.COMPANY}')
+               AND CreatedDate = LAST_N_DAYS:7]; }}
+catch (Exception e) {{ System.debug('email reset: ' + e.getMessage()); }}
+// Take Sam out of the old Sales Engagement cadence, if an earlier run enrolled him
 for (Contact c : [SELECT Id FROM Contact WHERE Email = '{D.SAM["email"]}' AND Account.Part2_Demo__c = true]) {{
     try {{ Flow.Interview.createInterview('Yelp_Remove_From_Cadence', new Map<String, Object>{{ 'targetId' => c.Id }}).start(); }}
     catch (Exception e) {{ System.debug('cadence reset: ' + e.getMessage()); }}

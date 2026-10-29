@@ -1,62 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
-    <description>Keep and Grow demo. Runs when the account owner accepts the "Ads Optimization Review session" Next Best Action (strategies Yelp_Keep_Grow_Account_NBA and Yelp_Keep_Grow_Opportunity_NBA): books the review as a task for the owner with the customer's main contact.</description>
-    <actionCalls>
-        <description>Sales Engagement: enroll the main contact in the follow-up cadence for the running user (Work Queue). If the cadence doesn't exist yet, the review is still booked.</description>
-        <name>Add_To_Cadence</name>
-        <label>Add to the follow-up cadence</label>
-        <locationX>176</locationX>
-        <locationY>620</locationY>
-        <actionName>assignTargetToSalesCadence</actionName>
-        <actionType>assignTargetToSalesCadence</actionType>
-        <connector>
-            <targetReference>Cadence_Added</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>Booked</targetReference>
-        </faultConnector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>salesCadenceNameOrId</name>
-            <value>
-                <stringValue>Yelp - New location launch follow-up</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>targetId</name>
-            <value>
-                <elementReference>Get_Contact.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>userId</name>
-            <value>
-                <elementReference>$User.Id</elementReference>
-            </value>
-        </inputParameters>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </actionCalls>
-    <assignments>
-        <name>Cadence_Added</name>
-        <label>Cadence added</label>
-        <locationX>176</locationX>
-        <locationY>700</locationY>
-        <assignmentItems>
-            <assignToReference>CadenceLine</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>CadenceLineText</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Booked</targetReference>
-        </connector>
-    </assignments>
+    <description>Keep and Grow demo. Runs when the account owner accepts the "Ads Optimization Review session" Next Best Action (strategies Yelp_Keep_Grow_Account_NBA and Yelp_Keep_Grow_Opportunity_NBA): books the review as a task for the running user with the customer's main contact, on the opportunity when launched from one.</description>
     <formulas>
         <name>AccountIdToUse</name>
         <dataType>String</dataType>
         <expression>IF(ISBLANK({!Get_Opportunity.AccountId}), {!recordId}, {!Get_Opportunity.AccountId})</expression>
+    </formulas>
+    <formulas>
+        <description>The opportunity it was launched from, else the account's renewal, so the review shows in the renewal's activity timeline</description>
+        <name>RelatedToId</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!Get_Opportunity.Id}, BLANKVALUE({!Get_Renewal.Id}, {!Get_Account.Id}))</expression>
     </formulas>
     <formulas>
         <name>ReviewDate</name>
@@ -89,7 +44,7 @@
         <locationX>176</locationX>
         <locationY>566</locationY>
         <connector>
-            <targetReference>Add_To_Cadence</targetReference>
+            <targetReference>Booked</targetReference>
         </connector>
         <inputAssignments>
             <field>Subject</field>
@@ -112,7 +67,7 @@
         <inputAssignments>
             <field>WhatId</field>
             <value>
-                <elementReference>Get_Account.Id</elementReference>
+                <elementReference>RelatedToId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -124,7 +79,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>Get_Account.OwnerId</elementReference>
+                <elementReference>$User.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -164,7 +119,7 @@
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Review_Task</targetReference>
+            <targetReference>Get_Renewal</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -177,6 +132,44 @@
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
         <sortField>CreatedDate</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>When booked from the account, the review goes on the open renewal opportunity</description>
+        <name>Get_Renewal</name>
+        <label>Get the renewal opportunity</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Review_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Account.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Renewal</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <sortField>CloseDate</sortField>
         <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -211,7 +204,7 @@
         <allowPause>false</allowPause>
         <fields>
             <name>BookedText</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is booked for {!ReviewDate}.&lt;/p&gt;&lt;p&gt;It's on {!Get_Account.Owner.FirstName}'s task list with the account, so the review covers launch budgets for the new locations and the value {!Get_Contact.FirstName} is seeing before the renewal.&lt;/p&gt;{!CadenceLine}</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is booked for {!ReviewDate}.&lt;/p&gt;&lt;p&gt;It's on your task list and on {!Get_Renewal.Name}, so the review covers launch budgets for the new locations and the value {!Get_Contact.FirstName} is seeing before the renewal.&lt;/p&gt;&lt;p&gt;Next: open the renewal opportunity and invite {!Get_Contact.FirstName} from &lt;b&gt;Activity → Email&lt;/b&gt; with Einstein.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -225,18 +218,6 @@
         </connector>
     </start>
     <status>Active</status>
-    <textTemplates>
-        <name>CadenceLineText</name>
-        <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;{!Get_Contact.FirstName} is also in the &lt;b&gt;Yelp - New location launch follow-up&lt;/b&gt; cadence. The first email, "Let's plan 2027 together", is in your Work Queue.&lt;/p&gt;</text>
-    </textTemplates>
-    <variables>
-        <name>CadenceLine</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

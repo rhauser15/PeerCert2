@@ -43,18 +43,16 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 **Sections 1 and 2 · Sam and John: Fin, handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
 - [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u9b6XAAQ/view)
-- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017rDbbAAE)
+- [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018RByMAAW)
 
-**Section 3 · Tom: account, opportunity, Next Best Action, Sales Engagement**
+**Section 3 · Tom: account, Next Best Action, renewal opportunity, Einstein email**
 - [Whitaker Hospitality Group (account, Yelp Sales)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017w0kfAAA)
 - [Next Best Action: Ads Optimization Review (Recommendation)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Recommendation/0prg8000000NP0vAAG/view)
-- [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018Pkc1AAC)
+- [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UcU9AAK)
 - [Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
-- [Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list)
-- [Sales Engagement app: Cadences tab and Work Queue (App Launcher → Sales Engagement)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF)
-- [Email templates: Yelp Keep and Grow folder](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home)
+- [Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinPromptStudio/home)
 - [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
 - [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Slack #sales-account-health (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5)
@@ -153,14 +151,15 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 5 | Tom | Slack #sales-account-health | https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5 |
 | 6 | Tom | Whitaker Hospitality Group (Yelp Sales) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view |
 | 7 | Tom | Annual Renewal opportunity (Yelp Sales) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view |
-| 8 | Tom | Sales Engagement (Work Queue, Cadences) | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF |
-| 9 | Alisha (optional) | Customer Success dashboard | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view |
-| 10 | Alisha (optional) | Fin reporting and Procedure (mockup) | https://rhauser15.github.io/PeerCert2/fin.html |
+| 8 | Alisha (optional) | Customer Success dashboard | https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view |
+| 9 | Alisha (optional) | Fin reporting and Procedure (mockup) | https://rhauser15.github.io/PeerCert2/fin.html |
 | — | Backup | Scripted help center (if live Fin misbehaves) | https://rhauser15.github.io/PeerCert2/help.html |
 
 The new expansion opportunity is created during the demo, so there's no link for it in advance; Tom opens it from the Slack post or the account. Record IDs survive `seed.py --live`, so these links stay valid.
 
-**One time:** build the Sales Engagement cadence *Yelp - New location launch follow-up* (about 10 minutes, `fin-content/SETUP-sales-engagement.md`).
+**One time (optional):** save the Einstein email prompt *Yelp - Ads Optimization Review invite* in Prompt Builder (about 5 minutes, `fin-content/SETUP-einstein-email.md`). Without it, paste the option B instructions into Draft with Einstein.
+
+**Before the demo:** open the account tab (6) once so Next Best Action is already loaded.
 
 ### Live Fin option (real Fin workspace)
 - **Day of the demo:** in Fin, check the Salesforce connection (Settings → Integrations → Salesforce) and reconnect it if it shows as disconnected. It has dropped overnight in this demo setup. Then check Settings → Fin Messenger → Configure for Salesforce: all badges should be green.
@@ -276,14 +275,13 @@ The new expansion opportunity is created during the demo, so there's no link for
 11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
    - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
-## 3 · Tom, the sales rep: Slack, the account, the opportunity and Sales Engagement (6 min) · Slack and Yelp Sales
+## 3 · Tom, the sales rep: Slack, the account, then the renewal opportunity (6 min) · Slack and Yelp Sales
 
-*Persona: Tom Jones, account manager for Whitaker. He wasn't on the chat. He gets the Slack alert, opens the account and opportunity, books the Ads Optimization Review from Next Best Action, and works the follow-up cadence.*
+*Persona: Tom Jones, account manager for Whitaker. He wasn't on the chat. He gets the Slack alert, checks the account's health, books the Ads Optimization Review from Next Best Action, then emails Sam from the renewal opportunity with Einstein. You stay signed in as yourself (shown as John CSR) the whole demo; say "now I'm Tom".*
 
 **Where to find Tom's pieces** (all in Yelp Sales, on Whitaker Hospitality Group, after the handoff case exists):
 - **Next Best Action:** account page → right column → **Insights** tab (the first tab), below **Account Health**. It only appears once Fin's expansion signal is on the account. That happens when John's handoff case is created, so after a reset it's hidden until the handoff runs. To check it without a handoff, set **Expansion Signal** on Whitaker to "New locations" (and clear it again, or run the reset).
-- **The same Next Best Action on the renewal opportunity:** the opportunity's **Revenue Cloud** tab.
-- **Sales Engagement:** App Launcher → **Sales Engagement** app. The **Cadences** tab is where you build *Yelp - New location launch follow-up* (one time, `fin-content/SETUP-sales-engagement.md`). The **Work Queue** is in that app's utility bar. Once the cadence exists, **Book the review** adds Sam to it, and his first email shows up in the Work Queue.
+- **The review and the email:** the renewal opportunity (*Whitaker Hospitality Group - Annual Renewal*) → right column → **Activity**. **Book the review** puts the review task there, and Tom writes the email to Sam from **Email → Einstein**. Prompt and one-time setup: `fin-content/SETUP-einstein-email.md`.
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
@@ -297,7 +295,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - **watch:** Sam isn't sure the new locations will pay off and wants to see performance before investing more
    - **[Say]** "Tom gets the pattern, not a ticket: Sam is spending more and growing, but he needs proof the new locations will work before the renewal." 
      - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
-2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card (all 12 locations) at the bottom of the Details tab. Click the account name to get to Whitaker Hospitality Group.
+2. **Click "View in CRM"** in the post. Whitaker Hospitality Group opens in **Yelp Sales**.
 3. **Left column, top: the account card.**
    - **Renewal Date:** Dec 31, 2026
    - **Likelihood to Renew:** 74.6, *Likely, watch value*. It was 79.5 before tonight's conversation.
@@ -311,15 +309,10 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - Expansion signal, new locations: **high impact**
    - **[Salesforce]** This is where Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation.
    - **If asked "is that a real model?":** "Not in this org. A real model trains on Yelp's renewal history. This card shows the same score as the account field, and it moves with Fin's signals. Here's how you'd build it" (open **Einstein Prediction Builder**, see the implementation guide, section 5).
-5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a task for Tom with Sam is booked three days out, and Sam is added to Tom's **Yelp - New location launch follow-up** cadence.
-   - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts. The same strategy shows it on the renewal opportunity.
+5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a review with Sam is booked three days out, on your task list and on the renewal opportunity.
+   - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts.
    - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
-5b. **Sales Engagement (their Outreach question).** Open Tom's **Work Queue** (App Launcher → **Sales Engagement** → Work Queue in the bottom utility bar). The cadence step **"Email: Let's plan 2027 together"** is due now for Sam.
-   - Click it. The email opens with the template: congratulations on the launch program, the **Ads Optimization Review** (launch budgets, tune the current 12 locations, how we'll measure the new ones), and **the renewal on 12/31/2026** with "aligned on the best game plan for 2027 together".
-   - *Optional:* click **Draft with Einstein** (Einstein Sales Emails) to personalize it from the record.
-   - **Send.** The cadence moves on: day 2 call (talk track in the step), day 4 agenda email, day 9 "2027 game plan before your renewal" email, then a task to prepare the launch scorecard.
-   - **[Say]** "Everything Outreach does (sequences, a daily work queue, open and click tracking, templates, call scripts) runs on the same record Fin and support just updated. Tom didn't copy anything into another tool: the signal, the opportunity and the follow-up are one system."
-   - **If asked:** cadences branch on email opens, replies and call outcomes; reps work them from Gmail or Outlook with the Salesforce add-in; and Sales Engagement reports show step and template performance. See the implementation guide, section 4b.
+   - It can take a few seconds to load. Open the account tab before the demo so it's already loaded (see *Tabs to pre-open*).
 6. **Details tab:**
    - **Account Information** (top): Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
    - **Fin Signals:**
@@ -330,10 +323,15 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
    - **Yelp Ads Performance:** annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
 7. **Sales tab → Opportunities:**
-   - **Annual Renewal:** $119,760, closes Dec 31.
-   - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. **Click it.** The description reads "Fin heard this in a conversation with Sam Whitaker…".
+   - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. The description reads "Fin heard this in a conversation with Sam Whitaker…".
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
-8. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
+   - **Click "Annual Renewal"** ($119,760, closes Dec 31). The rest of Tom's work happens here.
+8. **Renewal opportunity, right column: Activity.** The *Ads Optimization Review with Sam Whitaker* task Next Best Action just booked is under Upcoming.
+   - Click **Email**, To: Sam Whitaker. Click **Einstein** (Draft with Einstein) and pick *Yelp - Ads Optimization Review invite* (or paste the instructions from `fin-content/SETUP-einstein-email.md`, option B). **Draft.**
+   - Einstein writes the invite from the record: congratulations on the 4 new locations and the launch program, then the review: **align on budget** across the 12 locations, **launch budgets for the new locations**, and **right-size next year's spend commitment** before the December 31 renewal. Edit a line if you like, then **Send**.
+   - **[Say]** "Tom didn't write this from scratch or copy anything into another tool. Einstein drafted it from what Fin and support put on the record, and it's logged on the renewal."
+   - **[Salesforce]** **Einstein Sales Emails** (generative AI, grounded on the contact and account). The sent email is on the renewal's activity timeline. If they ask about sequences (their Outreach question), see the implementation guide, section 4b: **Sales Engagement** cadences do the same thing at scale.
+9. **Activity on the account:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
    - **[Say]** "A support question about budget just protected a $120K renewal and created $38K of pipeline. That's the bridge to Part 1: Tom can hand the 4 openings to Hunter to build the launch plan."
 ## 4 · Close (1 min) · slides.html
 
@@ -434,11 +432,13 @@ Fin supports two patterns. Yelp would pick one:
 2. **Slack:** connect the workspace in Setup → Slack, add Sales Cloud for Slack, and use the "Send Slack Message" Flow action ([Salesforce Help: Slack actions in Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Send%20Slack%20Message%20flow%20core%20action&t=allResultsTab)).
 3. **Account page:** add the Fin Signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
 
-### 4b · Sales Engagement instead of Outreach (section 3)
+### 4b · Einstein Sales Emails, and Sales Engagement instead of Outreach (section 3)
+**What the demo shows:** Tom drafts the invite with **Einstein Sales Emails** from the renewal opportunity's email composer. Setup: Einstein generative AI on, the *Einstein Sales Emails* permission for reps, and optionally a *Sales Email* prompt template in Prompt Builder (`fin-content/SETUP-einstein-email.md`). At scale, the same follow-up runs as a Sales Engagement cadence:
+
 1. **License and permissions:** Sales Engagement user permission set license + the *Sales Engagement User* permission set for reps (Cadence Creator for managers). This org already has it.
 2. **Templates:** email templates for each step, with merge fields from the contact and account (here: `Yelp K&G 1–3` in the *Yelp Keep and Grow* folder, using Contact formula fields for account name, locations and renewal date).
 3. **Cadence:** Cadence Builder → steps (email, call with a call script, wait, task). Add branches on email opens/replies or call outcomes. Activate. See `fin-content/SETUP-sales-engagement.md` for this demo's cadence.
-4. **Enrollment:** by hand from a record, from a list view, or automatically with Flow (*Assign Target to Sales Cadence*). Here the Next Best Action's Flow enrolls Sam.
+4. **Enrollment:** by hand from a record, from a list view, or automatically with Flow (*Assign Target to Sales Cadence*). For example, the Next Best Action's Flow could enroll Sam when Tom books the review (built in this org, not shown in the demo).
 5. **Work Queue and email:** reps work steps from the Work Queue in Salesforce, or from Gmail/Outlook with the Salesforce integration. Einstein Activity Capture logs replies. Einstein Sales Emails drafts from the record.
 6. **Migrating from Outreach:** map sequences to cadences and snippets to templates, rebuild triggers as Flow enrollment rules, and compare step performance in the Sales Engagement reports and dashboards.
 - [Trailhead: Sales Engagement basics](https://trailhead.salesforce.com/content/learn/modules/sales-engagement-basics) · [Salesforce Help: Sales Engagement](https://help.salesforce.com/s/search-result?language=en_US#q=Sales%20Engagement%20cadences&t=allResultsTab)
@@ -539,6 +539,6 @@ Fin supports two patterns. Yelp would pick one:
     - Event Relay: *Fin_Relay_US_East_1*
   - Setup checklists: `fin-content/SETUP-live-fin.md` (issue 1) and `fin-content/SETUP-handoff.md` (issue 2).
 - **Support tools** (*Yelp_Fin_Resolve_Handoff*): Location *Entire account* or one location; actions: New Location Launch Program, 90-day fee-free pause (one location or all), $1,000 retention credit. A pause updates the locations; the reset turns them back on.
-- **Sales Engagement:** templates *Yelp K&G 1–3* (folder *Yelp Keep and Grow*, Contact formula fields `Yelp_Account_Name__c`, `Yelp_Location_Count__c`, `Yelp_Renewal_Date__c`); cadence *Yelp - New location launch follow-up* (built in Cadence Builder); the Next Best Action Flow enrolls Sam; *Yelp - Remove From Cadence* is used by the reset.
+- **Sales Engagement:** templates *Yelp K&G 1–3* (folder *Yelp Keep and Grow*, Contact formula fields `Yelp_Account_Name__c`, `Yelp_Location_Count__c`, `Yelp_Renewal_Date__c`); cadence *Yelp - New location launch follow-up* (built in Cadence Builder); not used in the demo since Tom's email moved to Einstein on the renewal opportunity; the reset still takes Sam out of the cadence if an earlier run enrolled him.
 - **Slack alert:** mentions Tom as `<@U0C51E32VL6>` (slack-demo-46882). To alert someone else, change the ID at the start of the *SlackBrief* text template in *Yelp - Fin Case Resolved Alert*.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

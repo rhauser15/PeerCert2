@@ -55,12 +55,12 @@ def build():
         ("Start here", [
             ("Open the Yelp Support Console", f"{BASE}/lightning/app/{APP_ID}"),
         ]),
-        ("Sections 1 and 2 · Handoff and Copilot", [
+        ("Sections 1 and 2 · Sam and John: Fin, handoff and Copilot", [
             ("Messaging Sessions", f"{BASE}/lightning/o/MessagingSession/list?filterName=Recent"),
             rec("Sam Whitaker (contact)", "Contact", "SELECT Id FROM Contact WHERE Email = 'sam@whitakerhospitality.example.com' LIMIT 1"),
             flow("Fin handoff routing Flow", "Yelp_Fin_Handoff_Routing"),
         ]),
-        ("Section 3 · Tom's view", [
+        ("Section 3 · Tom: account, opportunity, Next Best Action, Sales Engagement", [
             rec("Whitaker Hospitality Group (account, Yelp Sales)", "Account", acct, SALES_APP_ID),
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),
@@ -70,13 +70,13 @@ def build():
             flow("Next Best Action: Book Ads Optimization Review Flow", "Yelp_Book_Ads_Optimization_Review"),
             ("Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)", f"{BASE}/lightning/o/ActionCadence/list"),
-            ("Sales Engagement: Work Queue (App Launcher → Work Queue)", f"{BASE}/lightning/page/home"),
+            ("Sales Engagement app: Cadences tab and Work Queue (App Launcher → Sales Engagement)", f"{BASE}/lightning/app/06mg800000AlQwoAAF"),
             ("Email templates: Yelp Keep and Grow folder", f"{BASE}/lightning/o/EmailTemplate/home"),
             ("Einstein Prediction Builder (Setup)", f"{BASE}/lightning/setup/EinsteinBuilder/home"),
             ("Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Slack #sales-account-health (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5"),
         ]),
-        ("Section 4 · Alisha's view", [
+        ("Optional · Alisha's view", [
             rec("Customer Success dashboard", "Dashboard",
                 "SELECT Id FROM Dashboard WHERE DeveloperName = 'Keep_and_Grow_CS' LIMIT 1"),
             rec("Fin: Accounts Flagged in Conversations (report)", "Report",

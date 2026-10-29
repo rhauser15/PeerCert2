@@ -1435,6 +1435,7 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer2</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1461,6 +1462,7 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer3</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1487,6 +1489,7 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer4</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1513,6 +1516,7 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer10</identifier>
+                <visibilityRule><criteria><leftValue>{!Record.Part2_Demo__c}</leftValue><operator>EQUAL</operator><rightValue>false</rightValue></criteria></visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-a1abd380-f161-40fe-a953-d5071a2383df</name>

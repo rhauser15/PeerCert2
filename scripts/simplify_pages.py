@@ -58,7 +58,9 @@ def account(s):
     for ident in ("flexipage_fieldSection4", "flexipage_fieldSection7", "flexipage_fieldSection8",  # FS, Prediction, Additional
                   "flexipage_tab5", "flexipage_tab13", "flexipage_tab10", "flexipage_tab14",  # Partners, Success, Service, Account Plan
                   "force_relatedListSingleContainer7", "force_relatedListSingleContainer5",  # Sales tab: Account Plans, Quotes
-                  "force_relatedListSingleContainer6"):  # DSRs
+                  "force_relatedListSingleContainer6",  # DSRs
+                  "force_relatedListSingleContainer2", "force_relatedListSingleContainer3",  # People: Community members, Account Team
+                  "force_relatedListSingleContainer4", "force_relatedListSingleContainer10"):  # People: Territories, Partner mapping
         s = hide_on_part2(s, ident)
     return s
 

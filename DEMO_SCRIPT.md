@@ -40,12 +40,12 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 **Start here**
 - [Open the Yelp Support Console](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvzAAF)
 
-**Sections 1 and 2 · Handoff and Copilot**
+**Sections 1 and 2 · Sam and John: Fin, handoff and Copilot**
 - [Messaging Sessions](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/MessagingSession/list?filterName=Recent)
 - [Sam Whitaker (contact)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Contact/003g800000u9b6XAAQ/view)
 - [Fin handoff routing Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017rDbbAAE)
 
-**Section 3 · Tom's view**
+**Section 3 · Tom: account, opportunity, Next Best Action, Sales Engagement**
 - [Whitaker Hospitality Group (account, Yelp Sales)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/001g8000016z20vAAA/view)
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017w0kfAAA)
@@ -53,13 +53,13 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018Pkc1AAC)
 - [Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list)
-- [Sales Engagement: Work Queue (App Launcher → Work Queue)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/page/home)
+- [Sales Engagement app: Cadences tab and Work Queue (App Launcher → Sales Engagement)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF)
 - [Email templates: Yelp Keep and Grow folder](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home)
 - [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
 - [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Slack #sales-account-health (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5)
 
-**Section 4 · Alisha's view**
+**Optional · Alisha's view**
 - [Customer Success dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
 - [Fin: Accounts Flagged in Conversations (report)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Report/00Og8000009VYOREA4/view)
 
@@ -171,7 +171,9 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 1. Open **slides.html**. Slide: "It's 9pm Tuesday. Sam's ad stopped showing."
 2. **[Say]** "Yelp handles a million support cases a year. 42% are tier 1: budgets, billing, is my ad running. The Yelp Bot deflects under 10%, and CSAT is 72% and falling. Sam is exactly that customer: 12 locations, and his problem shows up after hours."
 
-## 1 · Fin resolves faster (5 min) · help.html
+## 1 · Sam, the business owner: Fin resolves it (5 min) · help center
+
+*Persona: Sam Whitaker, owner of Whitaker Hospitality Group (12 locations). Live: `help-fin.html`; scripted backup: `help.html`.*
 
 **Issue 1: resolved by Fin, end to end**
 
@@ -191,11 +193,17 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
    - **[Salesforce]** Fin's "Create Salesforce case on resolution" puts a **closed case** in Salesforce with the transcript, summary, CSAT 5 and Fin Resolution State = Hard Resolution. *(You'll open it in section 3.)* Every Fin-only conversation still shows up in Yelp's reporting.
    - **[Say]** "That's tier 1, resolved at 9pm, no ticket in anyone's queue, and the customer loved it."
 
-**Issue 2: a bigger question, so Fin escalates to a person**
+*Ties to:* replacing the Yelp Bot, case deflection, CSAT.
 
-7. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
-8. **Click "Send us a message".** A new conversation starts.
-9. **Press →.** Sam types:
+## 2 · John, the CSR: the escalation (6 min) · Fin Messenger → Yelp Support Console
+
+*Persona: John, Multi-Location support specialist. He takes the chat Fin hands off, uses Fin Copilot and Support tools, and resolves the case.*
+
+**It starts in Sam's Messenger: a bigger question, so Fin escalates** (live: `help-fin-handoff.html`, or the same Messenger after issue 1)
+
+1. **Click the back arrow** (top left of the Messenger). The Messenger home shows the resolved conversation: "You rated the conversation Amazing."
+2. **Click "Send us a message".** A new conversation starts.
+3. **Press →.** Sam types:
 
    > "I'm planning to open 4 new locations in January. Can I temporarily redirect a portion of my existing spend to the new locations? I want to see performance before investing more. New locations don't always perform as expected."
 
@@ -208,9 +216,10 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
      - sentiment: Slightly Negative
    - **[Salesforce]** **Messaging for In-App and Web** receives the live chat. An **Omni-Channel routing Flow** creates the Case from Fin's data, links it to Sam, and routes it to John, the CSR.
 
-*Ties to:* replacing the Yelp Bot, case deflection, CSAT.
+*Ties to:* handoff with context, agent productivity, consistent offers.
 
-## 2 · Fin makes agents better (4 min) · Service Console (John, CSR)
+**In the Yelp Support Console**
+
 
 0. **Before the chat rings, show the Yelp Support Home** (Home tab in the Yelp Support Console). It has Alisha's Fin dashboard and the "Yelp - Fin Conversations" list. **[Salesforce]** It's the agent's home page, built in Lightning App Builder from standard dashboards and list views.
 1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
@@ -250,8 +259,14 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 11. **Click Case resolved** (the button at the top right of the page header). The case closes and you see "Case … resolved. AE Slack notification triggered."
    - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
+## 3 · Tom, the sales rep: Slack, the account, the opportunity and Sales Engagement (6 min) · Slack and Yelp Sales
 
-## 3 · Tom's view: the account and a new opportunity (4 min) · Slack and Yelp Sales
+*Persona: Tom Jones, account manager for Whitaker. He wasn't on the chat. He gets the Slack alert, opens the account and opportunity, books the Ads Optimization Review from Next Best Action, and works the follow-up cadence.*
+
+**Where to find Tom's pieces** (all in Yelp Sales, on Whitaker Hospitality Group, after the handoff case exists):
+- **Next Best Action:** account page → right column → **Insights** tab (the first tab), below **Account Health**. It only appears once Fin's expansion signal is on the account. That happens when John's handoff case is created, so after a reset it's hidden until the handoff runs. To check it without a handoff, set **Expansion Signal** on Whitaker to "New locations" (and clear it again, or run the reset).
+- **The same Next Best Action on the renewal opportunity:** the opportunity's **Revenue Cloud** tab.
+- **Sales Engagement:** App Launcher → **Sales Engagement** app. The **Cadences** tab is where you build *Yelp - New location launch follow-up* (one time, `fin-content/SETUP-sales-engagement.md`). The **Work Queue** is in that app's utility bar. Once the cadence exists, **Book the review** adds Sam to it, and his first email shows up in the Work Queue.
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
@@ -283,7 +298,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
 5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a task for Tom with Sam is booked three days out, and Sam is added to Tom's **Yelp - New location launch follow-up** cadence.
    - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts. The same strategy shows it on the renewal opportunity.
    - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
-5b. **Sales Engagement (their Outreach question).** Open Tom's **Work Queue** (App Launcher → *Work Queue*, or the To Do List in the Yelp Sales utility bar). The cadence step **"Email: Let's plan 2027 together"** is due now for Sam.
+5b. **Sales Engagement (their Outreach question).** Open Tom's **Work Queue** (App Launcher → **Sales Engagement** → Work Queue in the bottom utility bar). The cadence step **"Email: Let's plan 2027 together"** is due now for Sam.
    - Click it. The email opens with the template: congratulations on the launch program, the **Ads Optimization Review** (launch budgets, tune the current 12 locations, how we'll measure the new ones), and **the renewal on 12/31/2026** with "aligned on the best game plan for 2027 together".
    - *Optional:* click **Draft with Einstein** (Einstein Sales Emails) to personalize it from the record.
    - **Send.** The cadence moves on: day 2 call (talk track in the step), day 4 agenda email, day 9 "2027 game plan before your renewal" email, then a task to prepare the launch scorecard.
@@ -304,8 +319,12 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
 8. **Activity:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
    - **[Say]** "A support question about budget just protected a $120K renewal and created $38K of pipeline. That's the bridge to Part 1: Tom can hand the 4 openings to Hunter to build the launch plan."
+## 4 · Close (1 min) · slides.html
 
-## 4 · Alisha's view (3 min)
+**Press → to the value slide.** 60% AI resolution, +30% agent efficiency, 95% CSAT, 120% NRR on multi-location accounts. These are targets, not results.
+
+---
+## Optional · Alisha, CS leader: reporting (3 min, if there's time)
 
 1. **Open the "Customer Success" dashboard** (Salesforce). Walk it top to bottom:
    - **Fin resolution rate** (57%) and its weekly trend (46% → 64%).
@@ -319,12 +338,6 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
 3. **Click Topics Explorer, then click the "Add a location" tile.** The conversations behind the growth signals, with Sam's at the top (4 new locations, value concern).
    - **[Fin]** Topics are grouped automatically, with no manual tagging, so Alisha sees what's driving volume and where CX is weakest.
 4. *(Optional)* **Click Procedures.** "Ad not showing": the steps, data connectors and handoff rule Fin followed for Sam.
-
-## 5 · Close (1 min) · slides.html
-
-**Press → to the value slide.** 60% AI resolution, +30% agent efficiency, 95% CSAT, 120% NRR on multi-location accounts. These are targets, not results.
-
----
 
 ## Why Fin, and where Salesforce and Agentforce fit
 
@@ -454,7 +467,7 @@ Fin supports two patterns. Yelp would pick one:
 - **Fine-tuning:** exclude fields or record types that don't reflect Yelp's sales motion, segment the model (for example new business vs renewal), and add the score and top factors to list views and the Pipeline Inspection view.
 - **For Yelp:** a renewal-likelihood model (5) is a better fit for Keep and Grow than a generic opportunity score. Opportunity Scoring helps the new-business pipeline.
 
-### 6 · Reporting (section 4)
+### 6 · Reporting (Alisha, optional)
 1. **Fin reports:** [Monitor Fin's performance](https://fin.ai/help/en/articles/13976002-monitor-fin-s-performance-with-clarity-and-confidence) and [Topics Explorer](https://fin.ai/help/en/articles/13975984-use-the-topics-explorer-to-see-what-s-driving-volume).
 2. **Salesforce reports and dashboards** on the cases Fin syncs: [Trailhead: Reports & Dashboards](https://trailhead.salesforce.com/content/learn/modules/lex_implementation_reports_dashboards).
 3. **Pricing reference:** [Fin pricing: outcomes](https://fin.ai/help/en/articles/13975800-fin-pricing-outcomes).

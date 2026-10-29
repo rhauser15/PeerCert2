@@ -10,7 +10,7 @@ window.SF_LINKS = [
   ]
  ],
  [
-  "Sections 1 and 2 \u00b7 Handoff and Copilot",
+  "Sections 1 and 2 \u00b7 Sam and John: Fin, handoff and Copilot",
   [
    [
     "Messaging Sessions",
@@ -27,7 +27,7 @@ window.SF_LINKS = [
   ]
  ],
  [
-  "Section 3 \u00b7 Tom's view",
+  "Section 3 \u00b7 Tom: account, opportunity, Next Best Action, Sales Engagement",
   [
    [
     "Whitaker Hospitality Group (account, Yelp Sales)",
@@ -58,8 +58,8 @@ window.SF_LINKS = [
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list"
    ],
    [
-    "Sales Engagement: Work Queue (App Launcher \u2192 Work Queue)",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/page/home"
+    "Sales Engagement app: Cadences tab and Work Queue (App Launcher \u2192 Sales Engagement)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQwoAAF"
    ],
    [
     "Email templates: Yelp Keep and Grow folder",
@@ -76,7 +76,7 @@ window.SF_LINKS = [
   ]
  ],
  [
-  "Section 4 \u00b7 Alisha's view",
+  "Optional \u00b7 Alisha's view",
   [
    [
     "Customer Success dashboard",

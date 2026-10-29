@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>pVlYYw1CIMjpjqFr6knEdNiZFdDrpEgdSBuW28qeTig=_1</activeVersionIdentifier>
+    <description>Keep and Grow demo: the account manager's Ads Optimization Review invite, drafted from the renewal opportunity and the account's Fin signals.</description>
+    <developerName>Yelp_Ads_Review_Invite</developerName>
+    <masterLabel>Yelp - Ads Optimization Review invite</masterLabel>
+    <templateVersions>
+        <content>You are {!$User.FirstName}, the Yelp account manager for {!$Input:Opportunity.Account.Name}. Write a short, warm email to {!$Input:Contact.FirstName} inviting them to a free 30-minute Ads Optimization Review with you and a Yelp Ads specialist.
+
+What you know about the account:
+- Active Yelp locations: {!$Input:Opportunity.Account.Location_Count__c}
+- Growth heard in a recent Yelp support conversation: {!$Input:Opportunity.Account.Expansion_Signal__c}
+- What they want before investing more: {!$Input:Opportunity.Account.Churn_Risk_Reason__c}
+- Annual Yelp ad spend: {!$Input:Opportunity.Account.Annual_Ad_Spend__c}
+- Renewal date: {!$Input:Opportunity.CloseDate}
+- They're enrolled in the New Location Launch Program: $500 in ad credit for each new location in its first 60 days.
+
+The email must:
+1. Congratulate them on the new locations and mention the New Location Launch Program.
+2. Explain the review covers three things: aligning on monthly budget across their current locations, launch budgets for the new locations, and right-sizing their spend commitment for next year so it matches what's paying off.
+3. Say you'll bring leads and cost per lead by location, so they can see the performance proof they asked for.
+4. Tie it to the renewal date, so the 2027 plan is agreed before the renewal.
+5. Ask whether Tuesday or Thursday next week works.
+
+Write only the email body, starting with "Hi {!$Input:Contact.FirstName},". No subject line. Under 150 words, plain and friendly. No placeholders or brackets. Don't invent numbers that aren't above. Sign off with {!$User.FirstName}.
+</content>
+        <inputs>
+            <apiName>Opportunity</apiName>
+            <definition>SOBJECT://Opportunity</definition>
+            <referenceName>Input:Opportunity</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>Contact</apiName>
+            <definition>SOBJECT://Contact</definition>
+            <referenceName>Input:Contact</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4OmniMini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>pVlYYw1CIMjpjqFr6knEdNiZFdDrpEgdSBuW28qeTig=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

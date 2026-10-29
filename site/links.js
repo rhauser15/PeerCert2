@@ -58,6 +58,10 @@ window.SF_LINKS = [
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinPromptStudio/home"
    ],
    [
+    "Email with Einstein Flow (draft, edit, send)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UpRNAA0"
+   ],
+   [
     "Einstein Prediction Builder (Setup)",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home"
    ],

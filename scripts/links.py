@@ -70,6 +70,7 @@ def build():
             flow("Next Best Action: Book Ads Optimization Review Flow", "Yelp_Book_Ads_Optimization_Review"),
             ("Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)", f"{BASE}/lightning/setup/EinsteinPromptStudio/home"),
+            flow("Email with Einstein Flow (draft, edit, send)", "Yelp_Draft_Review_Invite"),
             ("Einstein Prediction Builder (Setup)", f"{BASE}/lightning/setup/EinsteinBuilder/home"),
             ("Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)", f"{BASE}/lightning/setup/SetupOneHome/home"),
             ("Slack #sales-account-health (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5"),

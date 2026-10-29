@@ -53,6 +53,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UcU9AAK)
 - [Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Prompt Builder (Einstein email: Yelp - Ads Optimization Review invite)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinPromptStudio/home)
+- [Email with Einstein Flow (draft, edit, send)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018UpRNAA0)
 - [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
 - [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Slack #sales-account-health (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CCHSXG9D5)
@@ -156,8 +157,6 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | — | Backup | Scripted help center (if live Fin misbehaves) | https://rhauser15.github.io/PeerCert2/help.html |
 
 The new expansion opportunity is created during the demo, so there's no link for it in advance; Tom opens it from the Slack post or the account. Record IDs survive `seed.py --live`, so these links stay valid.
-
-**Einstein email:** keep the instructions from `fin-content/SETUP-einstein-email.md` (option B) handy to paste into Draft with Einstein. This org has no Sales Email prompt template type.
 
 **Before the demo:** open the account tab (6) once so Next Best Action is already loaded.
 
@@ -281,7 +280,7 @@ The new expansion opportunity is created during the demo, so there's no link for
 
 **Where to find Tom's pieces** (all in Yelp Sales, on Whitaker Hospitality Group, after the handoff case exists):
 - **Next Best Action:** account page → right column → **Insights** tab (the first tab), below **Account Health**. It only appears once Fin's expansion signal is on the account. That happens when John's handoff case is created, so after a reset it's hidden until the handoff runs. To check it without a handoff, set **Expansion Signal** on Whitaker to "New locations" (and clear it again, or run the reset).
-- **The review and the email:** the renewal opportunity (*Whitaker Hospitality Group - Annual Renewal*) → right column → **Activity**. **Book the review** puts the review task there, and Tom writes the email to Sam from **Email → Einstein**. Prompt and one-time setup: `fin-content/SETUP-einstein-email.md`.
+- **The review and the email:** the renewal opportunity (*Whitaker Hospitality Group - Annual Renewal*) → right column. **Email with Einstein** is at the top, and **Activity** below it has the review task **Book the review** created. How it's built: `fin-content/SETUP-einstein-email.md`.
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
@@ -326,11 +325,11 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - **New:** "Whitaker Hospitality Group - 4 new locations, opening January". $38,400, Qualification, owned by Tom, closes in about 45 days. The description reads "Fin heard this in a conversation with Sam Whitaker…".
    - **[Salesforce]** Same Flow: the expansion signal became a real opportunity in Tom's pipeline.
    - **Click "Annual Renewal"** ($119,760, closes Dec 31). The rest of Tom's work happens here.
-8. **Renewal opportunity, right column: Activity.** The *Ads Optimization Review with Sam Whitaker* task Next Best Action just booked is under Upcoming.
-   - Click **Email**, To: Sam Whitaker. Click **Einstein** (Draft with Einstein) and paste the instructions from `fin-content/SETUP-einstein-email.md` (option B). **Draft.**
-   - Einstein writes the invite from the record: congratulations on the 4 new locations and the launch program, then the review: **align on budget** across the 12 locations, **launch budgets for the new locations**, and **right-size next year's spend commitment** before the December 31 renewal. Edit a line if you like, then **Send**.
+8. **Renewal opportunity, right column.** Under **Activity**, the *Ads Optimization Review with Sam Whitaker* task Next Best Action just booked is under Upcoming.
+   - At the top, **Email with Einstein**: "Ads Optimization Review invite to Sam Whitaker". Click **Draft with Einstein**.
+   - Einstein writes the invite from the record: congratulations on the new locations and the launch program, then the review: **align on budget** across the current locations, **launch budgets for the new locations**, and **right-size next year's spend commitment** before the December 31 renewal. Edit a line if you like, then **Send**.
    - **[Say]** "Tom didn't write this from scratch or copy anything into another tool. Einstein drafted it from what Fin and support put on the record, and it's logged on the renewal."
-   - **[Salesforce]** **Einstein Sales Emails** (generative AI, grounded on the contact and account). The sent email is on the renewal's activity timeline. If they ask about sequences (their Outreach question), see the implementation guide, section 4b: **Sales Engagement** cadences do the same thing at scale.
+   - **[Salesforce]** **Prompt Builder** template grounded on the opportunity, account and contact, run from a Flow. With Einstein Sales Emails, the same prompt runs from the standard email composer. If they ask about sequences (their Outreach question), see the implementation guide, section 4b: **Sales Engagement** cadences do the same thing at scale.
 9. **Activity on the account:** Tom's task "Renewal brief: Whitaker Hospitality Group" has the same brief, as a backup if Slack is slow.
    - **[Say]** "A support question about budget just protected a $120K renewal and created $38K of pipeline. That's the bridge to Part 1: Tom can hand the 4 openings to Hunter to build the launch plan."
 ## 4 · Close (1 min) · slides.html
@@ -433,7 +432,7 @@ Fin supports two patterns. Yelp would pick one:
 3. **Account page:** add the Fin Signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
 
 ### 4b · Einstein Sales Emails, and Sales Engagement instead of Outreach (section 3)
-**What the demo shows:** Tom drafts the invite with **Einstein Sales Emails** from the renewal opportunity's email composer. Setup: Einstein generative AI on, the *Einstein Sales Emails* permission for reps, and optionally a *Sales Email* prompt template in Prompt Builder (`fin-content/SETUP-einstein-email.md`). At scale, the same follow-up runs as a Sales Engagement cadence:
+**What the demo shows:** Tom drafts the invite with Einstein on the renewal opportunity: a **Prompt Builder** template grounded on the opportunity, account and contact, run from a screen Flow that sends and logs the email (`fin-content/SETUP-einstein-email.md`). With **Einstein Sales Emails** licensed, reps get the same from the standard email composer (*Draft with Einstein*), using a *Sales Email* prompt template. At scale, the same follow-up runs as a Sales Engagement cadence:
 
 1. **License and permissions:** Sales Engagement user permission set license + the *Sales Engagement User* permission set for reps (Cadence Creator for managers). This org already has it.
 2. **Templates:** email templates for each step, with merge fields from the contact and account (here: `Yelp K&G 1–3` in the *Yelp Keep and Grow* folder, using Contact formula fields for account name, locations and renewal date).

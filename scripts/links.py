@@ -60,7 +60,7 @@ def build():
             rec("Sam Whitaker (contact)", "Contact", "SELECT Id FROM Contact WHERE Email = 'sam@whitakerhospitality.example.com' LIMIT 1"),
             flow("Fin handoff routing Flow", "Yelp_Fin_Handoff_Routing"),
         ]),
-        ("Section 3 · Tom: account, Next Best Action, renewal opportunity, Einstein email", [
+        ("Section 3 · Tom: account, Next Best Action, renewal opportunity, email", [
             rec("Whitaker Hospitality Group (account, Yelp Sales)", "Account", acct, SALES_APP_ID),
             rec("Renewal opportunity", "Opportunity",
                 "SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Name LIKE '%Annual Renewal' LIMIT 1", SALES_APP_ID),

@@ -27,7 +27,7 @@ window.SF_LINKS = [
   ]
  ],
  [
-  "Section 3 \u00b7 Tom: account, Next Best Action, renewal opportunity, Einstein email",
+  "Section 3 \u00b7 Tom: account, Next Best Action, renewal opportunity, email",
   [
    [
     "Whitaker Hospitality Group (account, Yelp Sales)",

@@ -313,11 +313,11 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - It can take a few seconds to load. Open the account tab before the demo so it's already loaded (see *Tabs to pre-open*).
 6. **Details tab:**
    - **Account Information** (top): Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
-   - **Fin Signals:**
+   - **Latest Fin signals:**
      - Churn Risk **Low**: "Value realization: wants proof new locations perform before investing more".
      - Expansion Signal **4 new locations, opening January**.
      - Sentiment **Slightly Negative**.
-     - Last Fin Conversation, locations, budget, spend, leads and cost per lead.
+     - Last Fin Conversation.
    - **[Salesforce]** Flow wrote these onto the account. Tom sees what support heard without reading a transcript.
    - **Yelp Ads Performance:** annual ad spend, monthly budget and spend, leads and cost per lead, renewal, Fin conversations and CSAT, and a table of all 12 locations with spend bars and status.
 7. **Sales tab → Opportunities:**
@@ -428,7 +428,7 @@ Fin supports two patterns. Yelp would pick one:
 
    [Trailhead: Record-Triggered Flows](https://trailhead.salesforce.com/content/learn/modules/record-triggered-flows)
 2. **Slack:** connect the workspace in Setup → Slack, add Sales Cloud for Slack, and use the "Send Slack Message" Flow action ([Salesforce Help: Slack actions in Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Send%20Slack%20Message%20flow%20core%20action&t=allResultsTab)).
-3. **Account page:** add the Fin Signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
+3. **Account page:** add the Latest Fin signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
 
 ### 4b · Einstein Sales Emails, and Sales Engagement instead of Outreach (section 3)
 **What the demo shows:** Tom sends the invite from the renewal opportunity with an email template (*Yelp - Ads Optimization Review invite*, folder *Yelp Keep and Grow*) that merges the contact's locations and renewal date. With **Einstein Sales Emails** licensed, reps can also click *Draft with Einstein* in the composer to personalize it from the record. At scale, the same follow-up runs as a Sales Engagement cadence:
@@ -511,11 +511,11 @@ Fin supports two patterns. Yelp would pick one:
   - no "Likely to buy" panel
 
   Simplified for Part 2 (`scripts/simplify_pages.py`, Part 2 records only):
-  - **Account:** Details order is Account Information, Fin Signals, Yelp Ads Performance. Field Service Details, Prediction and Additional Information are hidden, and so are the Partners, Success, Service and Account Plan tabs. The Sales tab shows Opportunities only.
+  - **Account:** Details order is Account Information, Latest Fin signals (Fin fields only), Yelp Ads Performance. Field Service Details, Prediction and Additional Information are hidden, and so are the Partners, Success, Service and Account Plan tabs. The Sales tab shows Opportunities only.
   - **Opportunity:** the sales methodology panel (it errors here: no OppSalesMethodology object), the Opportunity Information, Marketing Information and Einstein Predictions sections, and the Predicted Win Rate, Predicted Upsell, Commission, MEDDIC and Coach tabs are hidden. Yelp Ads Performance is at the bottom of Details.
   - **Yelp Sales app:** no Forecasts or Exec Home tabs.
   - **Left account card:** reads its fields from the *Tech - Account* page layout, so the Yelp renewal fields are on that layout (section "Yelp Renewal (Keep and Grow)").
-  Other accounts and opportunities see the original components. It also has a "Fin Signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
+  Other accounts and opportunities see the original components. It also has a "Latest Fin signals" section (*Tech_Account_Data_Cloud_3_Panel*) shows only on Part 2 accounts. Part 1's "Yelp Agent Signals" section is hidden on them. If you redeploy Part 1's copy of that page, redeploy PeerCert2's copy after it.
 - **Write-back:** Flow *Yelp - Fin Case Write-back* runs when a handoff case is created. It updates the account and creates the expansion opportunity.
 - **Alert:** Flow *Yelp - Fin Case Resolved Alert* runs when that case is closed (Case resolved button):
   - creates the brief task

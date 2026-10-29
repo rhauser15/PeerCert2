@@ -826,20 +826,6 @@
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Expansion_Signal__c</fieldItem>
-                <identifier>RecordExpansion_SignalField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Fin_Sentiment__c</fieldItem>
-                <identifier>RecordFin_SentimentField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
                 <fieldItem>Record.Last_Fin_Conversation__c</fieldItem>
                 <identifier>RecordLast_Fin_ConversationField_fin</identifier>
             </fieldInstance>
@@ -851,43 +837,15 @@
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Location_Count__c</fieldItem>
-                <identifier>RecordLocation_CountField_fin</identifier>
+                <fieldItem>Record.Expansion_Signal__c</fieldItem>
+                <identifier>RecordExpansion_SignalField_fin</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Monthly_Budget_Cap__c</fieldItem>
-                <identifier>RecordMonthly_Budget_CapField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Budget_Spent_MTD__c</fieldItem>
-                <identifier>RecordBudget_Spent_MTDField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Leads_Last_30_Days__c</fieldItem>
-                <identifier>RecordLeads_Last_30_DaysField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Cost_Per_Lead__c</fieldItem>
-                <identifier>RecordCost_Per_LeadField_fin</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties><name>uiBehavior</name><value>none</value></fieldInstanceProperties>
-                <fieldItem>Record.Budget_Status__c</fieldItem>
-                <identifier>RecordBudget_StatusField_fin</identifier>
+                <fieldItem>Record.Fin_Sentiment__c</fieldItem>
+                <identifier>RecordFin_SentimentField_fin</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-fin-right</name>
@@ -1020,7 +978,7 @@
             <componentInstance>
                 <componentInstanceProperties><name>columns</name><value>Facet-fin-columns</value></componentInstanceProperties>
                 <componentInstanceProperties><name>horizontalAlignment</name><value>false</value></componentInstanceProperties>
-                <componentInstanceProperties><name>label</name><value>Fin Signals</value></componentInstanceProperties>
+                <componentInstanceProperties><name>label</name><value>Latest Fin signals</value></componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection_fin</identifier>
                 <visibilityRule>

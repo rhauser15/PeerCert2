@@ -87,7 +87,7 @@
 
 <div class="presenter" id="presenter"></div>
 <div class="live" id="live"></div>
-<script src="data.js?v=20261027a"></script>
+<script src="data.js?v=20261029a"></script>
 <script src="presenter.js?v=20261027a"></script>
 <script>
 // Real Fin Messenger (workspace rh93xujb), signed in as Sam.
@@ -98,20 +98,45 @@ const $ = id => document.getElementById(id);
 
 // Locations panel: live ad status from Salesforce, refreshed every few seconds
 function shortName(n) { return n.replace("Dave's Hot Chicken - ", "Dave's Hot Chicken - ").replace("Jersey Mike's Subs - ", "Jersey Mike's - "); }
+// fetch JSON from the Salesforce Site, retrying a couple of times (a blip shouldn't blank the page during a demo)
+async function getJSON(path, tries = 3) {
+  for (let i = 0; ; i++) {
+    try {
+      const r = await fetch(API + path, { cache: "no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return await r.json();
+    } catch (e) {
+      if (i >= tries - 1) throw e;
+      await new Promise(res => setTimeout(res, 1200 * (i + 1)));
+    }
+  }
+}
+function renderLocs(locs) {
+  const paused = locs.filter(l => !l.running), running = locs.filter(l => l.running);
+  if (!paused.length) {
+    $("locs").innerHTML = `<div class="row"><span>All ${locs.length} locations</span><span><span class="dot"></span>Running</span></div>`;
+    return;
+  }
+  const rows = paused.map(l => [shortName(l.location), "Paused", "#b86e00"])
+    .concat([[`${running.length} other locations`, "Running", ""]]);
+  $("locs").innerHTML = rows.map(([n, s, c]) => `<div class="row"><span>${n}</span><span><span class="dot" style="${c ? `background:${c}` : ""}"></span>${s}</span></div>`).join("");
+}
+// Show the last good answer right away, so the panel is never blank while Salesforce is slow
+try { const cached = JSON.parse(localStorage.getItem("yelpLocs") || "null"); if (cached && cached.length) renderLocs(cached); } catch (e) {}
+let locFailures = 0;
 async function drawLocs() {
   try {
-    const r = await fetch(API + "/status", { cache: "no-store" });
-    const d = await r.json();
+    const d = await getJSON("/status");
     const locs = d.locations || [];
-    const paused = locs.filter(l => !l.running), running = locs.filter(l => l.running);
-    const rows = paused.map(l => [shortName(l.location), "Paused", "#b86e00"])
-      .concat([[`${running.length} other locations`, "Running", ""]]);
-    $("locs").innerHTML = rows.map(([n, s, c]) => `<div class="row"><span>${n}</span><span><span class="dot" style="${c ? `background:${c}` : ""}"></span>${s}</span></div>`).join("")
-      + (paused.length ? "" : `<div class="row"><span>All 12 locations</span><span><span class="dot"></span>Running</span></div>`).replace(/^/, paused.length ? "" : "");
-    if (!paused.length) $("locs").innerHTML = `<div class="row"><span>All ${locs.length} locations</span><span><span class="dot"></span>Running</span></div>`;
+    if (!locs.length) throw new Error("no locations");
+    renderLocs(locs);
+    localStorage.setItem("yelpLocs", JSON.stringify(locs));
+    locFailures = 0;
   } catch (e) {
-    // Only shown while testing (Fin's ?intercomTest link or ?debug): the browser couldn't reach Salesforce
-    if (/intercomTest|debug/.test(location.search) && !$("locs").innerHTML)
+    // Keep showing the last good answer. Only while testing (Fin's ?intercomTest link or ?debug), and only if
+    // nothing has ever loaded, say the browser couldn't reach Salesforce.
+    locFailures++;
+    if (locFailures >= 2 && /intercomTest|debug/.test(location.search) && !$("locs").innerHTML)
       $("locs").innerHTML = `<div class="row"><span>Couldn't reach Salesforce. A content blocker may be blocking salesforce-sites.com.</span></div>`;
   }
 }
@@ -127,8 +152,7 @@ drawLocs(); setInterval(drawLocs, 5000);
 (async () => {
   const settings = { api_base: "https://api-iam.intercom.io", app_id: APP_ID };
   try {
-    const r = await fetch(API + "/messenger-token", { cache: "no-store" });
-    const t = await r.json();
+    const t = await getJSON("/messenger-token");
     if (t.token) { settings.intercom_user_jwt = t.token; settings.name = t.name; }
     else { settings.user_id = "sam-whitaker"; settings.email = DEMO.sam.email; settings.name = DEMO.sam.name; }
     if (!t.token) console.info("[fin] sign-in token unavailable, Messenger running unverified");

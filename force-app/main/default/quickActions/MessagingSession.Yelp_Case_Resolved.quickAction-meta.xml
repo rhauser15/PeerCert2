@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Keep and Grow demo: close the Fin handoff case on this conversation (screen Flow Yelp - Fin Case Resolved).</description>
+    <flowDefinition>Yelp_Fin_Case_Resolved</flowDefinition>
+    <label>Case resolved</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

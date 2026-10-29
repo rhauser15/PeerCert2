@@ -60,7 +60,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Slack #sales-notifications (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06)
 
 **Section 4 · Alisha's view**
-- [Customer Success: Fin Conversations dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
+- [Customer Success dashboard](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view)
 - [Fin: Accounts Flagged in Conversations (report)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Report/00Og8000009VYOREA4/view)
 
 <!-- links:end -->
@@ -123,7 +123,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 7 | Support tools | John | Location **Entire account (all locations)**, Action **Enroll account in New Location Launch Program** → **Confirm** |
 | 8 | Fin Copilot | John | `Draft a confirmation that the customer is enrolled in the New Location Launch Program`, then **Add to composer → Send** |
 | 9 | Fin Messenger | Sam | `That's everything. Thanks, John!` |
-| 10 | Console | John | **End Chat**, then **Case resolved** |
+| 10 | Console | John | **End Chat**, then **Case resolved** (header, top right) |
 
 **What Fin should set** (shown on the case, center of the page): Contact Reason = Add a location, Churn Risk = Low, Sentiment = Slightly Negative, Expansion Signal = New locations. Wording in Fin's replies varies run to run.
 
@@ -216,9 +216,10 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 1. **Switch to window 1.** The chat rings in **Omni-Channel**. Click **Accept**. The Messaging Session opens in the Service Console.
    - **[Salesforce]** **Omni-Channel** pushed the chat to an available specialist based on queue and capacity.
 2. **Walk the page, left to right:**
-   - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
-   - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it are the Engagement, Details, Knowledge and Related tabs.
-   - **Right:** the real **Fin Copilot** on top, then **Support tools**.
+   - **Left:** the live conversation, starting with Sam's question.
+   - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it: **Support tools**, then the Engagement, Details, Knowledge and Related tabs. Everything for the demo fits without scrolling.
+   - **Right:** the real **Fin Copilot**.
+   - **Header:** **Case resolved** is the only action, top right.
 3. **Fin summarizes the issue. In Copilot, click Summarize.** You'll see:
    - the question: redirect existing spend to test new locations
    - the summary: 4 new locations in January, wants performance proof before investing more, value concern
@@ -237,7 +238,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 
 **Resolve it**
 
-7. **In Support tools (right):**
+7. **In Support tools (center, under the Fin case):**
    - **Location:** *Entire account (all locations)* (the default), or one location.
    - **Action:** *Enroll account in New Location Launch Program ($500 per new location)* is selected. The other options are *Pause ad spending for 90 days, no fee* (one location or the entire account) and *Apply $1,000 retention offer across all locations*.
    - Check the notes and click **Confirm**.
@@ -246,7 +247,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 8. **In Copilot, type:** `Draft a confirmation that the customer is enrolled in the New Location Launch Program` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. Your account is enrolled in the New Location Launch Program… Your account manager will reach out to plan launch budgets together."
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
 10. **In the console, click End Chat** above the conversation. The Messenger shows "The conversation has ended".
-11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
+11. **Click Case resolved** (the button at the top right of the page header). The case closes and you see "Case … resolved. AE Slack notification triggered."
    - **[Salesforce]** Fin's data is already on the record: Churn Risk Low (reason: value realization), Sentiment Slightly Negative, Expansion Signal 4 new locations. Closing the case fires a record-triggered Flow that alerts the AE, because this account's spend level and growth signal warrant it.
    - **[Salesforce]** With Agentforce for Service, the **work summary** agents write at wrap-up can be generated for them. Mention it here; it isn't switched on in this org.
 
@@ -306,7 +307,7 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
 
 ## 4 · Alisha's view (3 min)
 
-1. **Open the "Customer Success: Fin Conversations" dashboard** (Salesforce). Walk it top to bottom:
+1. **Open the "Customer Success" dashboard** (Salesforce). Walk it top to bottom:
    - **Fin resolution rate** (57%) and its weekly trend (46% → 64%).
    - **CSAT** and its trend.
    - **Top contact reasons.**
@@ -472,9 +473,9 @@ Fin supports two patterns. Yelp would pick one:
     - Handoffs: creates an open case and routes to the Messaging queue (*SDO_Service_Messaging*).
   - Summary and transcript are split into 255-character chunks and rejoined by the Flow.
 - **Messaging Session page** (*Messaging Session - Fin Handoff*, assigned in Yelp Support Console):
-  - Fin case card in the center
-  - LWC `finCopilot` and screen Flow *Support Tools* on the right
-  - screen Flow *Case Resolved* under the conversation
+  - center: Fin case card, then screen Flow *Support Tools*
+  - right: the real Fin Copilot (`finai:copilotFrame`)
+  - header: one action, **Case resolved** (quick action `MessagingSession.Yelp_Case_Resolved`, screen Flow *Yelp - Fin Case Resolved*); Delete, Edit and Send Survey are gone (Dynamic Actions)
 - **Tom's view:** on Part 2 accounts, the Yelp Sales account page shows:
   - a Yelp account card (renewal date, likelihood to renew, spend) and a Cases list on the left
   - the *Yelp - Account Health (Keep and Grow)* Einstein dashboard and a Yelp Next Best Action on the right

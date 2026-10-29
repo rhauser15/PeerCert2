@@ -79,7 +79,7 @@ window.SF_LINKS = [
   "Section 4 \u00b7 Alisha's view",
   [
    [
-    "Customer Success: Fin Conversations dashboard",
+    "Customer Success dashboard",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Dashboard/01Zg8000004VGRBEA4/view"
    ],
    [

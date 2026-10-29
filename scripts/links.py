@@ -77,7 +77,7 @@ def build():
             ("Slack #sales-notifications (Tom's alert)", "https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06"),
         ]),
         ("Section 4 · Alisha's view", [
-            rec("Customer Success: Fin Conversations dashboard", "Dashboard",
+            rec("Customer Success dashboard", "Dashboard",
                 "SELECT Id FROM Dashboard WHERE DeveloperName = 'Keep_and_Grow_CS' LIMIT 1"),
             rec("Fin: Accounts Flagged in Conversations (report)", "Report",
                 "SELECT Id FROM Report WHERE DeveloperName = 'Fin_Flagged_Accounts' LIMIT 1"),

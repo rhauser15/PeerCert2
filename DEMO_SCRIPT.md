@@ -524,7 +524,7 @@ Fin supports two patterns. Yelp would pick one:
   - creates the brief task
   - alerts the owner only for multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or High churn risk
   - posts to Slack on its async path, using Sales Cloud for Slack (A028VJ1KG3G), workspace T0C4N1TMPN3, channel C0CCHSXG9D5
-- **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
+- **Org automation:** the SDO "Messaging Session - On Create" flow opens a generic case for every session. It now skips the *Yelp - Fin Messenger* channel (entry filter; original in `scripts/backup`), and `YelpFinCaseCleanup` deletes any generic case that still appears on a Fin chat. For Fin conversations, *Yelp - Fin Session Keep Fin Case* removes it and keeps the session on Fin's case.
 - **Branding and Yelp views:**
   - The active org theme (*Yelp for Business*) and the app names (Yelp Support Console, Yelp Sales) are changed.
   - Home pages: *Yelp Support Home* and *Yelp Sales Home*.

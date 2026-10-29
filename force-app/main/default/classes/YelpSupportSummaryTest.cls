@@ -23,7 +23,7 @@ private class YelpSupportSummaryTest {
         YelpSupportSummary.Request req = new YelpSupportSummary.Request();
         req.caseId = c.Id;
         String s = YelpSupportSummary.summarize(new List<YelpSupportSummary.Request>{ req })[0].summary;
-        System.assert(s.contains('1 conversations'), s);
+        System.assert(s.contains('1 conversations:'), s);
         System.assert(s.contains('Westminster monthly cap raised from $1,200 to $1,500'), s);
         System.assert(s.contains('wants to see performance'), s);
     }

@@ -419,21 +419,27 @@ Fin summary
     <textTemplates>
         <name>SlackBrief</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>&lt;@U0C51E32VL6&gt; *Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
-&lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Open the renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|Account&gt;
+        <text>:rotating_light: *Fin Alert: Growth and Renewal Signal* &lt;@U0C51E32VL6&gt;
 
-_Why you're getting this: you own this multi-location account (${!$Record.Account.Annual_Ad_Spend__c} annual ad spend), and Fin flagged growth or churn risk in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}._
-
-*Einstein account health*
-- Likelihood to renew: *{!$Record.Account.Renewal_Likelihood__c}* / 100 ({!$Record.Account.Renewal_Outlook__c})
-- {!Get_Renewal.Name}: ${!Get_Renewal.Amount}, closes {!Get_Renewal.CloseDate}
-
+*&lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|{!$Record.Account.Name}: support signal before the renewal&gt;*
+Fin flagged growth in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}, and support just resolved the case. Follow up before the renewal.
+──────────────────────────────
+*Owner:* {!$Record.Account.Owner.FirstName} {!$Record.Account.Owner.LastName}     *Case:* `{!$Record.CaseNumber}`
+*Expansion signal:* :chart_with_upwards_trend: {!$Record.Expansion_Signal__c}     *Churn risk:* {!$Record.Churn_Risk__c}     *Sentiment:* {!$Record.Fin_Sentiment__c}
+──────────────────────────────
+:office: *Linked Account Details*
+*Account:* {!$Record.Account.Name} ({!$Record.Account.Location_Count__c} locations)
+*Annual ad spend:* ${!$Record.Account.Annual_Ad_Spend__c}
+*Contract renewal:* {!Get_Renewal.CloseDate} ({!Get_Renewal.Name}, ${!Get_Renewal.Amount})
+*Einstein health score:* :large_yellow_circle: {!$Record.Account.Renewal_Likelihood__c} / 100 ({!$Record.Account.Renewal_Outlook__c})
+*Links:* &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|View in CRM&gt;
+──────────────────────────────
 {!SupportSummary}
+──────────────────────────────
+:dart: *Suggested next step*
+{!NextStep}
 
-*Spend by location*{!SpendByLocation}
-
-*Suggested next step*
-{!NextStep}</text>
+_Sent by Salesforce Flow · Yelp - Fin Case Resolved Alert · multi-location, $50K+ ad spend, Fin growth or churn signal_</text>
     </textTemplates>
     <variables>
         <name>SupportSummary</name>

@@ -46,19 +46,19 @@ public without sharing class YelpSupportSummary {
             topics.put(t, topics.containsKey(t) ? topics.get(t) + 1 : 1);
         }
 
-        List<String> lines = new List<String>{ '*Recent support (last 90 days)*' };
-        lines.add('- ' + total + ' conversations: ' + byFin + ' resolved by Fin' + (total > 0 ? ' (' + Math.round(100.0 * byFin / total) + '%)' : '')
+        List<String> lines = new List<String>{ ':clipboard: *Support Summary (last 90 days)*' };
+        lines.add('• :speech_balloon: *' + total + ' conversations:* ' + byFin + ' resolved by Fin' + (total > 0 ? ' (' + Math.round(100.0 * byFin / total) + '%)' : '')
             + ', ' + byTeam + ' handled by the team' + (open > 0 ? ', ' + open + ' still open' : ''));
-        lines.add('- Top topics: ' + topTopics(topics, 3));
+        lines.add('• :label: *Top topics:* ' + topTopics(topics, 3));
 
         List<String> positives = budgetIncreases(c.Contact == null ? null : c.Contact.Email);
         if (String.isNotBlank(c.Expansion_Signal__c) && c.Expansion_Signal__c.toLowerCase() != 'none') {
-            positives.add('Growth: ' + first + ' flagged *' + c.Expansion_Signal__c.toLowerCase() + '* in tonight\'s conversation');
+            positives.add(':rocket: *Growth:* ' + first + ' flagged *' + c.Expansion_Signal__c.toLowerCase() + '* in tonight\'s conversation');
         }
         if (!positives.isEmpty()) {
             lines.add('');
-            lines.add('*Positive signals*');
-            for (String p : positives) lines.add('- ' + p);
+            lines.add(':white_check_mark: *Positive signals*');
+            for (String p : positives) lines.add('• ' + p);
         }
 
         List<String> watch = new List<String>();
@@ -75,8 +75,8 @@ public without sharing class YelpSupportSummary {
         }
         if (!watch.isEmpty()) {
             lines.add('');
-            lines.add('*Watch*');
-            for (String w : watch) lines.add('- ' + w);
+            lines.add(':warning: *Watch*');
+            for (String w : watch) lines.add('• ' + w);
         }
         return String.join(lines, '\n');
     }
@@ -107,7 +107,7 @@ public without sharing class YelpSupportSummary {
             Decimal prev = (Decimal) r.get('previous_monthly_cap'), next = (Decimal) r.get('new_monthly_cap');
             if (prev == null || next == null || next <= prev || seen.contains(loc)) continue;
             seen.add(loc);
-            out.add('Budget up: ' + loc + ' monthly cap raised from $' + prev.format() + ' to $' + next.format() + ' through Fin');
+            out.add(':moneybag: *Budget up:* ' + loc + ' monthly cap raised from $' + prev.format() + ' to $' + next.format() + ' through Fin');
         }
         return out;
     }

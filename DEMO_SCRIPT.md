@@ -296,7 +296,6 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
      - **recent support (last 90 days),** not just tonight's case: how many conversations, how many Fin resolved, the top topics
      - **positive signals:** Westminster's cap raised from $1,200 to $1,500 through Fin, and the new locations
      - **watch:** Sam isn't sure the new locations will pay off and wants to see performance before investing more
-     - spend by location
    - **[Say]** "Tom gets the pattern, not a ticket: Sam is spending more and growing, but he needs proof the new locations will work before the renewal." 
      - **suggested next step:** "Book an Ads Optimization Review session with Sam to plan launch budgets for the 4 new locations, opening January, and scope the expansion opportunity. Confirm the value Sam is seeing before the renewal."
 2. **Click "Open the renewal opportunity".** The Annual Renewal ($119,760, closes Dec 31) opens in **Yelp Sales**, with the Yelp Ads Performance card (all 12 locations) at the bottom of the Details tab. Click the account name to get to Whitaker Hospitality Group.

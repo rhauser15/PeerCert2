@@ -3,34 +3,40 @@
 The email Tom sends from the renewal opportunity (**Activity → Email → Einstein / Draft with Einstein**). Sam Whitaker is the recipient.
 
 ## Option A: a saved prompt template (one time, about 5 minutes)
-This org rejects Sales Email prompt templates over the Metadata API ("Prompt Template Type is not valid"), so create it in the UI:
+Pasting merge fields as text cuts the prompt off, so paste the plain text below, then add four fields with **Insert Resource**.
 1. Setup → **Prompt Builder** → **New Prompt Template**.
 2. **Type:** *Sales Email*. **Name:** `Yelp - Ads Optimization Review invite`. **Recipient:** Contact. (If *Sales Email* isn't in the list, use option B.)
-3. Paste the prompt below. Then **Save**, **Activate**.
-4. In the email composer, click **Einstein**, pick the template and **Draft**.
+3. Paste this into the prompt:
 
 ```
-You are {!$Input:Sender.Name}, the Yelp account manager for {!$Input:Recipient.Account.Name}. Write a short, warm email to {!$Input:Recipient.FirstName} inviting them to a free 30-minute Ads Optimization Review with you and a Yelp Ads specialist.
+You are a Yelp account manager. Write a short, warm email to the customer contact inviting them to a free 30-minute Ads Optimization Review with you and a Yelp Ads specialist.
 
-What you know about the account:
-- Active locations on Yelp: {!$Input:Recipient.Account.Location_Count__c}
-- Growth Fin heard in a recent support conversation: {!$Input:Recipient.Account.Expansion_Signal__c}
-- What they want before investing more: {!$Input:Recipient.Account.Churn_Risk_Reason__c}
-- Annual Yelp ad spend: {!$Input:Recipient.Account.Annual_Ad_Spend__c}
-- Monthly budget cap: {!$Input:Recipient.Account.Monthly_Budget_Cap__c}
-- Renewal date: {!$Input:Recipient.Account.Renewal_Date__c}
+Contact first name: FIRSTNAME
+Business: ACCOUNTNAME
+Active Yelp locations: LOCATIONS
+Renewal date: RENEWAL
+
+What you know: in a recent Yelp support conversation the customer said they're opening 4 new locations in January and want to see the new locations perform before investing more. They're enrolled in the New Location Launch Program ($500 in ad credit for each new location in its first 60 days).
 
 The email must:
-1. Congratulate them on the new locations and mention they're enrolled in the New Location Launch Program ($500 in ad credit per new location for its first 60 days).
-2. Explain the review covers three things: aligning on monthly budget across the current locations, launch budgets for the new locations, and right-sizing their spend commitment for next year so it matches what's paying off.
-3. Say you'll bring leads and cost per lead by location so they can see the performance proof they asked for.
+1. Congratulate them on the new locations and mention the New Location Launch Program.
+2. Explain the review covers three things: aligning on monthly budget across their current locations, launch budgets for the new locations, and right-sizing their spend commitment for next year so it matches what's paying off.
+3. Say you'll bring leads and cost per lead by location, so they can see the performance proof they asked for.
 4. Tie it to the renewal date, so the 2027 plan is agreed before the renewal.
 5. Ask whether Tuesday or Thursday next week works.
 
-Keep it under 150 words, plain and friendly, no bullet points longer than one line, no placeholders or brackets. Sign off with {!$Input:Sender.FirstName}. Don't invent numbers that aren't above.
+Keep it under 150 words, plain and friendly. No placeholders or brackets. Don't invent numbers that aren't above.
 ```
 
-To insert a merge field, use **Insert Resource** in Prompt Builder (Recipient → Account → field) rather than typing it, so the names match.
+4. Replace each capitalized word with a field: select the word, then **Insert Resource** → **Recipient** →
+   - `FIRSTNAME` → **First Name**
+   - `ACCOUNTNAME` → **Yelp Account Name**
+   - `LOCATIONS` → **Yelp Locations**
+   - `RENEWAL` → **Yelp Renewal Date**
+5. In the preview pane, pick **Sam Whitaker** as the recipient and click **Preview** to check the draft. Then **Save** and **Activate**.
+6. In the email composer, click **Einstein**, pick the template and click **Draft**.
+
+The signature comes from the sender automatically, so the prompt doesn't need the sender's name.
 
 ## Option B: no template (works now)
 In the email composer, click **Einstein** (Draft with Einstein), choose the purpose closest to *Request a meeting* / *Follow up*, and paste this into the instructions:

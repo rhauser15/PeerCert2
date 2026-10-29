@@ -47,11 +47,23 @@ window.SF_LINKS = [
    ],
    [
     "Next Best Action: Book Ads Optimization Review Flow",
-    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017y8W1AAI"
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018Pkc1AAC"
    ],
    [
     "Next Best Action strategies (Setup \u2192 Quick Find: Next Best Action \u2192 Yelp Keep and Grow)",
     "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home"
+   ],
+   [
+    "Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list"
+   ],
+   [
+    "Sales Engagement: Work Queue (App Launcher \u2192 Work Queue)",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/page/home"
+   ],
+   [
+    "Email templates: Yelp Keep and Grow folder",
+    "https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home"
    ],
    [
     "Einstein Prediction Builder (Setup)",

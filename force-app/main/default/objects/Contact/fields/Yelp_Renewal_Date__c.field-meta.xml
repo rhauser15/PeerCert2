@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Yelp_Renewal_Date__c</fullName>
+    <description>The account's renewal date, for Sales Engagement email templates (Keep and Grow demo).</description>
+    <externalId>false</externalId>
+    <formula>Account.Renewal_Date__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Yelp Renewal Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

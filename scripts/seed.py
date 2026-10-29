@@ -51,6 +51,11 @@ def reset_live():
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Renewal brief:%' AND What.Name LIKE '{D.COMPANY}%'];
 delete [SELECT Id FROM Task WHERE Subject LIKE 'Ads Optimization Review with%' AND CreatedDate = LAST_N_DAYS:7];
 delete [SELECT Id FROM Opportunity WHERE Part2_Demo__c = true AND Account.Name = '{D.COMPANY}' AND Type = 'Add-On Business'];
+// Take Sam out of the Sales Engagement follow-up cadence (added when the Next Best Action is accepted)
+for (Contact c : [SELECT Id FROM Contact WHERE Email = '{D.SAM["email"]}' AND Account.Part2_Demo__c = true]) {{
+    try {{ Flow.Interview.createInterview('Yelp_Remove_From_Cadence', new Map<String, Object>{{ 'targetId' => c.Id }}).start(); }}
+    catch (Exception e) {{ System.debug('cadence reset: ' + e.getMessage()); }}
+}}
 // The Next Best Action the account owner sees once Fin hears growth (strategies Yelp_Keep_Grow_*_NBA)
 if ([SELECT COUNT() FROM Recommendation WHERE Category__c = 'Yelp Keep and Grow'] == 0) {{
     insert new Recommendation(Name = 'Ads Optimization Review session', Category__c = 'Yelp Keep and Grow', Ranking__c = 1,

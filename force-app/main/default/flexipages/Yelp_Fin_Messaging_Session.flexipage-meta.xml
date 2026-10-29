@@ -350,12 +350,6 @@
                 <identifier>flowruntime_resolveFinHandoff</identifier>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>finCopilot</componentName>
-                <identifier>c_finCopilot</identifier>
-            </componentInstance>
-        </itemInstances>
         <name>rightsidebar</name>
         <type>Region</type>
     </flexiPageRegions>

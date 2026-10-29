@@ -1,0 +1,11 @@
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#2b2b2b">
+<p>Hi {!Contact.FirstName},</p>
+<p>Following up on the Ads Optimization Review. Here's what we'd cover in 30 minutes, so it's time well spent:</p>
+<ol>
+<li><b>Your new locations:</b> launch budgets, what good performance looks like in the first 60 days, and how the $500 launch credits apply.</li>
+<li><b>Your current locations:</b> leads and cost per lead by location over the last 90 days, and where we'd adjust budget or targeting.</li>
+<li><b>2027 plan:</b> budget and goals by location ahead of your renewal on {!Contact.Yelp_Renewal_Date__c}.</li>
+</ol>
+<p>I'll bring the numbers. You bring your opening dates. What time works for you?</p>
+<p>Thanks,<br>{!User.FirstName}</p>
+</div>

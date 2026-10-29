@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Keep and Grow demo cadence: Yelp - New location launch follow-up. Step 1, day 0: invite to the Ads Optimization Review.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Yelp K&amp;G 1 - Let's plan 2027 together</name>
+    <style>none</style>
+    <subject>{!Contact.FirstName}, let's plan 2027 together</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

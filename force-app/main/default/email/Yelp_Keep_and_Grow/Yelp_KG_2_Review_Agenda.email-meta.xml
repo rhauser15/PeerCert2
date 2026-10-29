@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Keep and Grow demo cadence: Yelp - New location launch follow-up. Step 3, day 4: follow-up with the agenda.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Yelp K&amp;G 2 - Ads Optimization Review agenda</name>
+    <style>none</style>
+    <subject>Agenda for your Ads Optimization Review</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

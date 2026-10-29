@@ -17,7 +17,7 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **Live Fin pages (optional):** `help-fin.html` (issue 1) and `help-fin-handoff.html` (issue 2) put the **real Fin Messenger** from the Yelp demo Fin workspace on the same help center. Fin's answers are generated, its data connectors read and change Salesforce, and issue 2 hands off to the Service Console. See "Live Fin option" below.
 - **Real (Salesforce):** both cases Fin creates, the live chat, Omni-Channel routing, Fin Copilot in the Service Console, the Resolve flow, the write-back Flow (account signals, expansion opportunity, renewal brief), the Slack post to #sales-notifications, and Alisha's dashboard.
 - **How the handoff works here:** the mock Messenger opens a real Messaging for In-App and Web conversation through the API and sends Fin's data as routing attributes. In production, Fin does this through its Salesforce connector ("Hand-off to Salesforce agent"), and Sam keeps chatting in the Fin Messenger either way. For resolved conversations, Fin's "Create Salesforce case on resolution" setting creates the case.
-- **Copilot:** the **real Fin Copilot** (Fin for Salesforce: Copilot package, connected to the Fin workspace) is at the top of the right column. It answers from the Yelp articles in Fin (`fin-content/`), and its sources open the articles. Below Support tools is the scripted demo panel, which uses live Salesforce numbers (locations, renewal, Fin summary). Use the real one for the program question; use the demo panel as a backup, or for answers that need account data. The real Copilot doesn't use data connectors or Guidance.
+- **Copilot:** the **real Fin Copilot** (Fin for Salesforce: Copilot package, connected to the Fin workspace) is at the top of the right column. It answers from the internal Yelp articles in Fin (`fin-content/`; enable only the Copilot playbook, New Location Launch Program and Multi-Location Retention Policy for Copilot), and its sources open the articles. It doesn't use data connectors, and may not see the Salesforce chat, so the prompts below are self-contained.
 
 ---
 
@@ -50,8 +50,11 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - [Renewal opportunity](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/006g800000AHMWEAA5/view)
 - [Fin write-back Flow (account, expansion opportunity, renewal brief)](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017w0kfAAA)
 - [Next Best Action: Ads Optimization Review (Recommendation)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/r/Recommendation/0prg8000000NP0vAAG/view)
-- [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000017y8W1AAI)
+- [Next Best Action: Book Ads Optimization Review Flow](https://trailsignup-429cdfd78ec835.lightning.force.com/builder_platform_interaction/flowBuilder.app?flowId=301g8000018Pkc1AAC)
 - [Next Best Action strategies (Setup → Quick Find: Next Best Action → Yelp Keep and Grow)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
+- [Sales Engagement: Cadences (Cadence Builder: Yelp - New location launch follow-up)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/ActionCadence/list)
+- [Sales Engagement: Work Queue (App Launcher → Work Queue)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/page/home)
+- [Email templates: Yelp Keep and Grow folder](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/o/EmailTemplate/home)
 - [Einstein Prediction Builder (Setup)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/EinsteinBuilder/home)
 - [Einstein Opportunity Scoring (Setup → Quick Find: Einstein Opportunity Scoring)](https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/setup/SetupOneHome/home)
 - [Slack #sales-notifications (Tom's alert)](https://app.slack.com/client/T0C4N1TMPN3/C0CC7K9PY06)
@@ -85,7 +88,6 @@ Sam Whitaker (Whitaker Hospitality Group: 7 Dave's Hot Chicken, 4 Jersey Mike's,
 - **Mock Fin (scripted):**
   - `help.html`: the scripted Messenger. It's the backup for both issues and still opens a real Salesforce chat.
   - `fin.html`: the Fin admin screens.
-  - The scripted Copilot panel below Support tools.
 - **Salesforce only:** the slides, Slack, the account, the opportunity and the dashboard. They show what Fin produced (cases, signals, the alert), but none of them runs Fin.
 
 All of these are also on the [launcher](https://rhauser15.github.io/PeerCert2/).
@@ -118,7 +120,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 | 4 | Fin Copilot | John | `What options can I offer a 12-location customer opening 4 new locations who wants to redirect spend?` |
 | 5 | Fin Copilot | John | `Draft a reply offering the New Location Launch Program for 4 new locations`, then **Add to composer → Send** |
 | 6 | Fin Messenger | Sam | `That sounds great. Yes, please enroll me.` |
-| 7 | Support tools | John | Action **Enroll in New Location Launch Program**, Location blank → **Confirm** |
+| 7 | Support tools | John | Location **Entire account (all locations)**, Action **Enroll account in New Location Launch Program** → **Confirm** |
 | 8 | Fin Copilot | John | `Draft a confirmation that the customer is enrolled in the New Location Launch Program`, then **Add to composer → Send** |
 | 9 | Fin Messenger | Sam | `That's everything. Thanks, John!` |
 | 10 | Console | John | **End Chat**, then **Case resolved** |
@@ -127,7 +129,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 
 **Why the long prompts:** the real Copilot answers from the internal articles in Fin, and it may not see the Salesforce chat itself. Self-contained questions match the *Options for multi-location customers…* article (`fin-content/copilot-playbook-new-locations.md`) reliably.
 
-**If the real Copilot words things differently,** ask it `What is the New Location Launch Program?` to bring up the $500 per new location program, or use the scripted Copilot panel below Support tools.
+**If the real Copilot words things differently,** ask it `What is the New Location Launch Program?` to bring up the $500 per new location program. Copilot needs the articles published and enabled for Copilot (see `fin-content/README.md`).
 
 ---
 
@@ -139,6 +141,8 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 4. **Slack (window 3, optional):** open #sales-notifications in slack-demo-46882.
 5. **Tabs to pre-open:** slides.html, fin.html, the dashboard link, and the **Yelp Sales** app (for Tom's view in section 3).
 6. **Rehearse without Salesforce:** `help.html?live=0` shows the same screens with scripted replies from John.
+
+**One time:** build the Sales Engagement cadence *Yelp - New location launch follow-up* (about 10 minutes, `fin-content/SETUP-sales-engagement.md`).
 
 ### Live Fin option (real Fin workspace)
 - **Day of the demo:** in Fin, check the Salesforce connection (Settings → Integrations → Salesforce) and reconnect it if it shows as disconnected. It has dropped overnight in this demo setup. Then check Settings → Fin Messenger → Configure for Salesforce: all badges should be green.
@@ -214,31 +218,32 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 2. **Walk the page, left to right:**
    - **Left:** the live conversation, starting with Sam's question, with **Case resolved** underneath.
    - **Center:** **Fin Handoff Details**: the case Fin opened, with Contact reason, Fin Resolution State = Routed to team, Churn risk = Low, Expansion signal = 4 new locations, Sentiment = Slightly Negative, and what Fin did earlier tonight. Below it are the Engagement, Details, Knowledge and Related tabs.
-   - **Right:** the real **Fin Copilot** on top, then **Support tools**, then the scripted Copilot demo panel as a backup.
+   - **Right:** the real **Fin Copilot** on top, then **Support tools**.
 3. **Fin summarizes the issue. In Copilot, click Summarize.** You'll see:
    - the question: redirect existing spend to test new locations
    - the summary: 4 new locations in January, wants performance proof before investing more, value concern
    - the signals Fin set
    - **[Say]** "John hasn't asked Sam a single question, and he knows the account, the ask and what's behind it."
-4. **John asks Copilot for options. Type:** `What options can I offer Sam?` and press Enter. Copilot answers with numbered citations:
-   - **New: New Location Launch Program.** Existing customers with 10+ locations get **$500 in ad credit per new location** in its first 60 days. For 4 locations that's $2,000 to test performance before adding budget.
-   - **Temporary budget shift.** Up to 20% of an existing location's budget can move to a new location for 90 days, then it switches back.
-   - **Suggested touchpoint (for Tom):** an Ads Optimization Review session to set launch budgets.
-   - **Heads up:** the Annual Renewal ($119,760) closes **December 31**.
-   - Point at "4 relevant sources found".
+4. **John asks Copilot for options. Type:** `What options can I offer a 12-location customer opening 4 new locations who wants to redirect spend?` and press Enter. Copilot answers from the playbook article, with citations:
+   - **Recommended: New Location Launch Program.** 10+ location customers get **$500 in ad credit per new location** in its first 60 days. For 4 locations that's $2,000 to test performance before adding budget.
+   - **Pause ad spending for 90 days, no fee:** one location or the entire account.
+   - **$1,000 retention offer** across all locations, if the concern is value.
+   - **Account manager:** Tom is alerted automatically when the case is resolved and offers an Ads Optimization Review. Support doesn't book it.
+   - Point at the sources.
    - **[Fin]** Copilot surfaced a program John might not know about, from the same content Fin uses. A new program reaches every agent on day one.
-5. **John sends the program details. Type:** `Draft a reply to Sam` and press Enter. The draft explains the New Location Launch Program, the $2,000 across 4 locations, the optional budget shift, and how credits apply. It ends "Want me to enroll you?" Click **Add to composer**, then **Send**. About 30 seconds from accept to reply.
+5. **John sends the program details. Type:** `Draft a reply offering the New Location Launch Program for 4 new locations` and press Enter. The draft explains the program and the $2,000 across 4 locations. It ends "Want me to enroll your account?" Click **Add to composer**, then **Send**. About 30 seconds from accept to reply.
    - In the help center window, the reply appears in Sam's Fin Messenger as "John • Yelp Support".
 6. **Switch to window 2 and press →.** Sam: "That sounds great. Yes, please enroll me." The message appears in the console.
 
 **Resolve it**
 
 7. **In Support tools (right):**
-   - **Action:** *Enroll in New Location Launch Program ($500 credit per new location)* is selected. The other options are *Temporary budget shift to new locations*, *Free Ads Optimization review* and *Pause ads for 90 days, no fee*.
-   - Leave **Location** blank (it's only used for a budget shift or a pause), check the notes, and click **Confirm**.
+   - **Location:** *Entire account (all locations)* (the default), or one location.
+   - **Action:** *Enroll account in New Location Launch Program ($500 per new location)* is selected. The other options are *Pause ad spending for 90 days, no fee* (one location or the entire account) and *Apply $1,000 retention offer across all locations*.
+   - Check the notes and click **Confirm**.
    - You'll see "Done: Whitaker Hospitality Group is enrolled in the New Location Launch Program…"
    - **[Salesforce]** A **screen Flow** records the program on the case. Agents act without leaving the conversation or switching systems.
-8. **In Copilot, type:** `Draft a confirmation` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. You're enrolled in the New Location Launch Program…".
+8. **In Copilot, type:** `Draft a confirmation that the customer is enrolled in the New Location Launch Program` and press Enter. Click **Add to composer**, then **Send**. Sam sees "Done, Sam. Your account is enrolled in the New Location Launch Program… Your account manager will reach out to plan launch budgets together."
 9. **Switch to window 2 and press →.** Sam: "That's everything. Thanks, John!"
 10. **In the console, click End Chat** above the conversation. The Messenger shows "The conversation has ended".
 11. **Under the conversation, click Case resolved.** The case closes and you see "Case … resolved. AE Slack notification triggered."
@@ -249,7 +254,7 @@ In the Messenger, click **Send us a message** to start a new conversation. Type 
 
 Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, but he finds out right away.
 
-1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Yelp Sales.
+1. **Switch to Slack, #sales-notifications.** The post arrived a few seconds after John clicked Case resolved. It **@-mentions Tom** (Jennifer Hynes's Slack user in slack-demo-46882), so it shows up in his Activity: "*Fin alert for Tom: Whitaker Hospitality Group* (12 locations)". It has links to the renewal opportunity, the new expansion opportunity and the account, all opening in Yelp Sales.
    - **[Say]** "Not every conversation pings sales. Issue 1 didn't: Fin resolved it. This one did because three things are true: it's a multi-location account, it spends $119,760 a year, and Fin heard growth."
    - **[Salesforce]** A **record-triggered Flow** decides who needs to know. It alerts on multi-location accounts (3+ locations) with $50K+ annual ad spend and an expansion signal or high churn risk. **Sales Cloud for Slack** delivers the alert where Tom already works.
    - Scroll the post:
@@ -274,9 +279,15 @@ Tom Jones owns Whitaker Hospitality Group (from Part 1). He wasn't on the chat, 
    - Expansion signal, new locations: **high impact**
    - **[Salesforce]** This is where Einstein predictive scoring shows what moves the renewal, here signals that came from a support conversation.
    - **If asked "is that a real model?":** "Not in this org. A real model trains on Yelp's renewal history. This card shows the same score as the account field, and it moves with Fin's signals. Here's how you'd build it" (open **Einstein Prediction Builder**, see the implementation guide, section 5).
-5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a task for Tom with Sam is booked three days out.
+5. **Right column: Next Best Action.** "Ads Optimization Review session". It appeared because Fin heard growth. Before tonight's conversation there was no recommendation here. Click **Book the review**: a task for Tom with Sam is booked three days out, and Sam is added to Tom's **Yelp - New location launch follow-up** cadence.
    - **[Salesforce]** This one is real. It's **Einstein Next Best Action**: a Recommendation, plus a strategy that only shows it when the account has an Expansion Signal, plus a Flow that runs when Tom accepts. The same strategy shows it on the renewal opportunity.
    - **If asked how it's configured:** open the Recommendation and the Flow from the Direct links (Section 3), and Setup → Next Best Action → *Yelp Keep and Grow (Account)*. See the implementation guide, section 5b.
+5b. **Sales Engagement (their Outreach question).** Open Tom's **Work Queue** (App Launcher → *Work Queue*, or the To Do List in the Yelp Sales utility bar). The cadence step **"Email: Let's plan 2027 together"** is due now for Sam.
+   - Click it. The email opens with the template: congratulations on the launch program, the **Ads Optimization Review** (launch budgets, tune the current 12 locations, how we'll measure the new ones), and **the renewal on 12/31/2026** with "aligned on the best game plan for 2027 together".
+   - *Optional:* click **Draft with Einstein** (Einstein Sales Emails) to personalize it from the record.
+   - **Send.** The cadence moves on: day 2 call (talk track in the step), day 4 agenda email, day 9 "2027 game plan before your renewal" email, then a task to prepare the launch scorecard.
+   - **[Say]** "Everything Outreach does (sequences, a daily work queue, open and click tracking, templates, call scripts) runs on the same record Fin and support just updated. Tom didn't copy anything into another tool: the signal, the opportunity and the follow-up are one system."
+   - **If asked:** cadences branch on email opens, replies and call outcomes; reps work them from Gmail or Outlook with the Salesforce add-in; and Sales Engagement reports show step and template performance. See the implementation guide, section 4b.
 6. **Details tab:**
    - **Account Information** (top): Renewal Date, Likelihood to Renew, Annual Ad Spend, Monthly Budget Cap and Customer Since.
    - **Fin Signals:**
@@ -393,6 +404,15 @@ Fin supports two patterns. Yelp would pick one:
 2. **Slack:** connect the workspace in Setup → Slack, add Sales Cloud for Slack, and use the "Send Slack Message" Flow action ([Salesforce Help: Slack actions in Flow](https://help.salesforce.com/s/search-result?language=en_US#q=Send%20Slack%20Message%20flow%20core%20action&t=allResultsTab)).
 3. **Account page:** add the Fin Signals fields and the account card with Dynamic Forms ([Salesforce Help: Dynamic Forms](https://help.salesforce.com/s/search-result?language=en_US#q=Dynamic%20Forms%20record%20page&t=allResultsTab)).
 
+### 4b · Sales Engagement instead of Outreach (section 3)
+1. **License and permissions:** Sales Engagement user permission set license + the *Sales Engagement User* permission set for reps (Cadence Creator for managers). This org already has it.
+2. **Templates:** email templates for each step, with merge fields from the contact and account (here: `Yelp K&G 1–3` in the *Yelp Keep and Grow* folder, using Contact formula fields for account name, locations and renewal date).
+3. **Cadence:** Cadence Builder → steps (email, call with a call script, wait, task). Add branches on email opens/replies or call outcomes. Activate. See `fin-content/SETUP-sales-engagement.md` for this demo's cadence.
+4. **Enrollment:** by hand from a record, from a list view, or automatically with Flow (*Assign Target to Sales Cadence*). Here the Next Best Action's Flow enrolls Sam.
+5. **Work Queue and email:** reps work steps from the Work Queue in Salesforce, or from Gmail/Outlook with the Salesforce integration. Einstein Activity Capture logs replies. Einstein Sales Emails drafts from the record.
+6. **Migrating from Outreach:** map sequences to cadences and snippets to templates, rebuild triggers as Flow enrollment rules, and compare step performance in the Sales Engagement reports and dashboards.
+- [Trailhead: Sales Engagement basics](https://trailhead.salesforce.com/content/learn/modules/sales-engagement-basics) · [Salesforce Help: Sales Engagement](https://help.salesforce.com/s/search-result?language=en_US#q=Sales%20Engagement%20cadences&t=allResultsTab)
+
 ### 5 · Einstein predictive scoring for renewal likelihood (section 3)
 1. **Pick the outcome:** renewed vs churned multi-location accounts over the last 2–3 years.
 2. **Build the dataset:**
@@ -487,4 +507,7 @@ Fin supports two patterns. Yelp would pick one:
     - custom parameters map Fin's attributes into the Flow
     - Event Relay: *Fin_Relay_US_East_1*
   - Setup checklists: `fin-content/SETUP-live-fin.md` (issue 1) and `fin-content/SETUP-handoff.md` (issue 2).
+- **Support tools** (*Yelp_Fin_Resolve_Handoff*): Location *Entire account* or one location; actions: New Location Launch Program, 90-day fee-free pause (one location or all), $1,000 retention credit. A pause updates the locations; the reset turns them back on.
+- **Sales Engagement:** templates *Yelp K&G 1–3* (folder *Yelp Keep and Grow*, Contact formula fields `Yelp_Account_Name__c`, `Yelp_Location_Count__c`, `Yelp_Renewal_Date__c`); cadence *Yelp - New location launch follow-up* (built in Cadence Builder); the Next Best Action Flow enrolls Sam; *Yelp - Remove From Cadence* is used by the reset.
+- **Slack alert:** mentions Tom as `<@U0C51E32VL6>` (slack-demo-46882). To alert someone else, change the ID at the start of the *SlackBrief* text template in *Yelp - Fin Case Resolved Alert*.
 - **Reset:** everything is tagged `Part2_Demo__c`. `seed.py --live` clears one run; `seed.py --reset` removes it all. Part 1 (Find & Win) records aren't touched.

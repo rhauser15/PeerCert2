@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Keep and Grow demo cadence: Yelp - New location launch follow-up. Step 5, day 9: renewal and 2027 game plan.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Yelp K&amp;G 3 - 2027 game plan before your renewal</name>
+    <style>none</style>
+    <subject>Your 2027 game plan before {!Contact.Yelp_Renewal_Date__c}</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

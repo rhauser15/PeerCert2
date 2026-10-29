@@ -2,6 +2,57 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
     <description>Keep and Grow demo. Runs when the account owner accepts the "Ads Optimization Review session" Next Best Action (strategies Yelp_Keep_Grow_Account_NBA and Yelp_Keep_Grow_Opportunity_NBA): books the review as a task for the owner with the customer's main contact.</description>
+    <actionCalls>
+        <description>Sales Engagement: enroll the main contact in the follow-up cadence for the running user (Work Queue). If the cadence doesn't exist yet, the review is still booked.</description>
+        <name>Add_To_Cadence</name>
+        <label>Add to the follow-up cadence</label>
+        <locationX>176</locationX>
+        <locationY>620</locationY>
+        <actionName>assignTargetToSalesCadence</actionName>
+        <actionType>assignTargetToSalesCadence</actionType>
+        <connector>
+            <targetReference>Cadence_Added</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Booked</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>salesCadenceNameOrId</name>
+            <value>
+                <stringValue>Yelp - New location launch follow-up</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>userId</name>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <assignments>
+        <name>Cadence_Added</name>
+        <label>Cadence added</label>
+        <locationX>176</locationX>
+        <locationY>700</locationY>
+        <assignmentItems>
+            <assignToReference>CadenceLine</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CadenceLineText</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Booked</targetReference>
+        </connector>
+    </assignments>
     <formulas>
         <name>AccountIdToUse</name>
         <dataType>String</dataType>
@@ -38,7 +89,7 @@
         <locationX>176</locationX>
         <locationY>566</locationY>
         <connector>
-            <targetReference>Booked</targetReference>
+            <targetReference>Add_To_Cadence</targetReference>
         </connector>
         <inputAssignments>
             <field>Subject</field>
@@ -160,7 +211,7 @@
         <allowPause>false</allowPause>
         <fields>
             <name>BookedText</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is booked for {!ReviewDate}.&lt;/p&gt;&lt;p&gt;It's on {!Get_Account.Owner.FirstName}'s task list with the account, so the review covers launch budgets for the new locations and the value {!Get_Contact.FirstName} is seeing before the renewal.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;{!TaskSubject}&lt;/b&gt; is booked for {!ReviewDate}.&lt;/p&gt;&lt;p&gt;It's on {!Get_Account.Owner.FirstName}'s task list with the account, so the review covers launch budgets for the new locations and the value {!Get_Contact.FirstName} is seeing before the renewal.&lt;/p&gt;{!CadenceLine}</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -174,6 +225,18 @@
         </connector>
     </start>
     <status>Active</status>
+    <textTemplates>
+        <name>CadenceLineText</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;{!Get_Contact.FirstName} is also in the &lt;b&gt;Yelp - New location launch follow-up&lt;/b&gt; cadence. The first email, "Let's plan 2027 together", is in your Work Queue.&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>CadenceLine</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

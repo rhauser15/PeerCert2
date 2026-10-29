@@ -419,7 +419,7 @@ Fin summary
     <textTemplates>
         <name>SlackBrief</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>*Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
+        <text>&lt;@U0C51E32VL6&gt; *Fin alert for {!$Record.Account.Owner.FirstName}: {!$Record.Account.Name}* ({!$Record.Account.Location_Count__c} locations)
 &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Opportunity/{!Get_Renewal.Id}/view|Open the renewal opportunity&gt;{!OppLink}  |  &lt;https://trailsignup-429cdfd78ec835.lightning.force.com/lightning/app/06mg800000AlQvwAAF/r/Account/{!$Record.AccountId}/view|Account&gt;
 
 _Why you're getting this: you own this multi-location account (${!$Record.Account.Annual_Ad_Spend__c} annual ad spend), and Fin flagged growth or churn risk in tonight's conversation with {!$Record.Contact.FirstName} {!$Record.Contact.LastName}._

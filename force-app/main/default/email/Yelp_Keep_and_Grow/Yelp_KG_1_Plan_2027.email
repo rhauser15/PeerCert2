@@ -1,0 +1,13 @@
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#2b2b2b">
+<p>Hi {!Contact.FirstName},</p>
+<p>Congratulations on the new locations, and thanks for enrolling {!Contact.Yelp_Account_Name__c} in the New Location Launch Program. Each new location gets $500 in ad credit for its first 60 days, so you can see how they perform before you invest more.</p>
+<p>I'd like to set up a free, 30-minute <b>Ads Optimization Review</b> with you and one of our Ads specialists. We'll:</p>
+<ul>
+<li><b>Set launch budgets</b> for the new locations, so they ramp up quickly without overspending.</li>
+<li><b>Tune your current {!Contact.Yelp_Location_Count__c} locations</b>, starting with any whose cost per lead runs above your average.</li>
+<li><b>Agree on how we'll measure the new locations</b>, so you have the performance proof you asked for.</li>
+</ul>
+<p>Your renewal is coming up on <b>{!Contact.Yelp_Renewal_Date__c}</b>, so this is a good time to make sure we're aligned on the best game plan for 2027 together.</p>
+<p>Would Tuesday or Thursday next week work for 30 minutes?</p>
+<p>Thanks,<br>{!User.FirstName}<br>Account Manager, Yelp for Business</p>
+</div>

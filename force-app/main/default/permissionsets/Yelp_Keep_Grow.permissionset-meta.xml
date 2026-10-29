@@ -3,6 +3,9 @@
     <label>Yelp Keep and Grow Demo</label>
     <description>Access to Fin handoff, churn and expansion fields for the Yelp Keep and Grow demo.</description>
     <hasActivationRequired>false</hasActivationRequired>
+    <fieldPermissions><editable>false</editable><field>Contact.Yelp_Account_Name__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Contact.Yelp_Renewal_Date__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Contact.Yelp_Location_Count__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.FinInvolved__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.FinResolutionState__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Case.Fin_Summary__c</field><readable>true</readable></fieldPermissions>
